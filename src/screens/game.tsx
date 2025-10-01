@@ -173,11 +173,11 @@ const Game = () => {
 
   return (
     <Fragment key={currentQuizItem.id}>
-      {switchQuestion?.waitingToSwitchQuizItem && (
+      {switchQuestion?.waitingToSwitchQuizItem ? (
         <Text className="text-secondary text-center mt-auto font-semibold">
           {t('which-option-do-you-think-is-correct')}
         </Text>
-      )}
+      ) : null}
       <View className="mt-auto bg-primary" key={currentQuizItem.id}>
         {currentQuizItem ? (
           <View className="flex flex-col gap-lg mt-auto text-secondary">
@@ -206,7 +206,7 @@ const Game = () => {
                     onPress={() => onOptionPress(option, index + 1)}
                   >
                     <View className="flex-row gap-1 items-center h-8">
-                      {!isRemovedByFiftyFifty && (
+                      {!isRemovedByFiftyFifty ? (
                         <>
                           <Text
                             className={`text-${
@@ -217,7 +217,7 @@ const Game = () => {
                           </Text>
                           <Text className="text-secondary">{option}</Text>
                         </>
-                      )}
+                      ) : null}
                     </View>
                   </TouchableOpacity>
                 );
@@ -226,7 +226,7 @@ const Game = () => {
               {
                 <View
                   className={`absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-10 ${
-                    !switchQuestion?.waitingToSwitchQuizItem && 'scale-0'
+                    !switchQuestion?.waitingToSwitchQuizItem ? 'scale-0' : ''
                   } transition-transform duration-300 bg-secondary rounded-full p-sm border border-primary`}
                 >
                   <ICONS.switchDark />

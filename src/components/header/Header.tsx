@@ -48,7 +48,7 @@ export default function Header() {
         <TouchableOpacity onPress={soundHandler} className="h-6 w-6">
           {isMuted ? <VolumeOffIcon /> : <VolumeOnIcon />}
         </TouchableOpacity>
-        {screen === SCREENS.game && (
+        {screen === SCREENS.game ? (
           <TouchableOpacity
             key="header-exit-button"
             onPress={() => setIsExitModalVisible(true)}
@@ -56,13 +56,13 @@ export default function Header() {
           >
             <ICONS.exit />
           </TouchableOpacity>
-        )}
-        {screen === SCREENS.home && (
+        ) : null}
+        {screen === SCREENS.home ? (
           <View className="ml-auto">
             <LanguagesDropdown />
           </View>
-        )}
-        {screen === SCREENS.game && <SidebarTrigger />}
+        ) : null}
+        {screen === SCREENS.game ? <SidebarTrigger /> : null}
       </View>
 
       <ExitModal

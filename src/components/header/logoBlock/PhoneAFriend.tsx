@@ -42,7 +42,7 @@ export default memo(function PhoneAFriend() {
           </Text>
         </View>
       )}
-      {phoneAFriend && (
+      {phoneAFriend ? (
         <TouchableOpacity
           className={`p-md z-10 absolute -top-4 -right-4 rounded-full bg-primary ${
             !phoneAFriend ? 'opacity-50' : 'opacity-100'
@@ -55,7 +55,7 @@ export default memo(function PhoneAFriend() {
             {HTML_CODES.close}
           </Text>
         </TouchableOpacity>
-      )}
+      ) : null}
     </View>
   );
 });

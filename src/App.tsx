@@ -5,7 +5,8 @@ import Results from './screens/results';
 import { useGameStore } from './store/game/store';
 import { Screen } from './types/game';
 import { StyleSheet, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import SafeAreaView from 'react-native-safe-area-view';
+import SafeAreaProvider from 'react-native-safe-area-context';
 
 function App() {
   // const safeAreaInsets = useSafeAreaInsets();
@@ -20,9 +21,13 @@ function App() {
   const ScreenComponent = COMPONENT_BY_SCREEN[screen];
 
   return (
-    <View style={[styles.container]}>
-      <ScreenComponent />
-    </View>
+    <SafeAreaProvider>
+      <SafeAreaView className="flex-1">
+        <View style={[styles.container]}>
+          <ScreenComponent />
+        </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 

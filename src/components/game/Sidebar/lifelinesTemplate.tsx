@@ -2,7 +2,7 @@ import { LIFELINES } from '@/constants/game';
 import { ICONS } from '@/constants/icons';
 import { Text } from 'react-native';
 
-export const LIFELINES_TEMPLATE = [
+const LIFELINES_TEMPLATE = [
   {
     id: LIFELINES.fiftyFifty,
     icon: <Text className="text-secondary text-sm font-bold">50/50</Text>,
@@ -20,3 +20,5 @@ export const LIFELINES_TEMPLATE = [
     icon: <ICONS.switch />,
   },
 ];
+
+export default LIFELINES_TEMPLATE;

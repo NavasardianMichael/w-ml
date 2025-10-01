@@ -13,7 +13,7 @@ import { Lifeline } from '@/types/game';
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
-import { LIFELINES_TEMPLATE } from './lifelinesTemplate';
+import LIFELINES_TEMPLATE from './lifelinesTemplate';
 import { HTML_CODES } from '@/constants/commons';
 
 export default function SidebarContent() {
@@ -88,7 +88,7 @@ export default function SidebarContent() {
     <>
       <View
         className={`absolute h-full w-80 right-0 bottom-0 top-0 z-10 p-md transition ${
-          !isSidebarOpen && 'translate-x-full'
+          !isSidebarOpen ? 'translate-x-full' : ''
         } bg-indigo-700 border-l border-l-secondary`}
       >
         <View
@@ -124,13 +124,13 @@ export default function SidebarContent() {
                     className={`${sizingByLifeline} flex justify-center items-center`}
                   >
                     {icon}
-                    {lifelinesStore[id] && (
+                    {lifelinesStore[id] ? (
                       <View className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
                         <Text className="text-lg text-red-500">
                           {HTML_CODES.close}
                         </Text>
                       </View>
-                    )}
+                    ) : null}
                   </View>
                 </TouchableHighlight>
               );
@@ -153,7 +153,7 @@ export default function SidebarContent() {
                       {stage}.{' '}
                     </Text>
                     <Text className="text-tertiary w-1">
-                      {stage < currentQuestionStage ? '◆' : ''}
+                      {stage < currentQuestionStage ? '◆' : null}
                     </Text>
                     <Text className="text-md color-secondary ml-md">
                       {t(`currency-symbol`)}
