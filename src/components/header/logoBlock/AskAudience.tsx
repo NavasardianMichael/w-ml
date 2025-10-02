@@ -2,6 +2,7 @@ import {
   CHAR_CODES_BY_OPTION_SERIAL_NUMBER,
   OPTIONS_SERIAL_NUMBERS,
 } from '@/constants/game';
+import { HTML_CODES } from '@/constants/commons';
 import { useLifelinesStore } from '@/store/lifelines/store';
 import { memo } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
@@ -30,7 +31,7 @@ export default memo(function AskAudience() {
                 <View
                   className="mt-auto bg-gradient-to-br from-white to-indigo-700 rounded-sm"
                   style={{ height: `${percentage}%` }}
-                ></View>
+                />
               </View>
               <Text className="text-secondary">{optionCharCode}</Text>
             </View>

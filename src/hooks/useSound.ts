@@ -22,8 +22,7 @@ export const useSound: UseSound = (uri, options) => {
     // Create sound instance
     soundRef.current = new Sound(uri, Sound.MAIN_BUNDLE, error => {
       if (error) {
-        console.log('Failed to load the sound', error);
-        return;
+        throw new Error(`Failed to load sound: ${error.message}`);
       }
 
       // Success - sound is loaded

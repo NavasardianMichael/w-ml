@@ -95,7 +95,6 @@ export const getNextQuizItemByLanguageAndSafeHavenNumber = async ({
     quizItemsBySafeHavenNumber[
       mustFetchFirstQuestion ? 1 : lastQuestionNumbersBySafeHavenNumber
     ]
-  debugger
 
   const processQuizItem: QuizItem = {
     id: newQuizItem.id,
