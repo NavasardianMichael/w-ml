@@ -5,6 +5,7 @@ import Results from './screens/results';
 import { useGameStore } from './store/game/store';
 import { Screen } from './types/game';
 import { StyleSheet, View } from 'react-native';
+import './styles/global.css';
 
 function App() {
   // const safeAreaInsets = useSafeAreaInsets();

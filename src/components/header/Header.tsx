@@ -16,8 +16,7 @@ import { SCREENS } from '@/constants/game';
 export default function Header() {
   const { screen } = useGameStore();
   const {
-    setSoundState,
-    soundAPIById,
+    playSoundById,
     toggleActiveSoundMuted,
     setIsActiveSoundMuted,
     isMuted,
@@ -32,10 +31,7 @@ export default function Header() {
     if (!activeSoundIdsStack.length && isMuted) {
       const soundId =
         screen === SCREENS.home ? SOUNDS_URIS.mainTheme : SOUNDS_URIS.easy;
-      setSoundState({
-        activeSoundIdsStack: [soundId],
-      });
-      soundAPIById[soundId].play();
+      await playSoundById(soundId, { loop: true });
       setIsActiveSoundMuted(false);
       return;
     }

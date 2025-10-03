@@ -1,157 +1,27 @@
 import { useSoundStore } from '@/store/sound/store';
-import { SoundAPI } from '@/store/sound/types';
-import { useEffect, useMemo, useRef } from 'react';
-import Sound from 'react-native-sound';
+import { useEffect } from 'react';
 
 type UseSound = (
-  uri: string,
+  trackId: string,
   options?: { loop?: boolean; playOnInit?: boolean },
-) => SoundAPI;
+) => void;
 
-export const useSound: UseSound = (uri, options) => {
+export const useSound: UseSound = (trackId, options) => {
   const soundStore = useSoundStore();
   const { loop = false, playOnInit = false } = options || {};
-  const soundRef = useRef<Sound | null>(null);
-  const isLoadedRef = useRef(false);
 
-  // Initialize sound object
+  // Initialize TrackPlayer when first hook is used
   useEffect(() => {
-    // Enable playback in silence mode (iOS)
-    Sound.setCategory('Playback');
+    soundStore.initializeTrackPlayer();
+  }, [soundStore]);
 
-    // Create sound instance
-    soundRef.current = new Sound(uri, Sound.MAIN_BUNDLE, error => {
-      if (error) {
-        throw new Error(`Failed to load sound: ${error.message}`);
-      }
-
-      // Success - sound is loaded
-      isLoadedRef.current = true;
-
-      // Set loop if specified
-      if (loop && soundRef.current) {
-        soundRef.current.setNumberOfLoops(-1); // -1 means infinite loop
-      }
-
-      // Play on init if specified
-      if (playOnInit && soundRef.current) {
-        soundRef.current.setVolume(soundStore.isMuted ? 0 : 1);
-        soundRef.current.play();
-        soundStore.setSoundState({
-          activeSoundIdsStack: [...soundStore.activeSoundIdsStack, uri],
-        });
-      }
-    });
-
-    return () => {
-      // Cleanup on unmount
-      if (soundRef.current) {
-        soundRef.current.release();
-        soundRef.current = null;
-        isLoadedRef.current = false;
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [uri, loop, playOnInit]);
-
-  const api: SoundAPI = useMemo(() => {
-    const id = uri;
-    const existingSound = soundStore.soundAPIById[id];
-    if (existingSound) return existingSound;
-
-    const result: SoundAPI = {
-      id,
-      play: async () => {
-        return new Promise<void>((resolve, reject) => {
-          if (!soundRef.current || !isLoadedRef.current) {
-            reject(new Error('Sound not loaded'));
-            return;
-          }
-
-          // Set volume based on muted state
-          soundRef.current.setVolume(soundStore.isMuted ? 0 : 1);
-
-          // Stop current playback and reset to beginning
-          soundRef.current.stop(() => {
-            if (soundRef.current) {
-              soundRef.current.play(success => {
-                if (success) {
-                  soundStore.setSoundState({
-                    activeSoundIdsStack: [
-                      ...soundStore.activeSoundIdsStack,
-                      id,
-                    ],
-                  });
-                  resolve();
-                } else {
-                  reject(new Error('Playback failed'));
-                }
-              });
-            }
-          });
-        });
-      },
-
-      pause: async () => {
-        return new Promise<void>(resolve => {
-          if (soundRef.current && isLoadedRef.current) {
-            soundRef.current.pause(() => {
-              // Remove from active sounds stack
-              const newStack = soundStore.activeSoundIdsStack.filter(
-                soundId => soundId !== id,
-              );
-              soundStore.setSoundState({
-                activeSoundIdsStack: newStack,
-              });
-              resolve();
-            });
-          } else {
-            resolve();
-          }
-        });
-      },
-
-      stop: async () => {
-        return new Promise<void>(resolve => {
-          if (soundRef.current && isLoadedRef.current) {
-            soundRef.current.stop(() => {
-              // Remove from active sounds stack
-              const newStack = soundStore.activeSoundIdsStack.filter(
-                soundId => soundId !== id,
-              );
-              soundStore.setSoundState({
-                activeSoundIdsStack: newStack,
-              });
-              resolve();
-            });
-          } else {
-            resolve();
-          }
-        });
-      },
-
-      setMutedStatus: async (isMuted: boolean) => {
-        return new Promise<void>(resolve => {
-          if (soundRef.current && isLoadedRef.current) {
-            soundRef.current.setVolume(isMuted ? 0 : 1);
-          }
-          soundStore.setSoundState({ isMuted });
-          resolve();
-        });
-      },
-    };
-
-    return result;
-  }, [uri, soundStore]);
-
+  // Handle auto-play on initialization
   useEffect(() => {
-    // Register the sound API in the store
-    if (!soundStore.soundAPIById[uri]) {
-      soundStore.setSoundState({
-        soundAPIById: { ...soundStore.soundAPIById, [uri]: api },
-      });
+    if (playOnInit) {
+      soundStore.playSoundById(trackId, { loop });
     }
-  }, [api, uri, soundStore]);
+  }, [trackId, loop, playOnInit, soundStore]);
 
-  return api;
+  // No return value needed since we're using the global store
+  // Components can access playback controls via useSoundStore
 };

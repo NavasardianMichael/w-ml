@@ -1,20 +1,16 @@
 export type SoundState = {
-  soundAPIById: Record<string, SoundAPI>
-  activeSoundIdsStack: SoundAPI['id'][]
-  isMuted: boolean
-}
-
-export type SoundAPI = {
-  id: string
-  play: () => Promise<void>
-  pause: () => Promise<void>
-  stop: () => Promise<void>
-  setMutedStatus: (isMuted: boolean) => Promise<void>
-}
+  activeSoundIdsStack: string[];
+  isMuted: boolean;
+  isPlaying: boolean;
+  currentTrackId: string | null;
+};
 
 export type SoundStateActions = {
-  setSoundState: (state: Partial<SoundState>) => void
-  playSoundById: (id: SoundAPI['id']) => void
-  setIsActiveSoundMuted: (isMuted: SoundState['isMuted']) => void
-  toggleActiveSoundMuted: () => void
-}
+  setSoundState: (state: Partial<SoundState>) => void;
+  initializeTrackPlayer: () => Promise<void>;
+  playSoundById: (id: string, options?: { loop?: boolean }) => Promise<void>;
+  pauseTrack: () => Promise<void>;
+  stopTrack: () => Promise<void>;
+  setIsActiveSoundMuted: (isMuted: SoundState['isMuted']) => void;
+  toggleActiveSoundMuted: () => void;
+};

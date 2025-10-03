@@ -4,7 +4,7 @@ import { Text, View } from 'react-native';
 
 const LANGUAGE_DROPDOWN_OPTIONS = [
   {
-    icon: (
+    label: (
       <View className="flex flex-row items-center gap-sm h-8">
         <ICONS.en className="h-full border border-primary" />
         <Text>{LANGUAGE_NAMES.en}</Text>

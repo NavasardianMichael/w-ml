@@ -1,4 +1,5 @@
 import AppButton from '@/components/ui/AppButton';
+import Header from '@/components/header/Header';
 import { SCREENS } from '@/constants/game';
 import { SOUND_DURATION_BY_URI, SOUNDS_URIS } from '@/constants/sound';
 import { sleep } from '@/helpers/commons';
@@ -19,6 +20,7 @@ export default function Home() {
 
   return (
     <View className="flex-1 bg-primary">
+      <Header />
       <Text className="text-xl text-center text-white font-bold">
         {t('who-wants-to-be-a-millionaire')}
       </Text>
@@ -33,9 +35,9 @@ export default function Home() {
               return;
             }
             initQuiz({ language });
-            playSoundById(SOUNDS_URIS.resign);
+            await playSoundById(SOUNDS_URIS.resign);
             await sleep(SOUND_DURATION_BY_URI[SOUNDS_URIS.resign]);
-            playSoundById(SOUNDS_URIS.easy);
+            await playSoundById(SOUNDS_URIS.easy, { loop: true });
             setScreen(SCREENS.game);
           }}
         >

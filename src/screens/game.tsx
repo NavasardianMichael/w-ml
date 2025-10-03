@@ -22,6 +22,8 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
+import Header from '@/components/header/Header';
+import SidebarContent from '@/components/game/Sidebar/SidebarContent';
 
 const Game = () => {
   const {
@@ -31,7 +33,7 @@ const Game = () => {
     setAnsweredOptionSerialNumber,
     initNewQuizItemByLanguageAndSafeHavenNumber,
   } = useGameStore();
-  const { soundAPIById, playSoundById } = useSoundStore();
+  const { playSoundById } = useSoundStore();
   const {
     setLifelinesState,
     currentLifeline,
@@ -82,7 +84,7 @@ const Game = () => {
       });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [soundAPIById[SOUNDS_URIS.resign]]);
+  }, []);
 
   const onOptionPress = async (option: string, serialNumber: number) => {
     const isSwitchQuestionMode = switchQuestion?.waitingToSwitchQuizItem;
@@ -94,7 +96,7 @@ const Game = () => {
 
     setAnsweredOptionSerialNumber(serialNumber as OptionSerialNumber);
     if (!isSwitchQuestionMode) {
-      playSoundById(SOUNDS_URIS.finalAnswer);
+      await playSoundById(SOUNDS_URIS.finalAnswer);
     }
     await sleep(2000);
     setShowCorrectAnswer(true);
@@ -129,18 +131,18 @@ const Game = () => {
       setAnsweredOptionSerialNumber(null);
       if (!isSwitchQuestionMode) {
         setIsSidebarOpen(false);
-        playSoundById(SOUNDS_URIS.next);
+        await playSoundById(SOUNDS_URIS.next);
         await sleep(SOUND_DURATION_BY_URI[SOUNDS_URIS.next]);
         const safeHavenSoundId =
           getBgSoundIdByQuestionStage(currentQuestionStage);
-        playSoundById(safeHavenSoundId);
+        await playSoundById(safeHavenSoundId, { loop: true });
       }
       setLastQuestionNumberBySafeHavenNumberByLanguage(asyncStorageSetPayload);
     } else {
       setLastQuestionNumberBySafeHavenNumberByLanguage(asyncStorageSetPayload);
       setLifelinesState({ currentLifeline: null });
       if (!isSwitchQuestionMode) {
-        playSoundById(SOUNDS_URIS.mainTheme);
+        await playSoundById(SOUNDS_URIS.mainTheme, { loop: true });
         setGameState({ screen: SCREENS.home });
       }
     }
@@ -173,6 +175,8 @@ const Game = () => {
 
   return (
     <Fragment key={currentQuizItem.id}>
+      <Header />
+      <SidebarContent />
       {switchQuestion?.waitingToSwitchQuizItem ? (
         <Text className="text-secondary text-center mt-auto font-semibold">
           {t('which-option-do-you-think-is-correct')}

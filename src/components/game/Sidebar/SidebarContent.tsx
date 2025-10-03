@@ -57,7 +57,7 @@ export default function SidebarContent() {
 
     if (lifeline === LIFELINES.switchQuestion) {
       setIsSidebarOpen(false);
-      playSoundById(lifelineSoundId);
+      await playSoundById(lifelineSoundId);
       setSwitchQuestionLifeline({ waitingToSwitchQuizItem: true });
       await sleep(800);
       return;
@@ -66,7 +66,7 @@ export default function SidebarContent() {
     setLifelinesState({ currentLifeline: lifeline, lifelinesDisabled: true });
 
     setIsSidebarOpen(false);
-    playSoundById(lifelineSoundId);
+    await playSoundById(lifelineSoundId);
     if (lifeline === LIFELINES.fiftyFifty) {
       await sleep(800); // to make it feel snappier
     } else {
@@ -80,7 +80,7 @@ export default function SidebarContent() {
 
     await sleep(3000);
     const safeHavenSoundId = getBgSoundIdByQuestionStage(currentQuestionStage);
-    playSoundById(safeHavenSoundId);
+    await playSoundById(safeHavenSoundId, { loop: true });
     setLifelinesState({ lifelinesDisabled: false });
   };
 
@@ -153,7 +153,7 @@ export default function SidebarContent() {
                       {stage}.{' '}
                     </Text>
                     <Text className="text-tertiary w-1">
-                      {stage < currentQuestionStage ? '◆' : null}
+                      {stage < currentQuestionStage ? '◆' : ''}
                     </Text>
                     <Text className="text-md color-secondary ml-md">
                       {t(`currency-symbol`)}
