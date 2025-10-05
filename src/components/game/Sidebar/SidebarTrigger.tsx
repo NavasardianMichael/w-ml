@@ -6,15 +6,13 @@ export default function SidebarTrigger() {
   const { toggleIsSidebarOpen } = useGameStore();
 
   return (
-    <>
-      <View className={`ml-auto`}>
-        <TouchableOpacity className="w-6 h-6" onPress={toggleIsSidebarOpen}>
-          <Image
-            source={require('../../../assets/icons/sidebar.svg')}
-            className={`w-full h-full mx-auto`}
-          />
-        </TouchableOpacity>
-      </View>
-    </>
+    <View className={`ml-auto`}>
+      <TouchableOpacity className="w-6 h-6" onPress={toggleIsSidebarOpen}>
+        <Image
+          source={require('../../../assets/icons/sidebar.svg')}
+          className={`w-full h-full mx-auto`}
+        />
+      </TouchableOpacity>
+    </View>
   );
 }
