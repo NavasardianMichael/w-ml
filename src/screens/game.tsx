@@ -6,22 +6,15 @@ import { getBgSoundIdByQuestionStage } from '@/helpers/game';
 import { useClassNameByOrientation } from '@/hooks/useClassNameByOrientation';
 import { useCurrentQuizItem } from '@/hooks/useCurrentQuizItem';
 import { useSound } from '@/hooks/useSound';
-import { useStyleByOrientation } from '@/hooks/useStyleByOrientation';
 import { setLastQuestionNumberBySafeHavenNumberByLanguage } from '@/services/localStorage/api';
 import { useGameStore } from '@/store/game/store';
 import { useLifelinesStore } from '@/store/lifelines/store';
 import { useSettingsStore } from '@/store/settings/store';
 import { useSoundStore } from '@/store/sound/store';
 import { OptionSerialNumber, QuestionStage } from '@/types/game';
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  StyleProp,
-  Text,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Header from '@/components/header/Header';
 import SidebarContent from '@/components/game/Sidebar/SidebarContent';
 
@@ -57,14 +50,9 @@ const Game = () => {
 
   const [showCorrectAnswer, setShowCorrectAnswer] = React.useState(false);
 
-  const optionClassNameByOrientation = useClassNameByOrientation('w-full', '');
-  const optionStyleByOrientation = useStyleByOrientation(
-    {
-      width: '100%',
-    },
-    {
-      width: '48%',
-    },
+  const optionClassNameByOrientation = useClassNameByOrientation(
+    'w-full',
+    'w-[48%]',
   );
 
   useEffect(() => {
@@ -174,7 +162,7 @@ const Game = () => {
   if (!currentQuizItem) return null;
 
   return (
-    <Fragment key={currentQuizItem.id}>
+    <View key={currentQuizItem.id}>
       <Header />
       <SidebarContent />
       {switchQuestion?.waitingToSwitchQuizItem ? (
@@ -205,7 +193,6 @@ const Game = () => {
                       !!currentQuizItem.answeredOptionSerialNumber ||
                       isRemovedByFiftyFifty
                     }
-                    style={optionStyleByOrientation as StyleProp<ViewStyle>}
                     className={`${optionClassNameByOrientation} grow border border-secondary rounded-md px-md ${optionClassNameByStatus}`}
                     onPress={() => onOptionPress(option, index + 1)}
                   >
@@ -242,7 +229,7 @@ const Game = () => {
           <Text>Loading...</Text>
         )}
       </View>
-    </Fragment>
+    </View>
   );
 };
 

@@ -2,15 +2,15 @@ import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
 import { immer } from 'zustand/middleware/immer';
 import { SoundState, SoundStateActions } from './types';
-// import { trackPlayerService } from '@/services/trackPlayer/trackPlayerService';
-import { mockTrackPlayerService } from '@/services/mockTrackPlayer/mockTrackPlayerService';
+import { reactNativeSoundService } from '@/services/reactNativeSound/soundService';
+// import { mockTrackPlayerService } from '@/services/mockTrackPlayer/mockTrackPlayerService';
 
-// Use mock service to avoid TrackPlayer native module issues
-const audioService = mockTrackPlayerService;
+// Use React Native Sound service
+const audioService = reactNativeSoundService;
 
 const initialState: SoundState = {
   activeSoundIdsStack: [],
-  isMuted: true,
+  isMuted: false,
   isPlaying: false,
   currentTrackId: null,
 };
@@ -88,6 +88,23 @@ export const useSoundStore = create<SoundState & SoundStateActions>()(
             });
           } catch (error) {
             console.error('Failed to stop track:', error);
+          }
+        },
+
+        stopAllTracks: async () => {
+          try {
+            console.log('Sound store: Stopping all tracks...');
+            audioService.stopAll();
+            // Also call the regular stop method to ensure everything is stopped
+            await audioService.stop();
+            set(state => {
+              state.isPlaying = false;
+              state.currentTrackId = null;
+              state.activeSoundIdsStack = [];
+            });
+            console.log('Sound store: All tracks stopped');
+          } catch (error) {
+            console.error('Failed to stop all tracks:', error);
           }
         },
 

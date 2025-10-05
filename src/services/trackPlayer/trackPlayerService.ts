@@ -3,8 +3,6 @@ import TrackPlayer, {
   State,
   Track,
   Event,
-  Progress,
-  PlaybackState,
 } from 'react-native-track-player';
 import { SOUND_TRACKS } from '@/constants/sound';
 
@@ -71,7 +69,7 @@ export class TrackPlayerService {
     }
 
     try {
-      const track = SOUND_TRACKS[trackId];
+      const track = SOUND_TRACKS[trackId as any];
       if (!track) {
         throw new Error(`Track not found: ${trackId}`);
       }
@@ -113,7 +111,7 @@ export class TrackPlayerService {
   async stop() {
     if (!this.isInitialized) return;
     try {
-      await TrackPlayer.stop();
+      await TrackPlayer.reset();
     } catch (error) {
       console.error('Failed to stop:', error);
     }
@@ -134,15 +132,15 @@ export class TrackPlayerService {
   /**
    * Get current playback state
    */
-  async getPlaybackState(): Promise<PlaybackState> {
+  async getPlaybackState() {
     if (!this.isInitialized) {
       return { state: State.None };
     }
     try {
-      return await TrackPlayer.getPlaybackState();
+      return await TrackPlayer.getState();
     } catch (error) {
       console.error('Failed to get playback state:', error);
-      return { state: State.None };
+      return State.None;
     }
   }
 
@@ -152,7 +150,7 @@ export class TrackPlayerService {
   async getCurrentTrack() {
     if (!this.isInitialized) return null;
     try {
-      return await TrackPlayer.getActiveTrack();
+      return await TrackPlayer.getCurrentTrack();
     } catch (error) {
       console.error('Failed to get current track:', error);
       return null;
@@ -162,7 +160,7 @@ export class TrackPlayerService {
   /**
    * Get playback progress
    */
-  async getProgress(): Promise<Progress> {
+  async getProgress() {
     if (!this.isInitialized) {
       return { position: 0, duration: 0, buffered: 0 };
     }
@@ -279,7 +277,7 @@ export class TrackPlayerService {
   async destroy() {
     if (!this.isInitialized) return;
     try {
-      await TrackPlayer.destroy();
+      await TrackPlayer.reset();
       this.isInitialized = false;
       console.log('TrackPlayer destroyed');
     } catch (error) {
@@ -290,7 +288,7 @@ export class TrackPlayerService {
   /**
    * Add event listener
    */
-  addEventListener(event: Event, listener: Function) {
+  addEventListener(event: Event, listener: any) {
     if (!this.eventListeners[event]) {
       this.eventListeners[event] = [];
     }
@@ -301,7 +299,7 @@ export class TrackPlayerService {
   /**
    * Remove event listener
    */
-  removeEventListener(event: Event, listener: Function) {
+  removeEventListener(event: Event, listener: any) {
     if (this.eventListeners[event]) {
       this.eventListeners[event] = this.eventListeners[event].filter(
         l => l !== listener,

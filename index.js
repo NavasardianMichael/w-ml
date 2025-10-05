@@ -8,24 +8,24 @@ import { initI18n } from './src/services/translations/i18n';
 initI18n();
 
 // Extra logging to track "Text strings must be rendered within a <Text> component" errors
-const originalConsoleError = console.error;
-console.error = (...args) => {
-  try {
-    const firstArg = args[0];
-    if (
-      typeof firstArg === 'string' &&
-      firstArg.includes(
-        'Text strings must be rendered within a <Text> component',
-      )
-    ) {
-      const error = new Error('Stack trace for Text rendering issue');
-      originalConsoleError.call(console, error.stack);
-    }
-  } catch (loggingError) {
-    originalConsoleError.call(console, loggingError);
-  }
-  originalConsoleError.apply(console, args);
-};
+// const originalConsoleError = console.error;
+// console.error = (...args) => {
+//   try {
+//     const firstArg = args[0];
+//     if (
+//       typeof firstArg === 'string' &&
+//       firstArg.includes(
+//         'Text strings must be rendered within a <Text> component',
+//       )
+//     ) {
+//       const error = new Error('Stack trace for Text rendering issue');
+//       originalConsoleError.call(console, error.stack);
+//     }
+//   } catch (loggingError) {
+//     originalConsoleError.call(console, loggingError);
+//   }
+//   originalConsoleError.apply(console, args);
+// };
 
 // Register the playback service for background audio handling
 // TrackPlayer.registerPlaybackService(() =>

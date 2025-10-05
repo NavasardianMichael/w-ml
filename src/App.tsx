@@ -4,8 +4,7 @@ import Home from './screens/home';
 import Results from './screens/results';
 import { useGameStore } from './store/game/store';
 import { Screen } from './types/game';
-import { StyleSheet, View } from 'react-native';
-import './styles/global.css';
+import { View } from 'react-native';
 
 function App() {
   // const safeAreaInsets = useSafeAreaInsets();
@@ -20,16 +19,10 @@ function App() {
   const ScreenComponent = COMPONENT_BY_SCREEN[screen];
 
   return (
-    <View style={[styles.container]}>
+    <View className="flex-1 bg-primary">
       <ScreenComponent />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;

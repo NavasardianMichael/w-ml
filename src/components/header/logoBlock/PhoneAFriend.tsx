@@ -2,7 +2,6 @@ import { HTML_CODES } from '@/constants/commons';
 import { CHAR_CODES_BY_OPTION_SERIAL_NUMBER } from '@/constants/game';
 import { ICONS } from '@/constants/icons';
 import { useClassNameByOrientation } from '@/hooks/useClassNameByOrientation';
-import { useStyleByOrientation } from '@/hooks/useStyleByOrientation';
 import { useLifelinesStore } from '@/store/lifelines/store';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,15 +11,19 @@ export default memo(function PhoneAFriend() {
   const { phoneAFriend, setLifelinesState } = useLifelinesStore();
   const { t } = useTranslation();
 
-  const style = useStyleByOrientation(
-    { width: 160, height: 160 },
-    { width: 90, height: 90 },
+  const sizeClassName = useClassNameByOrientation(
+    'w-40 h-40',
+    'w-[90px] h-[90px]',
   );
   const className = useClassNameByOrientation('mb-8', 'mb-2');
 
   return (
     <View className="mx-auto relative max-w-52">
-      <ICONS.phone style={style} className={`mx-auto ${className} w-8 h-8`} />
+      <View
+        className={`mx-auto ${className} ${sizeClassName} flex items-center justify-center`}
+      >
+        <ICONS.phone />
+      </View>
       {phoneAFriend?.suggestedOptionSerialNumber ? (
         <Text className="text-center text-secondary text-lg">
           I think the answer is{' '}

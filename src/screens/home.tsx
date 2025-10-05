@@ -7,16 +7,33 @@ import { useSound } from '@/hooks/useSound';
 import { useGameStore } from '@/store/game/store';
 import { useSettingsStore } from '@/store/settings/store';
 import { useSoundStore } from '@/store/sound/store';
+import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
 export default function Home() {
-  const { playSoundById } = useSoundStore();
+  const { playSoundById, stopAllTracks } = useSoundStore();
   const { language } = useSettingsStore();
   const { isPending, initQuiz, setScreen } = useGameStore();
   const { t } = useTranslation();
+  const hasPlayedRef = useRef(false);
 
-  useSound(SOUNDS_URIS.resign);
+  // Only use useSound to initialize the sound, don't auto-play
+  useSound(SOUNDS_URIS.mainTheme);
+
+  // Play main theme only once when component mounts
+  useEffect(() => {
+    if (hasPlayedRef.current) return; // Prevent multiple plays
+    hasPlayedRef.current = true;
+
+    const playMainTheme = async () => {
+      // Stop any existing sounds first
+      await stopAllTracks();
+      // Then play main theme
+      await playSoundById(SOUNDS_URIS.mainTheme, { loop: true });
+    };
+    playMainTheme();
+  }, [playSoundById, stopAllTracks]);
 
   return (
     <View className="flex-1 bg-primary">
@@ -41,7 +58,37 @@ export default function Home() {
             setScreen(SCREENS.game);
           }}
         >
-          {t('start-game')}
+          <Text className="text-secondary">{t('start-game')}</Text>
+        </AppButton>
+
+        {/* Test Audio Button */}
+        <AppButton
+          onPress={async () => {
+            console.log('=== TEST AUDIO BUTTON PRESSED ===');
+            try {
+              await playSoundById(SOUNDS_URIS.correctAnswer);
+              console.log('=== TEST AUDIO COMPLETED ===');
+            } catch (error) {
+              console.error('=== TEST AUDIO ERROR ===', error);
+            }
+          }}
+        >
+          <Text>Test Audio</Text>
+        </AppButton>
+
+        {/* Stop All Audio Button */}
+        <AppButton
+          onPress={async () => {
+            console.log('=== STOP ALL BUTTON PRESSED ===');
+            try {
+              await stopAllTracks();
+              console.log('=== STOP ALL COMPLETED ===');
+            } catch (error) {
+              console.error('=== STOP ALL ERROR ===', error);
+            }
+          }}
+        >
+          <Text>Stop All Audio</Text>
         </AppButton>
       </View>
     </View>

@@ -11,6 +11,7 @@ export type SoundStateActions = {
   playSoundById: (id: string, options?: { loop?: boolean }) => Promise<void>;
   pauseTrack: () => Promise<void>;
   stopTrack: () => Promise<void>;
+  stopAllTracks: () => Promise<void>;
   setIsActiveSoundMuted: (isMuted: SoundState['isMuted']) => void;
   toggleActiveSoundMuted: () => void;
 };

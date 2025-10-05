@@ -1,7 +1,7 @@
 module.exports = {
-  presets: ['module:@react-native/babel-preset', 'nativewind/babel'],
+  presets: ['module:@react-native/babel-preset'],
   plugins: [
-    ['@babel/plugin-proposal-decorators', { legacy: true }],
+    'nativewind/babel',
     [
       'module-resolver',
       {
@@ -11,5 +11,6 @@ module.exports = {
         },
       },
     ],
+    'react-native-reanimated/plugin', // Must be last
   ],
 };

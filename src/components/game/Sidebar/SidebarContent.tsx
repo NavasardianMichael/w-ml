@@ -91,10 +91,7 @@ export default function SidebarContent() {
           !isSidebarOpen ? 'translate-x-full' : ''
         } bg-indigo-700 border-l border-l-secondary`}
       >
-        <View
-          className="absolute top-md right-md  z-20"
-          style={{ transform: [{ rotate: '180deg' }] }}
-        >
+        <View className="absolute top-md right-md z-20 rotate-180">
           <TouchableOpacity
             className="w-6 h-6"
             onPress={() => setIsSidebarOpen(false)}

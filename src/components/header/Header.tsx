@@ -5,7 +5,7 @@ import { SOUNDS_URIS } from '@/constants/sound';
 import { useSound } from '@/hooks/useSound';
 import { useSoundStore } from '@/store/sound/store';
 import { useState } from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import SidebarTrigger from '../game/Sidebar/SidebarTrigger';
 import ExitModal from './ExitModal';
 import LanguagesDropdown from './LanguagesDropdown';
@@ -37,10 +37,11 @@ export default function Header() {
     }
     toggleActiveSoundMuted();
   };
+  console.log({ isMuted });
 
   return (
     <>
-      <View className="flex flex-row gap-md items-center justify">
+      <View className="pt-8 flex flex-row items-center justify">
         <TouchableOpacity onPress={soundHandler} className="h-6 w-6">
           {isMuted ? <VolumeOffIcon /> : <VolumeOnIcon />}
         </TouchableOpacity>

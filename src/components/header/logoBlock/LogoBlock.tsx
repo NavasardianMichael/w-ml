@@ -1,18 +1,14 @@
 import { LIFELINES } from '@/constants/game';
 import { useClassNameByOrientation } from '@/hooks/useClassNameByOrientation';
 import { useIsPortrait } from '@/hooks/useIsPortrait';
-import { useStyleByOrientation } from '@/hooks/useStyleByOrientation';
 import { useLifelinesStore } from '@/store/lifelines/store';
 import { memo, useMemo } from 'react';
-import { Image, ImageStyle, StyleProp, View } from 'react-native';
+import { Image, View } from 'react-native';
 import DisplayCurrentLifeline from './DisplayCurrentLifeline';
 
 export default memo(function LogoBlock() {
   const { currentLifeline } = useLifelinesStore();
-  const style = useStyleByOrientation(
-    { width: 160, height: 160 },
-    { width: 120, height: 120 },
-  );
+  const sizeClassName = useClassNameByOrientation('w-40 h-40', 'w-30 h-30');
   const className = useClassNameByOrientation('mb-8', 'mb-2');
 
   const isPortrait = useIsPortrait();
@@ -27,10 +23,10 @@ export default memo(function LogoBlock() {
     return (
       <View className="flex-1 flex flex-col gap-md">
         <Image
-          style={style as StyleProp<ImageStyle>}
-          className={`mx-auto ${className} w-20 h-20`}
+          className={`ml-4! ${className} ${sizeClassName}`}
           source={require('../../../assets/images/logo.webp')}
         />
+
         {showLifeline ? <DisplayCurrentLifeline /> : null}
       </View>
     );
@@ -41,8 +37,7 @@ export default memo(function LogoBlock() {
           <DisplayCurrentLifeline />
         ) : (
           <Image
-            style={style as StyleProp<ImageStyle>}
-            className={`mx-auto ${className} w-20 h-20`}
+            className={`mx-auto ${className} ${sizeClassName}`}
             source={require('../../../assets/images/logo.webp')}
           />
         )}
