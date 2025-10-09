@@ -19,7 +19,7 @@ function App() {
   const ScreenComponent = COMPONENT_BY_SCREEN[screen];
 
   return (
-    <View className="flex-1 bg-primary">
+    <View className="flex-1 bg-primary p-md">
       <ScreenComponent />
     </View>
   );

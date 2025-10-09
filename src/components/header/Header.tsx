@@ -37,7 +37,6 @@ export default function Header() {
     }
     toggleActiveSoundMuted();
   };
-  console.log({ isMuted });
 
   return (
     <>

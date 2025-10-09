@@ -10,7 +10,7 @@ const audioService = reactNativeSoundService;
 
 const initialState: SoundState = {
   activeSoundIdsStack: [],
-  isMuted: false,
+  isMuted: true,
   isPlaying: false,
   currentTrackId: null,
 };
@@ -32,7 +32,7 @@ export const useSoundStore = create<SoundState & SoundStateActions>()(
           try {
             console.log('Attempting to initialize TrackPlayer...');
             // Add a longer delay to ensure app is fully loaded
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise<void>(resolve => setTimeout(resolve, 1000));
             await audioService.setupPlayer();
             console.log('TrackPlayer setup completed');
             // Don't add tracks immediately - do it when needed
@@ -53,7 +53,7 @@ export const useSoundStore = create<SoundState & SoundStateActions>()(
               );
               await audioService.setupPlayer();
             }
-            await audioService.playTrack(id, options);
+            audioService.playTrack(id, options);
             set(state => {
               if (!state.activeSoundIdsStack.includes(id)) {
                 state.activeSoundIdsStack.push(id);

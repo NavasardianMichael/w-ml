@@ -52,43 +52,13 @@ export default function Home() {
               return;
             }
             initQuiz({ language });
-            await playSoundById(SOUNDS_URIS.resign);
-            await sleep(SOUND_DURATION_BY_URI[SOUNDS_URIS.resign]);
-            await playSoundById(SOUNDS_URIS.easy, { loop: true });
+            playSoundById(SOUNDS_URIS.resign);
             setScreen(SCREENS.game);
+            await sleep(SOUND_DURATION_BY_URI[SOUNDS_URIS.resign]);
+            playSoundById(SOUNDS_URIS.easy, { loop: true });
           }}
         >
           <Text className="text-secondary">{t('start-game')}</Text>
-        </AppButton>
-
-        {/* Test Audio Button */}
-        <AppButton
-          onPress={async () => {
-            console.log('=== TEST AUDIO BUTTON PRESSED ===');
-            try {
-              await playSoundById(SOUNDS_URIS.correctAnswer);
-              console.log('=== TEST AUDIO COMPLETED ===');
-            } catch (error) {
-              console.error('=== TEST AUDIO ERROR ===', error);
-            }
-          }}
-        >
-          <Text>Test Audio</Text>
-        </AppButton>
-
-        {/* Stop All Audio Button */}
-        <AppButton
-          onPress={async () => {
-            console.log('=== STOP ALL BUTTON PRESSED ===');
-            try {
-              await stopAllTracks();
-              console.log('=== STOP ALL COMPLETED ===');
-            } catch (error) {
-              console.error('=== STOP ALL ERROR ===', error);
-            }
-          }}
-        >
-          <Text>Stop All Audio</Text>
         </AppButton>
       </View>
     </View>
