@@ -13,7 +13,7 @@ export const SOUNDS_URIS = {
   resign: 'resign.mp3',
   wrongAnswer: 'wrong-answer.mp3',
   youWonMillion: 'you-won-a-million.mp3',
-} as const;
+} as const
 
 // TrackPlayer Track objects (now using simple filenames)
 export const SOUND_TRACKS = {
@@ -95,7 +95,7 @@ export const SOUND_TRACKS = {
     title: 'You Won Million',
     duration: 3.03,
   },
-};
+}
 
 export const SOUND_DURATION_BY_URI: Record<
   (typeof SOUNDS_URIS)[keyof typeof SOUNDS_URIS],
@@ -114,17 +114,17 @@ export const SOUND_DURATION_BY_URI: Record<
   [SOUNDS_URIS.resign]: 5695,
   [SOUNDS_URIS.wrongAnswer]: 5799,
   [SOUNDS_URIS.youWonMillion]: 3030,
-};
+}
 
 export const SOUNDS_IDS_BY_SAFE_HAVEN = [
   SOUNDS_URIS.easy,
   SOUNDS_URIS.medium,
   SOUNDS_URIS.hard,
-];
+]
 
 export const SOUND_ID_BY_LIFELINE = {
   fiftyFifty: SOUNDS_URIS.fiftyFifty,
   askAudience: SOUNDS_URIS.audienceHelp,
   phoneAFriend: SOUNDS_URIS.phoneAFriend,
   switchQuestion: SOUNDS_URIS.fiftyFifty,
-};
+}

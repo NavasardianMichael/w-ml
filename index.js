@@ -1,11 +1,11 @@
-import { AppRegistry } from 'react-native';
+import { AppRegistry } from 'react-native'
 // import TrackPlayer from 'react-native-track-player';
-import App from './src/App';
-import { name as appName } from './app.json';
-import { initI18n } from './src/services/translations/i18n';
+import App from './src/App'
+import { name as appName } from './app.json'
+import { initI18n } from './src/services/translations/i18n'
 
 // Initialize i18n before registering the app
-initI18n();
+initI18n()
 
 // Extra logging to track "Text strings must be rendered within a <Text> component" errors
 // const originalConsoleError = console.error;
@@ -32,4 +32,4 @@ initI18n();
 //   require('./src/services/trackPlayer/playbackService.js'),
 // );
 
-AppRegistry.registerComponent(appName, () => App);
+AppRegistry.registerComponent(appName, () => App)

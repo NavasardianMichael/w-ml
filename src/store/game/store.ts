@@ -1,10 +1,10 @@
-import { getQuiz } from '@/api/getQuiz';
-import { getNextQuizItemByLanguageAndSafeHavenNumber } from '@/services/localStorage/api';
-import { create } from 'zustand';
-import { combine } from 'zustand/middleware';
-import { immer } from 'zustand/middleware/immer';
-import { GameState, GameStateActions } from './types';
-import { SCREENS } from '@/constants/game';
+import { getQuiz } from '@/api/getQuiz'
+import { getNextQuizItemByLanguageAndSafeHavenNumber } from '@/services/localStorage/api'
+import { create } from 'zustand'
+import { combine } from 'zustand/middleware'
+import { immer } from 'zustand/middleware/immer'
+import { GameState, GameStateActions } from './types'
+import { SCREENS } from '@/constants/game'
 
 const initialState: GameState = {
   screen: SCREENS.home,
@@ -12,7 +12,7 @@ const initialState: GameState = {
   currentQuestionStage: 1,
   quiz: [],
   isSidebarOpen: false,
-};
+}
 
 export const useGameStore = create<GameState & GameStateActions>()(
   immer(
@@ -22,41 +22,41 @@ export const useGameStore = create<GameState & GameStateActions>()(
           set(prevState => ({
             ...prevState,
             ...payload,
-          }));
+          }))
         },
         setIsSidebarOpen: isOpen => {
           set(prevState => {
-            prevState.isSidebarOpen = isOpen;
-          });
+            prevState.isSidebarOpen = isOpen
+          })
         },
         setScreen: screen => {
           set(prevState => {
-            prevState.screen = screen;
-          });
+            prevState.screen = screen
+          })
         },
         toggleIsSidebarOpen: () => {
           set(prevState => {
-            prevState.isSidebarOpen = !prevState.isSidebarOpen;
-          });
+            prevState.isSidebarOpen = !prevState.isSidebarOpen
+          })
         },
         setAnsweredOptionSerialNumber: serialNumber => {
           set(prevState => {
             prevState.quiz[
               prevState.currentQuestionStage - 1
-            ].answeredOptionSerialNumber = serialNumber;
-          });
+            ].answeredOptionSerialNumber = serialNumber
+          })
         },
         initQuiz: async ({ language }) => {
-          set({ isPending: true });
+          set({ isPending: true })
           return new Promise<GameState['quiz']>(async resolve => {
-            const quiz = await getQuiz({ language });
+            const quiz = await getQuiz({ language })
             set(prevState => {
-              prevState.quiz = quiz || [];
-            });
+              prevState.quiz = quiz || []
+            })
 
-            set({ isPending: false });
-            resolve(quiz ?? []);
-          });
+            set({ isPending: false })
+            resolve(quiz ?? [])
+          })
         },
         initNewQuizItemByLanguageAndSafeHavenNumber: async ({
           language,
@@ -67,12 +67,12 @@ export const useGameStore = create<GameState & GameStateActions>()(
               language,
               safeHavenNumber: quizItemId.split('-')[0] as unknown as number,
             },
-          );
+          )
           set(prevState => {
-            prevState.quiz[prevState.currentQuestionStage - 1] = newQuizItem;
-          });
+            prevState.quiz[prevState.currentQuestionStage - 1] = newQuizItem
+          })
         },
-      };
+      }
     }),
   ),
-);
+)

@@ -15,15 +15,15 @@ export const useSettingsStore = create<SettingsState & SettingsStateActions>()(
     combine(
       initialState,
       (set): SettingsStateActions => ({
-        setSettingsState: async (payload) => {
-          set((prevState) => {
+        setSettingsState: async payload => {
+          set(prevState => {
             return {
               ...prevState,
               ...payload,
             }
           })
         },
-      })
-    )
-  )
+      }),
+    ),
+  ),
 )

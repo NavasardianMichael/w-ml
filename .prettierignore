@@ -1,0 +1,15 @@
+node_modules
+build
+dist
+coverage
+*.min.js
+*.min.css
+public
+android
+ios
+.expo
+.vscode
+.git
+package-lock.json
+yarn.lock
+metro.config.js

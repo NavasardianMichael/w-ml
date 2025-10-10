@@ -27,8 +27,8 @@ export const useLifelinesStore = create<
   immer(
     combine(initialState, (set, get): LifelinesStateActions => {
       return {
-        setLifelinesState: async (payload) => {
-          set((prevState) => ({
+        setLifelinesState: async payload => {
+          set(prevState => ({
             ...prevState,
             ...payload,
           }))
@@ -37,7 +37,7 @@ export const useLifelinesStore = create<
           correctOptionSerialNumber,
           currentQuestionStage,
         }) => {
-          set((prevState) => {
+          set(prevState => {
             const randomIncorrectOptions = sliceArrayContainingCorrectAnswer(
               correctOptionSerialNumber,
             )
@@ -48,7 +48,7 @@ export const useLifelinesStore = create<
           correctOptionSerialNumber,
           currentQuestionStage,
         }) => {
-          set((prevState) => {
+          set(prevState => {
             const guaranteedProbability =
               getGuaranteedProbabilityByStage(currentQuestionStage)
             const probabilities =
@@ -65,7 +65,7 @@ export const useLifelinesStore = create<
           correctOptionSerialNumber,
           currentQuestionStage,
         }) => {
-          set((prevState) => {
+          set(prevState => {
             const guaranteedProbability =
               getGuaranteedProbabilityByStage(currentQuestionStage)
             const optionSerialNumber = getAnswerWithGuaranteedProbability(
@@ -78,8 +78,8 @@ export const useLifelinesStore = create<
             }
           })
         },
-        setSwitchQuestionLifeline: async (payload) => {
-          set((prevState) => {
+        setSwitchQuestionLifeline: async payload => {
+          set(prevState => {
             prevState.switchQuestion = {
               waitingToSwitchQuizItem:
                 payload.waitingToSwitchQuizItem ??

@@ -1,31 +1,31 @@
 // Simple fallback audio service that doesn't break the app
 export class FallbackAudioService {
-  private isInitialized = false;
+  private isInitialized = false
 
   async setupPlayer() {
-    this.isInitialized = true;
-    console.log('Fallback audio service initialized');
+    this.isInitialized = true
+    console.log('Fallback audio service initialized')
   }
 
   async playTrack(trackId: string, options?: { loop?: boolean }) {
-    console.log(`Would play track: ${trackId}`, options);
+    console.log(`Would play track: ${trackId}`, options)
   }
 
   async pause() {
-    console.log('Would pause audio');
+    console.log('Would pause audio')
   }
 
   async stop() {
-    console.log('Would stop audio');
+    console.log('Would stop audio')
   }
 
   async setVolume(volume: number) {
-    console.log(`Would set volume to: ${volume}`);
+    console.log(`Would set volume to: ${volume}`)
   }
 
   isPlayerInitialized(): boolean {
-    return this.isInitialized;
+    return this.isInitialized
   }
 }
 
-export const fallbackAudioService = new FallbackAudioService();
+export const fallbackAudioService = new FallbackAudioService()

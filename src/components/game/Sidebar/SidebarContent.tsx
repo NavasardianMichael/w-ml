@@ -1,26 +1,30 @@
-import { LIFELINES, QUESTION_STAGES } from '@/constants/game';
-import { ICONS } from '@/constants/icons';
-import { SOUND_DURATION_BY_URI, SOUND_ID_BY_LIFELINE } from '@/constants/sound';
-import { sleep } from '@/helpers/commons';
-import { getBgSoundIdByQuestionStage } from '@/helpers/game';
-import { useCurrentQuizItem } from '@/hooks/useCurrentQuizItem';
-import { useSound } from '@/hooks/useSound';
-import { useGameStore } from '@/store/game/store';
-import { useLifelinesStore } from '@/store/lifelines/store';
-import { SingleLifelineActionPayload } from '@/store/lifelines/types';
-import { useSoundStore } from '@/store/sound/store';
-import { Lifeline } from '@/types/game';
-import { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Text, TouchableHighlight, TouchableOpacity, View } from 'react-native';
-import LIFELINES_TEMPLATE from './lifelinesTemplate';
-import { HTML_CODES } from '@/constants/commons';
+import { LIFELINES, QUESTION_STAGES } from '@/constants/game'
+import { ICONS } from '@/constants/icons'
+import { SOUND_DURATION_BY_URI, SOUND_ID_BY_LIFELINE } from '@/constants/sound'
+import { sleep } from '@/helpers/commons'
+import { getBgSoundIdByQuestionStage } from '@/helpers/game'
+import { useCurrentQuizItem } from '@/hooks/useCurrentQuizItem'
+import { useSound } from '@/hooks/useSound'
+import { useGameStore } from '@/store/game/store'
+import { useLifelinesStore } from '@/store/lifelines/store'
+import { SingleLifelineActionPayload } from '@/store/lifelines/types'
+import { useSoundStore } from '@/store/sound/store'
+import { Lifeline } from '@/types/game'
+import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
+import { Text, TouchableHighlight, TouchableOpacity, View } from 'react-native'
+import LIFELINES_TEMPLATE from './lifelinesTemplate'
+import { HTML_CODES } from '@/constants/commons'
 
 export default function SidebarContent() {
-  const { currentQuestionStage, setIsSidebarOpen, isSidebarOpen } =
-    useGameStore();
-  const { playSoundById } = useSoundStore();
-  const lifelinesStore = useLifelinesStore();
+  const {
+    currentQuestionStage,
+    setIsSidebarOpen,
+    isSidebarOpen,
+    toggleIsSidebarOpen,
+  } = useGameStore()
+  const { playSoundById } = useSoundStore()
+  const lifelinesStore = useLifelinesStore()
   const {
     lifelinesDisabled,
     setFiftyFiftyLifeline,
@@ -28,18 +32,18 @@ export default function SidebarContent() {
     setPhoneAFriendLifeline,
     setSwitchQuestionLifeline,
     setLifelinesState,
-  } = lifelinesStore;
+  } = lifelinesStore
 
-  const currentQuizItem = useCurrentQuizItem();
-  const { t } = useTranslation();
+  const currentQuizItem = useCurrentQuizItem()
+  const { t } = useTranslation()
 
-  useSound(SOUND_ID_BY_LIFELINE.fiftyFifty);
-  useSound(SOUND_ID_BY_LIFELINE.askAudience);
-  useSound(SOUND_ID_BY_LIFELINE.phoneAFriend);
+  useSound(SOUND_ID_BY_LIFELINE.fiftyFifty)
+  useSound(SOUND_ID_BY_LIFELINE.askAudience)
+  useSound(SOUND_ID_BY_LIFELINE.phoneAFriend)
 
   const isAnswerPending = useMemo(() => {
-    return !currentQuizItem || !!currentQuizItem.answeredOptionSerialNumber;
-  }, [currentQuizItem]);
+    return !currentQuizItem || !!currentQuizItem.answeredOptionSerialNumber
+  }, [currentQuizItem])
 
   const lifelineActions: Record<
     Exclude<Lifeline, 'switchQuestion'>,
@@ -49,64 +53,64 @@ export default function SidebarContent() {
       fiftyFifty: setFiftyFiftyLifeline,
       askAudience: setAskAudienceLifeline,
       phoneAFriend: setPhoneAFriendLifeline,
-    };
-  }, [setAskAudienceLifeline, setFiftyFiftyLifeline, setPhoneAFriendLifeline]);
+    }
+  }, [setAskAudienceLifeline, setFiftyFiftyLifeline, setPhoneAFriendLifeline])
 
   const onLifelinePress = async (lifeline: Lifeline) => {
-    const lifelineSoundId = SOUND_ID_BY_LIFELINE[lifeline];
+    const lifelineSoundId = SOUND_ID_BY_LIFELINE[lifeline]
 
     if (lifeline === LIFELINES.switchQuestion) {
-      setIsSidebarOpen(false);
-      await playSoundById(lifelineSoundId);
-      setSwitchQuestionLifeline({ waitingToSwitchQuizItem: true });
-      await sleep(800);
-      return;
+      setIsSidebarOpen(false)
+      playSoundById(lifelineSoundId)
+      setSwitchQuestionLifeline({ waitingToSwitchQuizItem: true })
+      await sleep(800)
+      return
     }
 
-    setLifelinesState({ currentLifeline: lifeline, lifelinesDisabled: true });
+    setLifelinesState({ currentLifeline: lifeline, lifelinesDisabled: true })
 
-    setIsSidebarOpen(false);
-    await playSoundById(lifelineSoundId);
+    setIsSidebarOpen(false)
+    playSoundById(lifelineSoundId)
     if (lifeline === LIFELINES.fiftyFifty) {
-      await sleep(800); // to make it feel snappier
+      await sleep(800) // to make it feel snappier
     } else {
-      await sleep(SOUND_DURATION_BY_URI[lifelineSoundId]);
+      await sleep(SOUND_DURATION_BY_URI[lifelineSoundId])
     }
 
     lifelineActions[lifeline as Exclude<Lifeline, 'switchQuestion'>]({
       correctOptionSerialNumber: currentQuizItem.correctOptionSerialNumber,
       currentQuestionStage,
-    });
+    })
 
-    await sleep(3000);
-    const safeHavenSoundId = getBgSoundIdByQuestionStage(currentQuestionStage);
-    await playSoundById(safeHavenSoundId, { loop: true });
-    setLifelinesState({ lifelinesDisabled: false });
-  };
+    await sleep(3000)
+    const safeHavenSoundId = getBgSoundIdByQuestionStage(currentQuestionStage)
+    playSoundById(safeHavenSoundId, { loop: true })
+    setLifelinesState({ lifelinesDisabled: false })
+  }
 
   return (
     <>
       <View
         className={`absolute h-full w-80 right-0 bottom-0 top-0 z-10 p-md transition ${
-          !isSidebarOpen ? 'translate-x-full' : ''
+          !isSidebarOpen ? '-translate-x-full' : ''
         } bg-indigo-700 border-l border-l-secondary`}
       >
-        <View className="absolute top-md right-md z-20 rotate-180">
+        <View className='absolute top-md right-md z-20 rotate-180'>
           <TouchableOpacity
-            className="w-6 h-6"
-            onPress={() => setIsSidebarOpen(false)}
+            className='w-6 h-6'
+            onPress={() => toggleIsSidebarOpen()}
           >
             <ICONS.sidebar />
           </TouchableOpacity>
         </View>
-        <View className="h-full">
-          <View className="flex-row gap-sm">
+        <View className='h-full'>
+          <View className='flex-row gap-sm'>
             {LIFELINES_TEMPLATE.map(({ id, icon }) => {
               const isDisabled =
-                isAnswerPending || lifelinesDisabled || !!lifelinesStore[id];
+                isAnswerPending || lifelinesDisabled || !!lifelinesStore[id]
 
               const sizingByLifeline =
-                id === LIFELINES.fiftyFifty ? 'h-8 w-8' : 'h-6 w-6';
+                id === LIFELINES.fiftyFifty ? 'h-8 w-8' : 'h-6 w-6'
 
               return (
                 <TouchableHighlight
@@ -122,19 +126,19 @@ export default function SidebarContent() {
                   >
                     {icon}
                     {lifelinesStore[id] ? (
-                      <View className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                        <Text className="text-lg text-red-500">
+                      <View className='absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2'>
+                        <Text className='text-lg text-red-500'>
                           {HTML_CODES.close}
                         </Text>
                       </View>
                     ) : null}
                   </View>
                 </TouchableHighlight>
-              );
+              )
             })}
           </View>
 
-          <View className="flex flex-col-reverse my-auto">
+          <View className='flex flex-col-reverse my-auto'>
             {QUESTION_STAGES.map(stage => {
               return (
                 <View
@@ -146,23 +150,23 @@ export default function SidebarContent() {
                   }`}
                 >
                   <>
-                    <Text className="transition text-md font-semibold text-right w-6 color-secondary">
+                    <Text className='transition text-md font-semibold text-right w-6 color-secondary'>
                       {stage}.{' '}
                     </Text>
-                    <Text className="text-tertiary w-1">
+                    <Text className='text-tertiary w-1'>
                       {stage < currentQuestionStage ? '◆' : ''}
                     </Text>
-                    <Text className="text-md color-secondary ml-md">
+                    <Text className='text-md color-secondary ml-md'>
                       {t(`currency-symbol`)}
                       {t(`stage-${stage}-money-amount`)}
                     </Text>
                   </>
                 </View>
-              );
+              )
             })}
           </View>
         </View>
       </View>
     </>
-  );
+  )
 }

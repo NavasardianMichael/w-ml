@@ -15,7 +15,7 @@ import { useIsPortrait } from './useIsPortrait'
 
 export const useClassNameByOrientation = (
   portraitClassName: string,
-  landscapeClassName: string
+  landscapeClassName: string,
 ): string => {
   const isPortrait = useIsPortrait()
 

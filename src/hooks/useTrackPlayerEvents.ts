@@ -1,13 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 // import TrackPlayer, {
 //   Event,
 //   State,
 //   useTrackPlayerEvents,
 // } from 'react-native-track-player';
-import { useSoundStore } from '@/store/sound/store';
+import { useSoundStore } from '@/store/sound/store'
 
 export const useTrackPlayerSetup = () => {
-  const soundStore = useSoundStore();
+  const soundStore = useSoundStore()
 
   // Commented out TrackPlayer events to avoid native module issues
   // useTrackPlayerEvents(
@@ -29,6 +29,6 @@ export const useTrackPlayerSetup = () => {
 
   useEffect(() => {
     // Initialize TrackPlayer when the hook is first used
-    soundStore.initializeTrackPlayer();
-  }, [soundStore]);
-};
+    soundStore.initializeTrackPlayer()
+  }, [soundStore])
+}

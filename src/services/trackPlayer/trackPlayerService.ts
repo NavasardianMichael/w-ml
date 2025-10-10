@@ -3,33 +3,33 @@ import TrackPlayer, {
   State,
   Track,
   Event,
-} from 'react-native-track-player';
-import { SOUND_TRACKS } from '@/constants/sound';
+} from 'react-native-track-player'
+import { SOUND_TRACKS } from '@/constants/sound'
 
 export class TrackPlayerService {
-  private isInitialized = false;
-  private eventListeners: { [key: string]: Function[] } = {};
+  private isInitialized = false
+  private eventListeners: { [key: string]: Function[] } = {}
 
   /**
    * Initialize the TrackPlayer with comprehensive options
    */
   async setupPlayer(customOptions?: any) {
     if (this.isInitialized) {
-      return;
+      return
     }
 
     try {
       // First initialize the player with minimal setup
       await TrackPlayer.setupPlayer({
         ...customOptions,
-      });
+      })
 
-      this.isInitialized = true;
-      console.log('TrackPlayer initialized successfully');
+      this.isInitialized = true
+      console.log('TrackPlayer initialized successfully')
     } catch (error) {
-      console.error('Failed to initialize TrackPlayer:', error);
-      this.isInitialized = false;
-      throw error;
+      console.error('Failed to initialize TrackPlayer:', error)
+      this.isInitialized = false
+      throw error
     }
   }
 
@@ -38,9 +38,9 @@ export class TrackPlayerService {
    */
   async updateOptions(options: any) {
     if (!this.isInitialized) {
-      await this.setupPlayer();
+      await this.setupPlayer()
     }
-    return TrackPlayer.updateOptions(options);
+    return TrackPlayer.updateOptions(options)
   }
 
   /**
@@ -48,15 +48,15 @@ export class TrackPlayerService {
    */
   async initializeWithTracks() {
     if (!this.isInitialized) {
-      await this.setupPlayer();
+      await this.setupPlayer()
     }
 
     try {
-      const tracks = Object.values(SOUND_TRACKS);
-      await TrackPlayer.add(tracks);
-      console.log(`Added ${tracks.length} tracks to TrackPlayer`);
+      const tracks = Object.values(SOUND_TRACKS)
+      await TrackPlayer.add(tracks)
+      console.log(`Added ${tracks.length} tracks to TrackPlayer`)
     } catch (error) {
-      console.error('Failed to add tracks:', error);
+      console.error('Failed to add tracks:', error)
     }
   }
 
@@ -65,31 +65,31 @@ export class TrackPlayerService {
    */
   async playTrack(trackId: string, options?: { loop?: boolean }) {
     if (!this.isInitialized) {
-      await this.setupPlayer();
+      await this.setupPlayer()
     }
 
     try {
-      const track = SOUND_TRACKS[trackId as any];
+      const track = SOUND_TRACKS[trackId as any]
       if (!track) {
-        throw new Error(`Track not found: ${trackId}`);
+        throw new Error(`Track not found: ${trackId}`)
       }
 
       // Clear queue and add the specific track
-      await TrackPlayer.reset();
-      await TrackPlayer.add(track);
+      await TrackPlayer.reset()
+      await TrackPlayer.add(track)
 
       // Set repeat mode if looping is requested
       if (options?.loop) {
-        await TrackPlayer.setRepeatMode(RepeatMode.Track);
+        await TrackPlayer.setRepeatMode(RepeatMode.Track)
       } else {
-        await TrackPlayer.setRepeatMode(RepeatMode.Off);
+        await TrackPlayer.setRepeatMode(RepeatMode.Off)
       }
 
-      await TrackPlayer.play();
-      console.log(`Playing track: ${trackId}`);
+      await TrackPlayer.play()
+      console.log(`Playing track: ${trackId}`)
     } catch (error) {
-      console.error(`Failed to play track ${trackId}:`, error);
-      throw error;
+      console.error(`Failed to play track ${trackId}:`, error)
+      throw error
     }
   }
 
@@ -97,11 +97,11 @@ export class TrackPlayerService {
    * Pause current playback
    */
   async pause() {
-    if (!this.isInitialized) return;
+    if (!this.isInitialized) return
     try {
-      await TrackPlayer.pause();
+      await TrackPlayer.pause()
     } catch (error) {
-      console.error('Failed to pause:', error);
+      console.error('Failed to pause:', error)
     }
   }
 
@@ -109,11 +109,11 @@ export class TrackPlayerService {
    * Stop current playback
    */
   async stop() {
-    if (!this.isInitialized) return;
+    if (!this.isInitialized) return
     try {
-      await TrackPlayer.reset();
+      await TrackPlayer.reset()
     } catch (error) {
-      console.error('Failed to stop:', error);
+      console.error('Failed to stop:', error)
     }
   }
 
@@ -121,11 +121,11 @@ export class TrackPlayerService {
    * Set volume (0.0 to 1.0)
    */
   async setVolume(volume: number) {
-    if (!this.isInitialized) return;
+    if (!this.isInitialized) return
     try {
-      await TrackPlayer.setVolume(Math.max(0, Math.min(1, volume)));
+      await TrackPlayer.setVolume(Math.max(0, Math.min(1, volume)))
     } catch (error) {
-      console.error('Failed to set volume:', error);
+      console.error('Failed to set volume:', error)
     }
   }
 
@@ -134,13 +134,13 @@ export class TrackPlayerService {
    */
   async getPlaybackState() {
     if (!this.isInitialized) {
-      return { state: State.None };
+      return { state: State.None }
     }
     try {
-      return await TrackPlayer.getState();
+      return await TrackPlayer.getState()
     } catch (error) {
-      console.error('Failed to get playback state:', error);
-      return State.None;
+      console.error('Failed to get playback state:', error)
+      return State.None
     }
   }
 
@@ -148,12 +148,12 @@ export class TrackPlayerService {
    * Get current track
    */
   async getCurrentTrack() {
-    if (!this.isInitialized) return null;
+    if (!this.isInitialized) return null
     try {
-      return await TrackPlayer.getCurrentTrack();
+      return await TrackPlayer.getCurrentTrack()
     } catch (error) {
-      console.error('Failed to get current track:', error);
-      return null;
+      console.error('Failed to get current track:', error)
+      return null
     }
   }
 
@@ -162,13 +162,13 @@ export class TrackPlayerService {
    */
   async getProgress() {
     if (!this.isInitialized) {
-      return { position: 0, duration: 0, buffered: 0 };
+      return { position: 0, duration: 0, buffered: 0 }
     }
     try {
-      return await TrackPlayer.getProgress();
+      return await TrackPlayer.getProgress()
     } catch (error) {
-      console.error('Failed to get progress:', error);
-      return { position: 0, duration: 0, buffered: 0 };
+      console.error('Failed to get progress:', error)
+      return { position: 0, duration: 0, buffered: 0 }
     }
   }
 
@@ -176,11 +176,11 @@ export class TrackPlayerService {
    * Seek to position
    */
   async seekTo(position: number) {
-    if (!this.isInitialized) return;
+    if (!this.isInitialized) return
     try {
-      await TrackPlayer.seekTo(position);
+      await TrackPlayer.seekTo(position)
     } catch (error) {
-      console.error('Failed to seek:', error);
+      console.error('Failed to seek:', error)
     }
   }
 
@@ -188,11 +188,11 @@ export class TrackPlayerService {
    * Skip to next track
    */
   async skipToNext() {
-    if (!this.isInitialized) return;
+    if (!this.isInitialized) return
     try {
-      await TrackPlayer.skipToNext();
+      await TrackPlayer.skipToNext()
     } catch (error) {
-      console.error('Failed to skip to next:', error);
+      console.error('Failed to skip to next:', error)
     }
   }
 
@@ -200,11 +200,11 @@ export class TrackPlayerService {
    * Skip to previous track
    */
   async skipToPrevious() {
-    if (!this.isInitialized) return;
+    if (!this.isInitialized) return
     try {
-      await TrackPlayer.skipToPrevious();
+      await TrackPlayer.skipToPrevious()
     } catch (error) {
-      console.error('Failed to skip to previous:', error);
+      console.error('Failed to skip to previous:', error)
     }
   }
 
@@ -212,11 +212,11 @@ export class TrackPlayerService {
    * Set repeat mode
    */
   async setRepeatMode(mode: RepeatMode) {
-    if (!this.isInitialized) return;
+    if (!this.isInitialized) return
     try {
-      await TrackPlayer.setRepeatMode(mode);
+      await TrackPlayer.setRepeatMode(mode)
     } catch (error) {
-      console.error('Failed to set repeat mode:', error);
+      console.error('Failed to set repeat mode:', error)
     }
   }
 
@@ -225,12 +225,12 @@ export class TrackPlayerService {
    */
   async add(tracks: Track | Track[]) {
     if (!this.isInitialized) {
-      await this.setupPlayer();
+      await this.setupPlayer()
     }
     try {
-      return await TrackPlayer.add(tracks);
+      return await TrackPlayer.add(tracks)
     } catch (error) {
-      console.error('Failed to add tracks:', error);
+      console.error('Failed to add tracks:', error)
     }
   }
 
@@ -238,11 +238,11 @@ export class TrackPlayerService {
    * Remove tracks from queue
    */
   async remove(indexes: number | number[]) {
-    if (!this.isInitialized) return;
+    if (!this.isInitialized) return
     try {
-      await TrackPlayer.remove(indexes);
+      await TrackPlayer.remove(indexes)
     } catch (error) {
-      console.error('Failed to remove tracks:', error);
+      console.error('Failed to remove tracks:', error)
     }
   }
 
@@ -250,12 +250,12 @@ export class TrackPlayerService {
    * Get queue
    */
   async getQueue() {
-    if (!this.isInitialized) return [];
+    if (!this.isInitialized) return []
     try {
-      return await TrackPlayer.getQueue();
+      return await TrackPlayer.getQueue()
     } catch (error) {
-      console.error('Failed to get queue:', error);
-      return [];
+      console.error('Failed to get queue:', error)
+      return []
     }
   }
 
@@ -263,11 +263,11 @@ export class TrackPlayerService {
    * Clear queue
    */
   async reset() {
-    if (!this.isInitialized) return;
+    if (!this.isInitialized) return
     try {
-      await TrackPlayer.reset();
+      await TrackPlayer.reset()
     } catch (error) {
-      console.error('Failed to reset queue:', error);
+      console.error('Failed to reset queue:', error)
     }
   }
 
@@ -275,13 +275,13 @@ export class TrackPlayerService {
    * Destroy the player
    */
   async destroy() {
-    if (!this.isInitialized) return;
+    if (!this.isInitialized) return
     try {
-      await TrackPlayer.reset();
-      this.isInitialized = false;
-      console.log('TrackPlayer destroyed');
+      await TrackPlayer.reset()
+      this.isInitialized = false
+      console.log('TrackPlayer destroyed')
     } catch (error) {
-      console.error('Failed to destroy TrackPlayer:', error);
+      console.error('Failed to destroy TrackPlayer:', error)
     }
   }
 
@@ -290,10 +290,10 @@ export class TrackPlayerService {
    */
   addEventListener(event: Event, listener: any) {
     if (!this.eventListeners[event]) {
-      this.eventListeners[event] = [];
+      this.eventListeners[event] = []
     }
-    this.eventListeners[event].push(listener);
-    return TrackPlayer.addEventListener(event, listener);
+    this.eventListeners[event].push(listener)
+    return TrackPlayer.addEventListener(event, listener)
   }
 
   /**
@@ -303,7 +303,7 @@ export class TrackPlayerService {
     if (this.eventListeners[event]) {
       this.eventListeners[event] = this.eventListeners[event].filter(
         l => l !== listener,
-      );
+      )
     }
     // Note: TrackPlayer doesn't have a direct removeEventListener,
     // so we rely on the subscription returned by addEventListener
@@ -313,9 +313,9 @@ export class TrackPlayerService {
    * Check if player is initialized
    */
   isPlayerInitialized(): boolean {
-    return this.isInitialized;
+    return this.isInitialized
   }
 }
 
 // Export singleton instance
-export const trackPlayerService = new TrackPlayerService();
+export const trackPlayerService = new TrackPlayerService()

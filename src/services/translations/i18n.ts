@@ -1,13 +1,13 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import i18n from 'i18next'
+import { initReactI18next } from 'react-i18next'
 
-import { LANGUAGES } from './constants';
-import am from './locales/am.json';
-import en from './locales/en.json';
-import ru from './locales/ru.json';
+import { LANGUAGES } from './constants'
+import am from './locales/am.json'
+import en from './locales/en.json'
+import ru from './locales/ru.json'
 
 export const initI18n = () => {
-  console.log('ijuh7tfyuhijmknjbhugvyftcgvhbjnk');
+  console.log('ijuh7tfyuhijmknjbhugvyftcgvhbjnk')
   i18n.use(initReactI18next).init({
     compatibilityJSON: 'v4', // needed for React Native
     fallbackLng: LANGUAGES.en,
@@ -20,5 +20,5 @@ export const initI18n = () => {
     interpolation: {
       escapeValue: false, // not needed for RN
     },
-  });
-};
+  })
+}

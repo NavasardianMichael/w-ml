@@ -23,7 +23,7 @@ export type GetQuizAPI = {
 }
 
 const processQuizItem = (
-  quizItem: GetQuizAPI['response']['quiz'][0][0]
+  quizItem: GetQuizAPI['response']['quiz'][0][0],
 ): QuizItem => {
   return {
     id: quizItem.id,
@@ -40,7 +40,7 @@ export const getQuiz = async ({
   try {
     const response: GetQuizAPI['response'] = i18next.getResourceBundle(
       language,
-      'translation'
+      'translation',
     )
 
     const lastQuestionNumbersBySafeHavenNumber =
@@ -54,14 +54,14 @@ export const getQuiz = async ({
         let processedSafeHavenList = safeHavenList
           .slice(
             lastQuestionNumberBySafeHavenNumber,
-            lastQuestionNumberBySafeHavenNumber + 5
+            lastQuestionNumberBySafeHavenNumber + 5,
           )
           .map(processQuizItem)
         const missingQuestionsCount = 5 - processedSafeHavenList.length
 
         if (missingQuestionsCount > 0) {
           processedSafeHavenList = processedSafeHavenList.concat(
-            safeHavenList.slice(0, missingQuestionsCount).map(processQuizItem)
+            safeHavenList.slice(0, missingQuestionsCount).map(processQuizItem),
           )
           setLastQuestionNumberBySafeHavenNumberByLanguage({
             language,
@@ -71,7 +71,7 @@ export const getQuiz = async ({
 
         return acc.concat(processedSafeHavenList)
       },
-      [] as GetQuizAPI['processed']
+      [] as GetQuizAPI['processed'],
     )
     return processed
   } catch (error) {

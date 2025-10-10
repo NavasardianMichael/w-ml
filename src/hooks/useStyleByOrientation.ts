@@ -15,7 +15,7 @@ import { useIsPortrait } from './useIsPortrait'
 
 export const useStyleByOrientation = (
   portraitStyles: CSSProperties,
-  landscapeStyles: CSSProperties
+  landscapeStyles: CSSProperties,
 ): CSSProperties => {
   const isPortrait = useIsPortrait()
 

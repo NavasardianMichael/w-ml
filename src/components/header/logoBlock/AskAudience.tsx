@@ -1,22 +1,32 @@
 import {
   CHAR_CODES_BY_OPTION_SERIAL_NUMBER,
   OPTIONS_SERIAL_NUMBERS,
-} from '@/constants/game';
-import { HTML_CODES } from '@/constants/commons';
-import { useLifelinesStore } from '@/store/lifelines/store';
-import { memo } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+} from '@/constants/game'
+import { HTML_CODES } from '@/constants/commons'
+import { useLifelinesStore } from '@/store/lifelines/store'
+import { memo, useState } from 'react'
+import { Text, TouchableOpacity, View } from 'react-native'
 
 export default memo(function AskAudience() {
-  const { askAudience, setLifelinesState } = useLifelinesStore();
+  const { askAudience, setLifelinesState } = useLifelinesStore()
+  const [barHeight, setBarHeight] = useState(0)
 
   return (
-    <View className="flex-col flex-1 justify-center p-sm mx-auto rounded-lg border border-secondary bg-primary-contrast">
-      <View className="relative flex-row grow gap">
+    <View
+      className='flex-col    
+      flex-1 justify-center p-sm mx-auto rounded-lg border border-secondary bg-primary-contrast'
+      onLayout={e => {
+        const height = e.nativeEvent.layout.height
+        if (height > 0 && barHeight !== height) {
+          setBarHeight(height)
+        }
+      }}
+    >
+      <View className='relative flex-row grow gap'>
         {OPTIONS_SERIAL_NUMBERS.map(serialNumber => {
-          const percentage = askAudience?.[serialNumber] ?? 0;
+          const percentage = askAudience?.[serialNumber] ?? 0
           const optionCharCode =
-            CHAR_CODES_BY_OPTION_SERIAL_NUMBER[serialNumber];
+            CHAR_CODES_BY_OPTION_SERIAL_NUMBER[serialNumber]
           return (
             <View
               key={serialNumber}
@@ -24,18 +34,18 @@ export default memo(function AskAudience() {
                 serialNumber === 1 ? 'border-l-0' : ''
               }`}
             >
-              <Text className=" text-secondary">
+              <Text className=' text-secondary'>
                 {askAudience?.[serialNumber] ?? 0}%
               </Text>
               <View className={`w-xl grow mt-auto flex rounded-sm`}>
                 <View
-                  className="mt-auto bg-gradient-to-br from-white to-indigo-700 rounded-sm"
-                  style={{ height: `${percentage}%` }}
+                  className='mt-auto bg-gradient-to-br from-white to-indigo-700 rounded-sm'
+                  style={{ height: barHeight * (percentage / 100) }}
                 />
               </View>
-              <Text className="text-secondary">{optionCharCode}</Text>
+              <Text className='text-secondary'>{optionCharCode}</Text>
             </View>
-          );
+          )
         })}
       </View>
       {askAudience?.[1] !== undefined ? (
@@ -44,15 +54,15 @@ export default memo(function AskAudience() {
             !askAudience ? 'opacity-50' : 'opacity-100'
           }`}
           onPress={() => {
-            setLifelinesState({ currentLifeline: null });
+            setLifelinesState({ currentLifeline: null })
           }}
           disabled={!askAudience}
         >
-          <Text className="text-primary font-semibold text-md ">
+          <Text className='text-primary font-semibold text-md '>
             {HTML_CODES.close}
           </Text>
         </TouchableOpacity>
       ) : null}
     </View>
-  );
-});
+  )
+})

@@ -4,33 +4,31 @@ import { OptionSerialNumber, QuestionStage } from '@/types/game'
 
 export const getGuaranteedProbabilityByStage = (
   stage: QuestionStage,
-  probabilityForMistake: number = 20
+  probabilityForMistake: number = 20,
 ) => {
   return Math.floor(
-    100 - probabilityForMistake - (stage / QUESTION_STAGES.length) * 100
+    100 - probabilityForMistake - (stage / QUESTION_STAGES.length) * 100,
   )
 }
 
 export const getIncorrectOptionsSerialNumbersList = (
-  fiftyFifty: LifelinesState['fiftyFifty']
+  fiftyFifty: LifelinesState['fiftyFifty'],
 ) => {
   return fiftyFifty
-    ? (Object.keys(fiftyFifty).map(
-        (v) => +v
-      ) as unknown as OptionSerialNumber[])
+    ? (Object.keys(fiftyFifty).map(v => +v) as unknown as OptionSerialNumber[])
     : []
 }
 
 export const sliceArrayContainingCorrectAnswer = (
-  correctAnswerSerialNumber: OptionSerialNumber
+  correctAnswerSerialNumber: OptionSerialNumber,
 ) => {
   const incorrectOptions = OPTIONS_SERIAL_NUMBERS.filter(
-    (option) => option !== correctAnswerSerialNumber
+    option => option !== correctAnswerSerialNumber,
   )
   const randomOptionSerialNumberToPairWithCorrect =
     incorrectOptions[Math.floor(Math.random() * incorrectOptions.length)]
   const randomIncorrectOptions = incorrectOptions.filter(
-    (option) => option !== randomOptionSerialNumberToPairWithCorrect
+    option => option !== randomOptionSerialNumberToPairWithCorrect,
   )
 
   return {
@@ -42,7 +40,7 @@ export const sliceArrayContainingCorrectAnswer = (
 export const getAnswerWithGuaranteedProbability = (
   correctAnswerSerialNumber: OptionSerialNumber,
   guaranteedProbability: number,
-  excludedOptions: OptionSerialNumber[] = []
+  excludedOptions: OptionSerialNumber[] = [],
 ): OptionSerialNumber => {
   const randomValue = Math.random() * 100
   const value =
@@ -54,7 +52,7 @@ export const getAnswerWithGuaranteedProbability = (
     return getAnswerWithGuaranteedProbability(
       correctAnswerSerialNumber,
       guaranteedProbability,
-      excludedOptions
+      excludedOptions,
     )
   }
   return value
@@ -63,11 +61,11 @@ export const getAnswerWithGuaranteedProbability = (
 export const getProbabilitiesWithGuaranteedProbabilityForCorrectAnswer = (
   correctAnswerSerialNumber: OptionSerialNumber,
   guaranteedProbability: number,
-  excludedOptions: OptionSerialNumber[] = []
+  excludedOptions: OptionSerialNumber[] = [],
 ): Record<OptionSerialNumber, number> => {
   const correctAnswerGuaranteedProbability = Math.max(
     Math.round(Math.random() * 100),
-    guaranteedProbability
+    guaranteedProbability,
   )
 
   const probabilities = {
@@ -78,9 +76,9 @@ export const getProbabilitiesWithGuaranteedProbabilityForCorrectAnswer = (
 
   if (excludedOptions.length) {
     const notExcludedIncorrectOptionSerialNumber = OPTIONS_SERIAL_NUMBERS.find(
-      (number) =>
+      number =>
         number !== correctAnswerSerialNumber &&
-        !excludedOptions.includes(number)
+        !excludedOptions.includes(number),
     )
     probabilities[notExcludedIncorrectOptionSerialNumber!] =
       remainingProbability
