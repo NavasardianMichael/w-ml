@@ -4,5 +4,5 @@
   "prettier.semi": false,
   "prettier.jsxSingleQuote": true,
   "prettier.singleQuote": true,
-  "cSpell.words": ["nativewind"]
+  "cSpell.words": ["nativewind", "Pressable"]
 }

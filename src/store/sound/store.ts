@@ -45,6 +45,7 @@ export const useSoundStore = create<SoundState & SoundStateActions>()(
         // ============ PLAYBACK METHODS ============
 
         playSoundById: async (id: string, options?: { loop?: boolean }) => {
+          const { isMuted } = get();
           try {
             console.log(`Attempting to play sound: ${id}`);
             if (!audioService.isPlayerInitialized()) {
@@ -53,6 +54,9 @@ export const useSoundStore = create<SoundState & SoundStateActions>()(
               );
               await audioService.setupPlayer();
             }
+            console.log({ isMuted });
+
+            await audioService.setVolume(isMuted ? 0 : 1);
             audioService.playTrack(id, options);
             set(state => {
               if (!state.activeSoundIdsStack.includes(id)) {
@@ -125,6 +129,8 @@ export const useSoundStore = create<SoundState & SoundStateActions>()(
         },
 
         setIsActiveSoundMuted: async (isMuted: boolean) => {
+          console.log('Setting mute status to:', isMuted);
+
           try {
             await audioService.setVolume(isMuted ? 0 : 1);
             set(state => {

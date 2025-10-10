@@ -5,7 +5,7 @@ import { SOUNDS_URIS } from '@/constants/sound';
 import { useSound } from '@/hooks/useSound';
 import { useSoundStore } from '@/store/sound/store';
 import { useState } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import SidebarTrigger from '../game/Sidebar/SidebarTrigger';
 import ExitModal from './ExitModal';
 import LanguagesDropdown from './LanguagesDropdown';

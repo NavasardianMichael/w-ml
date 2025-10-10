@@ -21,9 +21,9 @@ export default memo(function LogoBlock() {
 
   if (isPortrait) {
     return (
-      <View className="flex-1 flex flex-col gap-md">
+      <View className="flex-1 flex flex-col gap-md mx-auto">
         <Image
-          className={`ml-4! ${className} ${sizeClassName}`}
+          className={`${className} ${sizeClassName}`}
           source={require('../../../assets/images/logo.webp')}
         />
 

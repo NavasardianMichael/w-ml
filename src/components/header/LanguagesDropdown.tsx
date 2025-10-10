@@ -35,7 +35,7 @@ export default function LanguagesDropdown() {
     [setSettingsState, changeLanguage],
   );
 
-  const SelectedLangIcon = ICONS[language];
+  const SelectedLangIcon = ICONS[language] as React.ElementType;
 
   return (
     <View className={`relative!`}>
@@ -44,11 +44,11 @@ export default function LanguagesDropdown() {
         onPress={toggleDropdown}
         className={`bg-primary w-140  border border-secondary rounded-lg py-sm px-md flex-row justify-between items-center ${
           isDropdownOpen ? 'rounded-b-none' : ''
-        } h-9`}
+        }`}
       >
-        <View className={`flex-row items-center `}>
-          <View className="flex flex-row items-center gap-sm h-8">
-            <SelectedLangIcon className="h-full border border-primary" />
+        <View className={`flex-row items-center`}>
+          <View className="flex flex-row items-center gap-sm">
+            <SelectedLangIcon className="border border-primary w-4 h-4 flex items-center" />
             <Text className="text-secondary">{LANGUAGE_NAMES[language]}</Text>
           </View>
         </View>
@@ -58,10 +58,10 @@ export default function LanguagesDropdown() {
         {/* Dropdown List */}
       </Pressable>
       {isDropdownOpen ? (
-        <View className="absolute left-0 right-0 top-9 bg-primary border border-t-0  border-secondary rounded-b-lg overflow-hidden">
+        <View className="absolute z-10 left-0 right-0 top-9 bg-primary border border-t-0  border-secondary rounded-b-lg overflow-hidden">
           <ScrollView>
             {LANGUAGES_LIST.map((l, index, arr) => {
-              const Icon = ICONS[l];
+              const Icon = ICONS[l] as React.ElementType;
               return (
                 <Pressable
                   key={l}
@@ -71,7 +71,7 @@ export default function LanguagesDropdown() {
                   } ${language === l ? 'bg-blue-100' : 'bg-secondary'}`}
                 >
                   <View className="flex flex-row items-center gap-sm h-8">
-                    <Icon className="h-full border border-primary" />
+                    <Icon className="border border-primary w-4 h-4" />
                     <Text>{LANGUAGE_NAMES[l]}</Text>
                   </View>
                 </Pressable>
