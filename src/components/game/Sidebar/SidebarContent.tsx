@@ -91,8 +91,8 @@ export default function SidebarContent() {
   return (
     <>
       <View
-        className={`absolute h-full w-80 right-0 bottom-0 top-0 z-10 p-md transition ${
-          !isSidebarOpen ? '-translate-x-full' : ''
+        className={`absolute h-full w-80  bottom-0 -top-md z-10 p-md transition ${
+          !isSidebarOpen ? '-right-full' : '-right-md'
         } bg-indigo-700 border-l border-l-secondary`}
       >
         <View className='absolute top-md right-md z-20 rotate-180'>

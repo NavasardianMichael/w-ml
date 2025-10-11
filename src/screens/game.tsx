@@ -198,7 +198,7 @@ const Game = () => {
                   >
                     <View className='flex-row gap-1 items-center h-8'>
                       {!isRemovedByFiftyFifty ? (
-                        <>
+                        <View className='flex flex-row gap-sm'>
                           <Text
                             className={`text-${
                               optionClassNameByStatus ? 'secondary' : 'tertiary'
@@ -207,7 +207,7 @@ const Game = () => {
                             {String.fromCharCode(65 + index)}.{' '}
                           </Text>
                           <Text className='text-secondary'>{option}</Text>
-                        </>
+                        </View>
                       ) : null}
                     </View>
                   </TouchableOpacity>
