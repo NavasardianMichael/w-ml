@@ -91,11 +91,11 @@ export default function SidebarContent() {
   return (
     <>
       <View
-        className={`absolute h-full w-80  bottom-0 -top-md z-10 p-md transition ${
-          !isSidebarOpen ? '-right-full' : '-right-md'
+        className={`absolute flex-1 w-80 -bottom-lg -top-lg z-10 p-lg transition ${
+          !isSidebarOpen ? '-right-full' : '-right-lg'
         } bg-indigo-700 border-l border-l-secondary`}
       >
-        <View className='absolute top-md right-md z-20 rotate-180'>
+        <View className='absolute top-lg right-lg z-20 rotate-180'>
           <TouchableOpacity
             className='w-6 h-6'
             onPress={() => toggleIsSidebarOpen()}
@@ -138,7 +138,7 @@ export default function SidebarContent() {
             })}
           </View>
 
-          <View className='flex flex-col-reverse my-auto'>
+          <View className='flex flex-col-reverse my-auto pt-md'>
             {QUESTION_STAGES.map(stage => {
               return (
                 <View

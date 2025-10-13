@@ -4,7 +4,7 @@ import Home from './screens/home'
 import Results from './screens/results'
 import { useGameStore } from './store/game/store'
 import { Screen } from './types/game'
-import { View } from 'react-native'
+import { StatusBar, View } from 'react-native'
 
 function App() {
   // const safeAreaInsets = useSafeAreaInsets();
@@ -19,7 +19,8 @@ function App() {
   const ScreenComponent = COMPONENT_BY_SCREEN[screen]
 
   return (
-    <View className='flex-1 bg-primary p-md'>
+    <View className='flex-1 bg-primary p-lg'>
+      <StatusBar hidden />
       <ScreenComponent />
     </View>
   )

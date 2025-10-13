@@ -12,11 +12,12 @@ import { useLifelinesStore } from '@/store/lifelines/store'
 import { useSettingsStore } from '@/store/settings/store'
 import { useSoundStore } from '@/store/sound/store'
 import { OptionSerialNumber, QuestionStage } from '@/types/game'
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, TouchableOpacity, View } from 'react-native'
 import Header from '@/components/header/Header'
 import SidebarContent from '@/components/game/Sidebar/SidebarContent'
+import { useIsPortrait } from '@/hooks/useIsPortrait'
 
 const Game = () => {
   const {
@@ -36,6 +37,7 @@ const Game = () => {
   } = useLifelinesStore()
   const { language } = useSettingsStore()
   const { t } = useTranslation()
+  const isPortrait = useIsPortrait()
 
   useSound(SOUNDS_URIS.resign)
   useSound(SOUNDS_URIS.finalAnswer)
@@ -50,11 +52,15 @@ const Game = () => {
 
   const [showCorrectAnswer, setShowCorrectAnswer] = React.useState(false)
 
-  const optionClassNameByOrientation = useClassNameByOrientation(
-    'w-full',
-    'w-[48%]',
+  const optionContainerClassNameByOrientation = useClassNameByOrientation(
+    'w-full mb-md',
+    'w-[49%] mb-md ',
   )
-
+  const optionsContainerClassNameByOrientation = useClassNameByOrientation(
+    'flex-col',
+    'flex-row flex-wrap',
+  )
+  console.log({ optionsContainerClassNameByOrientation })
   useEffect(() => {
     return () => {
       setGameState({
@@ -144,25 +150,30 @@ const Game = () => {
     }
   }
 
-  const getOptionClassNameByStatus = (serialNumber: OptionSerialNumber) => {
-    if (showCorrectAnswer) {
-      const isAnswerCorrect =
-        serialNumber === currentQuizItem.correctOptionSerialNumber
-      if (isAnswerCorrect) {
-        return 'bg-green-500'
-      } else if (serialNumber === currentQuizItem.answeredOptionSerialNumber) {
-        return 'bg-red-500'
+  const getOptionClassNameByStatus = useCallback(
+    (serialNumber: OptionSerialNumber) => {
+      if (showCorrectAnswer) {
+        const isAnswerCorrect =
+          serialNumber === currentQuizItem.correctOptionSerialNumber
+        if (isAnswerCorrect) {
+          return 'bg-green-500'
+        } else if (
+          serialNumber === currentQuizItem.answeredOptionSerialNumber
+        ) {
+          return 'bg-red-500'
+        }
       }
-    }
-    return currentQuizItem.answeredOptionSerialNumber === serialNumber
-      ? 'bg-tertiary'
-      : ''
-  }
+      return currentQuizItem.answeredOptionSerialNumber === serialNumber
+        ? 'bg-tertiary'
+        : ''
+    },
+    [currentQuizItem, showCorrectAnswer],
+  )
 
   if (!currentQuizItem) return null
 
   return (
-    <View key={currentQuizItem.id}>
+    <View key={currentQuizItem.id} className='flex-1'>
       <Header />
       <SidebarContent />
       {switchQuestion?.waitingToSwitchQuizItem ? (
@@ -174,11 +185,13 @@ const Game = () => {
         {currentQuizItem ? (
           <View className='flex flex-col gap-lg mt-auto text-secondary'>
             <View>
-              <Text className='text-secondary border-secondary border py-sm px-md box-border rounded-lg text-center'>
+              <Text className='text-secondary border-secondary border px-md py-sm box-border rounded-lg text-center'>
                 {currentQuizItem.question}
               </Text>
             </View>
-            <View className='flex-row flex-wrap gap-md w-full relative'>
+            <View
+              className={`flex relative ${optionsContainerClassNameByOrientation}`}
+            >
               {currentQuizItem.options.map((option, index) => {
                 const optionClassNameByStatus = getOptionClassNameByStatus(
                   (index + 1) as OptionSerialNumber,
@@ -187,30 +200,38 @@ const Game = () => {
                   !!currentLifeline &&
                   fiftyFifty?.[(index + 1) as OptionSerialNumber]
                 return (
-                  <TouchableOpacity
+                  <View
                     key={option}
-                    disabled={
-                      !!currentQuizItem.answeredOptionSerialNumber ||
-                      isRemovedByFiftyFifty
-                    }
-                    className={`${optionClassNameByOrientation} grow border border-secondary rounded-md ${optionClassNameByStatus}`}
-                    onPress={() => onOptionPress(option, index + 1)}
+                    className={`${optionContainerClassNameByOrientation} ${
+                      !isPortrait && index % 2 === 1 ? 'ml-[2%]' : ''
+                    }`}
                   >
-                    <View className='flex-row gap-1 items-center h-8'>
-                      {!isRemovedByFiftyFifty ? (
-                        <View className='flex flex-row gap-sm'>
-                          <Text
-                            className={`text-${
-                              optionClassNameByStatus ? 'secondary' : 'tertiary'
-                            } font-semibold`}
-                          >
-                            {String.fromCharCode(65 + index)}.{' '}
-                          </Text>
-                          <Text className='text-secondary'>{option}</Text>
-                        </View>
-                      ) : null}
-                    </View>
-                  </TouchableOpacity>
+                    <TouchableOpacity
+                      disabled={
+                        !!currentQuizItem.answeredOptionSerialNumber ||
+                        isRemovedByFiftyFifty
+                      }
+                      className={`border border-secondary rounded-md ${optionClassNameByStatus}`}
+                      onPress={() => onOptionPress(option, index + 1)}
+                    >
+                      <View className='flex-row items-center px-md my-sm'>
+                        {!isRemovedByFiftyFifty ? (
+                          <View className='flex flex-row gap-sm items-center'>
+                            <Text
+                              className={`text-${
+                                optionClassNameByStatus
+                                  ? 'secondary'
+                                  : 'tertiary'
+                              } font-semibold`}
+                            >
+                              {String.fromCharCode(65 + index)}.{' '}
+                            </Text>
+                            <Text className='text-secondary'>{option}</Text>
+                          </View>
+                        ) : null}
+                      </View>
+                    </TouchableOpacity>
+                  </View>
                 )
               })}
 

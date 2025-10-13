@@ -5,7 +5,7 @@ import { Text } from 'react-native'
 const LIFELINES_TEMPLATE = [
   {
     id: LIFELINES.fiftyFifty,
-    icon: <Text className='text-secondary text-sm font-bold'>50/50</Text>,
+    icon: <Text className='text-secondary text-xs font-bold'>50/50</Text>,
   },
   {
     id: LIFELINES.phoneAFriend,

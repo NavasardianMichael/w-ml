@@ -40,7 +40,7 @@ export default function Header() {
 
   return (
     <>
-      <View className='pt-8 flex flex-row items-center justify'>
+      <View className='flex flex-row items-center justify'>
         <TouchableOpacity onPress={soundHandler} className='h-6 w-6'>
           {isMuted ? <VolumeOffIcon /> : <VolumeOnIcon />}
         </TouchableOpacity>
@@ -48,7 +48,7 @@ export default function Header() {
           <TouchableOpacity
             key='header-exit-button'
             onPress={() => setIsExitModalVisible(true)}
-            className='h-6 rotate-180'
+            className='h-6 w-6 ml-md rotate-180'
           >
             <ICONS.exit />
           </TouchableOpacity>
