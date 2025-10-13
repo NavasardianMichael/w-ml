@@ -174,7 +174,7 @@ const Game = () => {
         {currentQuizItem ? (
           <View className='flex flex-col gap-lg mt-auto text-secondary'>
             <View>
-              <Text className='text-secondary border-secondary border py-sm px-md rounded-lg text-center'>
+              <Text className='text-secondary border-secondary border py-sm px-md box-border rounded-lg text-center'>
                 {currentQuizItem.question}
               </Text>
             </View>
@@ -193,7 +193,7 @@ const Game = () => {
                       !!currentQuizItem.answeredOptionSerialNumber ||
                       isRemovedByFiftyFifty
                     }
-                    className={`${optionClassNameByOrientation} grow border border-secondary rounded-md px-md ${optionClassNameByStatus}`}
+                    className={`${optionClassNameByOrientation} grow border border-secondary rounded-md ${optionClassNameByStatus}`}
                     onPress={() => onOptionPress(option, index + 1)}
                   >
                     <View className='flex-row gap-1 items-center h-8'>

@@ -36,7 +36,11 @@
   "prettier.jsxSingleQuote": true,
   "prettier.trailingComma": "all",
   "prettier.arrowParens": "avoid",
-  "cSpell.words": ["nativewind", "Pressable"],
+  "cSpell.words": [
+    "MYAPP",
+    "nativewind",
+    "Pressable"
+  ],
   "emmet.includeLanguages": {
     "typescript": "html",
     "typescriptreact": "html"
