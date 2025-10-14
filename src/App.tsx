@@ -1,13 +1,12 @@
+import { StatusBar, View } from 'react-native'
 import { SCREENS } from './constants/game'
 import Game from './screens/game'
 import Home from './screens/home'
 import Results from './screens/results'
 import { useGameStore } from './store/game/store'
 import { Screen } from './types/game'
-import { StatusBar, View } from 'react-native'
 
 function App() {
-  // const safeAreaInsets = useSafeAreaInsets();
   const { screen } = useGameStore()
 
   const COMPONENT_BY_SCREEN: Record<Screen, React.FC> = {

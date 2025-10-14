@@ -1,6 +1,6 @@
-import { OPTIONS_SERIAL_NUMBERS, QUESTION_STAGES } from '@/constants/game'
 import { LifelinesState } from '@/store/lifelines/types'
 import { OptionSerialNumber, QuestionStage } from '@/types/game'
+import { OPTIONS_SERIAL_NUMBERS, QUESTION_STAGES } from '@/constants/game'
 
 export const getGuaranteedProbabilityByStage = (
   stage: QuestionStage,

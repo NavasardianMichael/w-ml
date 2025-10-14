@@ -1,8 +1,8 @@
-import { SCREENS } from '@/constants/game'
-import { useGameStore } from '@/store/game/store'
 import { FC, memo } from 'react'
-import { useTranslation } from 'react-i18next'
 import { Modal, Text, TouchableOpacity, View } from 'react-native'
+import { useTranslation } from 'react-i18next'
+import { useGameStore } from '@/store/game/store'
+import { SCREENS } from '@/constants/game'
 
 type Props = {
   isVisible: boolean

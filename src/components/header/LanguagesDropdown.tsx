@@ -1,12 +1,12 @@
+import { ReactNode, useCallback, useState } from 'react'
+import { Pressable, ScrollView, Text, View } from 'react-native'
+import { useTranslation } from 'react-i18next'
 import { getQuiz } from '@/api/getQuiz'
+import { useSettingsStore } from '@/store/settings/store'
+import { LANGUAGES_LIST } from '@/services/translations/constants'
+import { Language } from '@/types/settings'
 import { ICONS } from '@/constants/icons'
 import { LANGUAGE_NAMES } from '@/constants/settings'
-import { LANGUAGES_LIST } from '@/services/translations/constants'
-import { useSettingsStore } from '@/store/settings/store'
-import { Language } from '@/types/settings'
-import { ReactNode, useCallback, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Pressable, ScrollView, Text, View } from 'react-native'
 
 export type AppDropdownOption = {
   label: ReactNode

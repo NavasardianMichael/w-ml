@@ -1,6 +1,6 @@
+import { Text } from 'react-native'
 import { LIFELINES } from '@/constants/game'
 import { ICONS } from '@/constants/icons'
-import { Text } from 'react-native'
 
 const LIFELINES_TEMPLATE = [
   {

@@ -1,5 +1,5 @@
-import { useSoundStore } from '@/store/sound/store'
 import { useEffect } from 'react'
+import { useSoundStore } from '@/store/sound/store'
 
 type UseSound = (
   trackId: string,

@@ -1,6 +1,6 @@
-import { ICONS } from '@/constants/icons'
+import { TouchableOpacity, View } from 'react-native'
 import { useGameStore } from '@/store/game/store'
-import { Image, TouchableOpacity, View } from 'react-native'
+import { ICONS } from '@/constants/icons'
 
 export default function SidebarTrigger() {
   const { toggleIsSidebarOpen } = useGameStore()

@@ -1,11 +1,11 @@
+import { memo } from 'react'
+import { Text, TouchableOpacity, View } from 'react-native'
+import { useTranslation } from 'react-i18next'
+import { useLifelinesStore } from '@/store/lifelines/store'
 import { HTML_CODES } from '@/constants/commons'
 import { CHAR_CODES_BY_OPTION_SERIAL_NUMBER } from '@/constants/game'
 import { ICONS } from '@/constants/icons'
 import { useClassNameByOrientation } from '@/hooks/useClassNameByOrientation'
-import { useLifelinesStore } from '@/store/lifelines/store'
-import { memo } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Text, TouchableOpacity, View } from 'react-native'
 
 export default memo(function PhoneAFriend() {
   const { phoneAFriend, setLifelinesState } = useLifelinesStore()

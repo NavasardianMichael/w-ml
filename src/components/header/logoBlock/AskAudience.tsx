@@ -1,11 +1,11 @@
+import { memo, useState } from 'react'
+import { Text, TouchableOpacity, View } from 'react-native'
+import { useLifelinesStore } from '@/store/lifelines/store'
+import { HTML_CODES } from '@/constants/commons'
 import {
   CHAR_CODES_BY_OPTION_SERIAL_NUMBER,
   OPTIONS_SERIAL_NUMBERS,
 } from '@/constants/game'
-import { HTML_CODES } from '@/constants/commons'
-import { useLifelinesStore } from '@/store/lifelines/store'
-import { memo, useState } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
 
 export default memo(function AskAudience() {
   const { askAudience, setLifelinesState } = useLifelinesStore()

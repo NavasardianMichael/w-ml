@@ -1,11 +1,11 @@
+import i18next from 'i18next'
+import { GameState, QuizItem } from '@/store/game/types'
 import {
   getLastQuestionNumberBySafeHavenNumberByLanguage,
   setLastQuestionNumberBySafeHavenNumberByLanguage,
 } from '@/services/localStorage/api'
-import { GameState, QuizItem } from '@/store/game/types'
 import { SafeHavenStage } from '@/types/game'
 import { Language } from '@/types/settings'
-import i18next from 'i18next'
 
 export type GetQuizAPI = {
   payload: {

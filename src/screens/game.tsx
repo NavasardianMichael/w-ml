@@ -1,23 +1,24 @@
-import { SCREENS } from '@/constants/game'
-import { ICONS } from '@/constants/icons'
-import { SOUND_DURATION_BY_URI, SOUNDS_URIS } from '@/constants/sound'
-import { sleep } from '@/helpers/commons'
-import { getBgSoundIdByQuestionStage } from '@/helpers/game'
-import { useClassNameByOrientation } from '@/hooks/useClassNameByOrientation'
-import { useCurrentQuizItem } from '@/hooks/useCurrentQuizItem'
-import { useSound } from '@/hooks/useSound'
-import { setLastQuestionNumberBySafeHavenNumberByLanguage } from '@/services/localStorage/api'
+import { useCallback, useEffect, useState } from 'react'
+import { Text, TouchableOpacity, View } from 'react-native'
+import { useTranslation } from 'react-i18next'
 import { useGameStore } from '@/store/game/store'
 import { useLifelinesStore } from '@/store/lifelines/store'
 import { useSettingsStore } from '@/store/settings/store'
 import { useSoundStore } from '@/store/sound/store'
+import { setLastQuestionNumberBySafeHavenNumberByLanguage } from '@/services/localStorage/api'
 import { OptionSerialNumber, QuestionStage } from '@/types/game'
-import React, { useCallback, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Text, TouchableOpacity, View } from 'react-native'
-import Header from '@/components/header/Header'
-import SidebarContent from '@/components/game/Sidebar/SidebarContent'
+import { sleep } from '@/helpers/commons'
+import { getBgSoundIdByQuestionStage } from '@/helpers/game'
+import { SCREENS } from '@/constants/game'
+import { ICONS } from '@/constants/icons'
+import { SOUND_DURATION_BY_URI, SOUNDS_URIS } from '@/constants/sound'
+
+import { useClassNameByOrientation } from '@/hooks/useClassNameByOrientation'
+import { useCurrentQuizItem } from '@/hooks/useCurrentQuizItem'
 import { useIsPortrait } from '@/hooks/useIsPortrait'
+import { useSound } from '@/hooks/useSound'
+import SidebarContent from '@/components/game/Sidebar/SidebarContent'
+import Header from '@/components/header/Header'
 
 const Game = () => {
   const {
@@ -50,7 +51,7 @@ const Game = () => {
 
   const currentQuizItem = useCurrentQuizItem()
 
-  const [showCorrectAnswer, setShowCorrectAnswer] = React.useState(false)
+  const [showCorrectAnswer, setShowCorrectAnswer] = useState(false)
 
   const optionContainerClassNameByOrientation = useClassNameByOrientation(
     'w-full mb-md',

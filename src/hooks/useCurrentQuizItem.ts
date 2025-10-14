@@ -1,6 +1,6 @@
+import { useMemo } from 'react'
 import { useGameStore } from '@/store/game/store'
 import { QuizItem } from '@/store/game/types'
-import { useMemo } from 'react'
 
 /**
  * Returns the current quiz item.

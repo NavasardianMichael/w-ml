@@ -1,6 +1,6 @@
+import { Text, View } from 'react-native'
 import { ICONS } from '@/constants/icons'
 import { LANGUAGE_NAMES } from '@/constants/settings'
-import { Text, View } from 'react-native'
 
 const LANGUAGE_DROPDOWN_OPTIONS = [
   {

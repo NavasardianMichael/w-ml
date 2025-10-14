@@ -1,17 +1,17 @@
+import { useState } from 'react'
+import { TouchableOpacity, View } from 'react-native'
 import VolumeOffIcon from '@/assets/icons/volume-off.svg'
 import VolumeOnIcon from '@/assets/icons/volume-on.svg'
+import { useGameStore } from '@/store/game/store'
+import { useSoundStore } from '@/store/sound/store'
+import { SCREENS } from '@/constants/game'
 import { ICONS } from '@/constants/icons'
 import { SOUNDS_URIS } from '@/constants/sound'
 import { useSound } from '@/hooks/useSound'
-import { useSoundStore } from '@/store/sound/store'
-import { useState } from 'react'
-import { TouchableOpacity, View } from 'react-native'
 import SidebarTrigger from '../game/Sidebar/SidebarTrigger'
 import ExitModal from './ExitModal'
 import LanguagesDropdown from './LanguagesDropdown'
 import LogoBlock from './logoBlock/LogoBlock'
-import { useGameStore } from '@/store/game/store'
-import { SCREENS } from '@/constants/game'
 
 export default function Header() {
   const { screen } = useGameStore()

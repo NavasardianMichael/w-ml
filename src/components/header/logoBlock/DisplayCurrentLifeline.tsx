@@ -1,6 +1,6 @@
-import { LIFELINES } from '@/constants/game'
-import { useLifelinesStore } from '@/store/lifelines/store'
 import { memo } from 'react'
+import { useLifelinesStore } from '@/store/lifelines/store'
+import { LIFELINES } from '@/constants/game'
 import AskAudience from './AskAudience'
 import PhoneAFriend from './PhoneAFriend'
 

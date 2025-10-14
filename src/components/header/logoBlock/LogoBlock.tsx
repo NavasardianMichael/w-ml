@@ -1,9 +1,9 @@
+import { memo, useMemo } from 'react'
+import { Image, View } from 'react-native'
+import { useLifelinesStore } from '@/store/lifelines/store'
 import { LIFELINES } from '@/constants/game'
 import { useClassNameByOrientation } from '@/hooks/useClassNameByOrientation'
 import { useIsPortrait } from '@/hooks/useIsPortrait'
-import { useLifelinesStore } from '@/store/lifelines/store'
-import { memo, useMemo } from 'react'
-import { Image, View } from 'react-native'
 import DisplayCurrentLifeline from './DisplayCurrentLifeline'
 
 export default memo(function LogoBlock() {

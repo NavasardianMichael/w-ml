@@ -1,8 +1,8 @@
 import { create } from 'zustand'
 import { combine } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
-import { SoundState, SoundStateActions } from './types'
 import { reactNativeSoundService } from '@/services/reactNativeSound/soundService'
+import { SoundState, SoundStateActions } from './types'
 // import { mockTrackPlayerService } from '@/services/mockTrackPlayer/mockTrackPlayerService';
 
 // Use React Native Sound service

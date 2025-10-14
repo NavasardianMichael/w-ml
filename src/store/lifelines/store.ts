@@ -1,4 +1,7 @@
 import {} from '@/helpers/game'
+import { create } from 'zustand'
+import { combine } from 'zustand/middleware'
+import { immer } from 'zustand/middleware/immer'
 import {
   getAnswerWithGuaranteedProbability,
   getGuaranteedProbabilityByStage,
@@ -6,9 +9,6 @@ import {
   getProbabilitiesWithGuaranteedProbabilityForCorrectAnswer,
   sliceArrayContainingCorrectAnswer,
 } from '@/helpers/lifeline'
-import { create } from 'zustand'
-import { combine } from 'zustand/middleware'
-import { immer } from 'zustand/middleware/immer'
 import { LifelinesState, LifelinesStateActions } from './types'
 
 const initialState: LifelinesState = {
@@ -25,7 +25,7 @@ export const useLifelinesStore = create<
   LifelinesState & LifelinesStateActions
 >()(
   immer(
-    combine(initialState, (set, get): LifelinesStateActions => {
+    combine(initialState, (set): LifelinesStateActions => {
       return {
         setLifelinesState: async payload => {
           set(prevState => ({
@@ -33,10 +33,7 @@ export const useLifelinesStore = create<
             ...payload,
           }))
         },
-        setFiftyFiftyLifeline: ({
-          correctOptionSerialNumber,
-          currentQuestionStage,
-        }) => {
+        setFiftyFiftyLifeline: ({ correctOptionSerialNumber }) => {
           set(prevState => {
             const randomIncorrectOptions = sliceArrayContainingCorrectAnswer(
               correctOptionSerialNumber,

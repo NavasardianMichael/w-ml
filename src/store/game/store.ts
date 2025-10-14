@@ -1,10 +1,10 @@
-import { getQuiz } from '@/api/getQuiz'
-import { getNextQuizItemByLanguageAndSafeHavenNumber } from '@/services/localStorage/api'
 import { create } from 'zustand'
 import { combine } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
-import { GameState, GameStateActions } from './types'
+import { getQuiz } from '@/api/getQuiz'
+import { getNextQuizItemByLanguageAndSafeHavenNumber } from '@/services/localStorage/api'
 import { SCREENS } from '@/constants/game'
+import { GameState, GameStateActions } from './types'
 
 const initialState: GameState = {
   screen: SCREENS.home,
@@ -16,7 +16,7 @@ const initialState: GameState = {
 
 export const useGameStore = create<GameState & GameStateActions>()(
   immer(
-    combine(initialState, (set, get): GameStateActions => {
+    combine(initialState, (set): GameStateActions => {
       return {
         setGameState: async payload => {
           set(prevState => ({
