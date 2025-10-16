@@ -126,8 +126,8 @@ export default function SidebarContent() {
                   >
                     {icon}
                     {lifelinesStore[id] ? (
-                      <View className='absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2'>
-                        <Text className='text-lg text-red-500'>
+                      <View className='absolute'>
+                        <Text className='text-2xl text-red-500'>
                           {HTML_CODES.close}
                         </Text>
                       </View>

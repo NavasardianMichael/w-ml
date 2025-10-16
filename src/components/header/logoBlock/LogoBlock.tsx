@@ -8,7 +8,7 @@ import DisplayCurrentLifeline from './DisplayCurrentLifeline'
 
 export default memo(function LogoBlock() {
   const { currentLifeline } = useLifelinesStore()
-  const sizeClassName = useClassNameByOrientation('w-40 h-40', 'w-24 h-24')
+  const sizeClassName = useClassNameByOrientation('w-40 h-40', 'w-28 h-28')
   const className = useClassNameByOrientation('mb-8', 'mb-2')
 
   const isPortrait = useIsPortrait()

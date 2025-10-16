@@ -47,16 +47,14 @@ export default memo(function PhoneAFriend() {
       )}
       {phoneAFriend ? (
         <TouchableOpacity
-          className={`p-md z-10 absolute -top-4 -right-4 rounded-full bg-primary ${
+          className={`w-9 h-9 z-10 absolute -top-4 -right-4 bg-primary border border-secondary rounded-full flex items-center justify-center ${
             !phoneAFriend ? 'opacity-50' : 'opacity-100'
           }`}
           onPress={() => {
             setLifelinesState({ currentLifeline: null })
           }}
         >
-          <Text className='text-lg text-secondary border border-secondary rounded'>
-            {HTML_CODES.close}
-          </Text>
+          <Text className='text-lg text-secondary '>{HTML_CODES.close}</Text>
         </TouchableOpacity>
       ) : null}
     </View>

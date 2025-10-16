@@ -15,12 +15,6 @@ export default memo(function AskAudience() {
     <View
       className='flex-col    
       flex-1 justify-center p-sm mx-auto rounded-lg border border-secondary bg-primary-contrast'
-      onLayout={e => {
-        const height = e.nativeEvent.layout.height
-        if (height > 0 && barHeight !== height) {
-          setBarHeight(height)
-        }
-      }}
     >
       <View className='relative flex-row grow gap'>
         {OPTIONS_SERIAL_NUMBERS.map(serialNumber => {
@@ -30,16 +24,24 @@ export default memo(function AskAudience() {
           return (
             <View
               key={serialNumber}
-              className={`flex flex-col justify-end items-center gap-sm grow border-separate border-l border-secondary px-md ${
+              className={`flex flex-col justify-end items-center  border-separate border-l border-secondary px-md ${
                 serialNumber === 1 ? 'border-l-0' : ''
               }`}
+              onLayout={e => {
+                const height = e.nativeEvent.layout.height
+                if (height > 0 && barHeight !== height) {
+                  setBarHeight(height)
+                }
+              }}
             >
               <Text className=' text-secondary'>
                 {askAudience?.[serialNumber] ?? 0}%
               </Text>
-              <View className={`w-xl grow mt-auto flex rounded-sm`}>
+              <View
+                className={`w-xl mt-auto flex rounded-sm border border-secondary`}
+              >
                 <View
-                  className='mt-auto bg-gradient-to-br from-white to-indigo-700 rounded-sm'
+                  className='mt-auto w-full block rounded-sm bg-red'
                   style={{ height: barHeight * (percentage / 100) }}
                 />
               </View>

@@ -215,7 +215,7 @@ const Game = () => {
                       className={`border border-secondary rounded-md ${optionClassNameByStatus}`}
                       onPress={() => onOptionPress(option, index + 1)}
                     >
-                      <View className='flex-row items-center px-md my-sm'>
+                      <View className='flex-row items-center px-md my-sm min-h-[20px]'>
                         {!isRemovedByFiftyFifty ? (
                           <View className='flex flex-row gap-sm items-center'>
                             <Text
