@@ -1,11 +1,12 @@
 import { memo } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useLifelinesStore } from '@/store/lifelines/store'
 import { HTML_CODES } from '@/constants/commons'
 import { CHAR_CODES_BY_OPTION_SERIAL_NUMBER } from '@/constants/game'
 import { ICONS } from '@/constants/icons'
 import { useClassNameByOrientation } from '@/hooks/useClassNameByOrientation'
+import AppText from '@/components/ui/AppText'
 
 export default memo(function PhoneAFriend() {
   const { phoneAFriend, setLifelinesState } = useLifelinesStore()
@@ -25,24 +26,24 @@ export default memo(function PhoneAFriend() {
         <ICONS.phone />
       </View>
       {phoneAFriend?.suggestedOptionSerialNumber ? (
-        <Text className='text-center text-secondary text-lg'>
+        <AppText className='text-center text-secondary text-lg'>
           I think the answer is{' '}
-          <Text className='font-bold'>
+          <AppText className='font-bold'>
             {
               CHAR_CODES_BY_OPTION_SERIAL_NUMBER[
                 phoneAFriend.suggestedOptionSerialNumber
               ]
             }
-          </Text>
-        </Text>
+          </AppText>
+        </AppText>
       ) : (
         <View className='flex flex-col gap-sm items-center'>
-          <Text className='text-secondary font-semibold text-center'>
+          <AppText className='text-secondary font-semibold text-center'>
             {t('please-wait')}
-          </Text>
-          <Text className='text-secondary font-semibold text-center'>
+          </AppText>
+          <AppText className='text-secondary font-semibold text-center'>
             {t('we-are-getting-in-with-your-friend')}
-          </Text>
+          </AppText>
         </View>
       )}
       {phoneAFriend ? (
@@ -54,7 +55,9 @@ export default memo(function PhoneAFriend() {
             setLifelinesState({ currentLifeline: null })
           }}
         >
-          <Text className='text-lg text-secondary '>{HTML_CODES.close}</Text>
+          <AppText className='text-lg text-secondary '>
+            {HTML_CODES.close}
+          </AppText>
         </TouchableOpacity>
       ) : null}
     </View>

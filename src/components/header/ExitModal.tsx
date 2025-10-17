@@ -1,8 +1,9 @@
 import { FC, memo } from 'react'
-import { Modal, Text, TouchableOpacity, View } from 'react-native'
+import { Modal, TouchableOpacity, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useGameStore } from '@/store/game/store'
 import { SCREENS } from '@/constants/game'
+import AppText from '../ui/AppText'
 
 type Props = {
   isVisible: boolean
@@ -25,13 +26,15 @@ const ExitModal: FC<Props> = ({ isVisible, onClose }) => {
       <View className='flex-1 justify-center items-center bg-black/50'>
         <View className='bg-secondary rounded-md p-md w-10/12 max-w-sm'>
           <View className='mb-4'>
-            <Text className='font-semibold text-primary'>
+            <AppText className='font-semibold text-primary'>
               {t('are-you-sure-you-want-to-quit')}
-            </Text>
+            </AppText>
           </View>
           <View className='flex-row justify-end'>
             <TouchableOpacity onPress={onClose} className='px-4 py-2'>
-              <Text className='text-primary font-semibold'>{t('no')}</Text>
+              <AppText className='text-primary font-semibold'>
+                {t('no')}
+              </AppText>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
@@ -40,7 +43,9 @@ const ExitModal: FC<Props> = ({ isVisible, onClose }) => {
               }}
               className='px-4 py-2'
             >
-              <Text className='font-semibold text-red-500'>{t('yes')}</Text>
+              <AppText className='font-semibold text-red-500'>
+                {t('yes')}
+              </AppText>
             </TouchableOpacity>
           </View>
         </View>

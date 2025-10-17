@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Text, TouchableHighlight, TouchableOpacity, View } from 'react-native'
+import { TouchableHighlight, TouchableOpacity, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useGameStore } from '@/store/game/store'
 import { useLifelinesStore } from '@/store/lifelines/store'
@@ -155,16 +155,16 @@ export default function SidebarContent() {
                   }`}
                 >
                   <>
-                    <Text className='transition text-md font-semibold text-right w-6 color-secondary'>
+                    <AppText className='transition text-md font-semibold text-right w-6 color-secondary'>
                       {stage}.{' '}
-                    </Text>
-                    <Text className='text-tertiary w-1'>
+                    </AppText>
+                    <AppText className='text-tertiary w-1'>
                       {stage < currentQuestionStage ? '◆' : ''}
-                    </Text>
-                    <Text className='text-md color-secondary ml-md'>
+                    </AppText>
+                    <AppText className='text-md color-secondary ml-md'>
                       {t(`currency-symbol`)}
                       {t(`stage-${stage}-money-amount`)}
-                    </Text>
+                    </AppText>
                   </>
                 </View>
               )

@@ -39,9 +39,6 @@ export default function Home() {
   return (
     <View className='flex-1 bg-primary'>
       <Header />
-      <AppText className='text-xl text-center mt-sm'>
-        {t('who-wants-to-be-a-millionaire')}
-      </AppText>
       <View className='flex flex-1 justify-center items-center gap-4'>
         <AppButton
           disabled={isPending}

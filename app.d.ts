@@ -4,9 +4,10 @@ declare module '*.mp3' {
 }
 
 declare module '*.svg' {
-  const src: string
-  export default src
+  const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>
+  export default content
 }
+
 declare module '*.webp' {
   const content: React.FunctionComponent<React.SVGAttributes<SVGElement>>
   export default content

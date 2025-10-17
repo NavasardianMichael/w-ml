@@ -1,5 +1,5 @@
 import { ReactNode, useCallback, useState } from 'react'
-import { Pressable, ScrollView, Text, View } from 'react-native'
+import { Pressable, ScrollView, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { getQuiz } from '@/api/getQuiz'
 import { useSettingsStore } from '@/store/settings/store'
@@ -7,6 +7,7 @@ import { LANGUAGES_LIST } from '@/services/translations/constants'
 import { Language } from '@/types/settings'
 import { ICONS } from '@/constants/icons'
 import { LANGUAGE_NAMES } from '@/constants/settings'
+import AppText from '../ui/AppText'
 
 export type AppDropdownOption = {
   label: ReactNode
@@ -42,19 +43,25 @@ export default function LanguagesDropdown() {
       <Pressable
         accessibilityIgnoresInvertColors
         onPress={toggleDropdown}
-        className={`bg-primary w-140  border border-secondary rounded-lg py-sm px-md flex-row justify-between items-center ${
+        className={`bg-primary w-140  border border-secondary rounded-lg p-sm flex-row justify-between items-center ${
           isDropdownOpen ? 'rounded-b-none' : ''
         }`}
       >
         <View className={`flex-row items-center`}>
           <View className='flex flex-row items-center gap-sm'>
-            <SelectedLangIcon className='border border-primary w-4 h-4 flex items-center' />
-            <Text className='text-secondary'>{LANGUAGE_NAMES[language]}</Text>
+            <SelectedLangIcon className='border border-primary w-6 h-6 flex items-center' />
+            <AppText className='text-secondary'>
+              {LANGUAGE_NAMES[language]}
+            </AppText>
           </View>
         </View>
-        <Text className={`text-secondary text-xs transition ml-sm rotate-180`}>
+        <AppText
+          className={`text-secondary text-xs transition ml-sm ${
+            isDropdownOpen ? 'rotate-180' : ''
+          }`}
+        >
           {'▼'}
-        </Text>
+        </AppText>
         {/* Dropdown List */}
       </Pressable>
       {isDropdownOpen ? (
@@ -66,13 +73,21 @@ export default function LanguagesDropdown() {
                 <Pressable
                   key={l}
                   onPress={() => selectLanguage(l)}
-                  className={`py-sm px-md flex-row items-center ${
-                    index + 1 !== arr.length ? 'border-b border-primary' : ''
-                  } ${language === l ? 'bg-blue-100' : 'bg-secondary'}`}
+                  className={`flex-row items-center   ${
+                    language === l ? 'bg-secondary' : 'bg-secondary'
+                  } `}
                 >
-                  <View className='flex flex-row items-center gap-sm h-8'>
-                    <Icon className='border border-primary w-4 h-4' />
-                    <Text>{LANGUAGE_NAMES[l]}</Text>
+                  <View
+                    className={`flex flex-row w-full items-center h-10 p-sm ${
+                      index + 1 !== arr.length
+                        ? 'border-b border-b-2-primary'
+                        : ''
+                    }`}
+                  >
+                    <Icon className='w-6 h-6' />
+                    <AppText className='text-primary ml-sm'>
+                      {LANGUAGE_NAMES[l]}
+                    </AppText>
                   </View>
                 </Pressable>
               )
