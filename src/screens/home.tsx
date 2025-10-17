@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useGameStore } from '@/store/game/store'
 import { useSettingsStore } from '@/store/settings/store'
@@ -10,6 +10,7 @@ import { SOUND_DURATION_BY_URI, SOUNDS_URIS } from '@/constants/sound'
 import { useSound } from '@/hooks/useSound'
 import Header from '@/components/header/Header'
 import AppButton from '@/components/ui/AppButton'
+import AppText from '@/components/ui/AppText'
 
 export default function Home() {
   const { playSoundById, stopAllTracks } = useSoundStore()
@@ -38,9 +39,9 @@ export default function Home() {
   return (
     <View className='flex-1 bg-primary'>
       <Header />
-      <Text className='text-xl text-center text-white font-bold'>
+      <AppText className='text-xl text-center mt-sm'>
         {t('who-wants-to-be-a-millionaire')}
-      </Text>
+      </AppText>
       <View className='flex flex-1 justify-center items-center gap-4'>
         <AppButton
           disabled={isPending}
@@ -60,7 +61,7 @@ export default function Home() {
             playSoundById(SOUNDS_URIS.easy, { loop: true })
           }}
         >
-          <Text className='text-secondary'>{t('start-game')}</Text>
+          <AppText>{t('start-game')}</AppText>
         </AppButton>
       </View>
     </View>

@@ -14,6 +14,7 @@ import { ICONS } from '@/constants/icons'
 import { SOUND_DURATION_BY_URI, SOUND_ID_BY_LIFELINE } from '@/constants/sound'
 import { useCurrentQuizItem } from '@/hooks/useCurrentQuizItem'
 import { useSound } from '@/hooks/useSound'
+import AppText from '@/components/ui/AppText'
 import LIFELINES_TEMPLATE from './lifelinesTemplate'
 
 export default function SidebarContent() {
@@ -115,21 +116,25 @@ export default function SidebarContent() {
               return (
                 <TouchableHighlight
                   key={id}
-                  className={`relative flex justify-center items-center border border-secondary w-12 h-12 rounded-full ${
-                    isDisabled ? 'opacity-50' : 'opacity-100'
-                  }`}
+                  className='relative flex justify-center items-center border border-secondary w-12 h-12 rounded-full '
                   disabled={isDisabled}
                   onPress={() => onLifelinePress(id)}
                 >
                   <View
                     className={`${sizingByLifeline} flex justify-center items-center`}
                   >
-                    {icon}
+                    <View
+                      className={`w-full ${
+                        isDisabled ? 'opacity-50' : 'opacity-100'
+                      }`}
+                    >
+                      {icon}
+                    </View>
                     {lifelinesStore[id] ? (
-                      <View className='absolute'>
-                        <Text className='text-2xl text-red-500'>
+                      <View className='absolute left-50 top-50 -translate-x-1/2 -translate-y-1/2'>
+                        <AppText className='text-red-500 text-2xl '>
                           {HTML_CODES.close}
-                        </Text>
+                        </AppText>
                       </View>
                     ) : null}
                   </View>

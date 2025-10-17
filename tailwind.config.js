@@ -2,6 +2,12 @@
 module.exports = {
   content: ['./App.{js,jsx,ts,tsx}', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    fontFamily: {
+      inter: ['Inter-Regular'],
+      'inter-medium': ['Inter-Medium'],
+      'inter-bold': ['Inter-Bold'],
+      'inter-black': ['Inter-Black'],
+    },
     extend: {
       colors: {
         primary: '#1e3a8a', // blue-800

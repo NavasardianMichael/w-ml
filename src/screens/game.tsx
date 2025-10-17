@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useGameStore } from '@/store/game/store'
 import { useLifelinesStore } from '@/store/lifelines/store'
@@ -19,6 +19,7 @@ import { useIsPortrait } from '@/hooks/useIsPortrait'
 import { useSound } from '@/hooks/useSound'
 import SidebarContent from '@/components/game/Sidebar/SidebarContent'
 import Header from '@/components/header/Header'
+import AppText from '@/components/ui/AppText'
 
 const Game = () => {
   const {
@@ -178,17 +179,17 @@ const Game = () => {
       <Header />
       <SidebarContent />
       {switchQuestion?.waitingToSwitchQuizItem ? (
-        <Text className='text-secondary text-center mt-auto font-semibold'>
+        <AppText className='text-center mt-auto font-semibold'>
           {t('which-option-do-you-think-is-correct')}
-        </Text>
+        </AppText>
       ) : null}
       <View className='mt-auto bg-primary' key={currentQuizItem.id}>
         {currentQuizItem ? (
-          <View className='flex flex-col gap-lg mt-auto text-secondary'>
+          <View className='flex flex-col gap-lg mt-auto min-h-[20px]'>
             <View>
-              <Text className='text-secondary border-secondary border px-md py-sm box-border rounded-lg text-center'>
+              <AppText className='border-secondary border px-md py-sm box-border rounded-lg text-center'>
                 {currentQuizItem.question}
-              </Text>
+              </AppText>
             </View>
             <View
               className={`flex relative ${optionsContainerClassNameByOrientation}`}
@@ -218,7 +219,7 @@ const Game = () => {
                       <View className='flex-row items-center px-md my-sm min-h-[20px]'>
                         {!isRemovedByFiftyFifty ? (
                           <View className='flex flex-row gap-sm items-center'>
-                            <Text
+                            <AppText
                               className={`text-${
                                 optionClassNameByStatus
                                   ? 'secondary'
@@ -226,8 +227,10 @@ const Game = () => {
                               } font-semibold`}
                             >
                               {String.fromCharCode(65 + index)}.{' '}
-                            </Text>
-                            <Text className='text-secondary'>{option}</Text>
+                            </AppText>
+                            <AppText className='text-secondary'>
+                              {option}
+                            </AppText>
                           </View>
                         ) : null}
                       </View>
@@ -248,7 +251,7 @@ const Game = () => {
             </View>
           </View>
         ) : (
-          <Text>Loading...</Text>
+          <AppText>Loading...</AppText>
         )}
       </View>
     </View>

@@ -12,11 +12,8 @@ export default memo(function AskAudience() {
   const [barHeight, setBarHeight] = useState(0)
 
   return (
-    <View
-      className='flex-col    
-      flex-1 justify-center p-sm mx-auto rounded-lg border border-secondary bg-primary-contrast'
-    >
-      <View className='relative flex-row grow gap'>
+    <View className='flex-col flex-1 justify-center p-sm mx-auto rounded-lg border border-secondary'>
+      <View className='relative flex-row'>
         {OPTIONS_SERIAL_NUMBERS.map(serialNumber => {
           const percentage = askAudience?.[serialNumber] ?? 0
           const optionCharCode =
@@ -24,7 +21,7 @@ export default memo(function AskAudience() {
           return (
             <View
               key={serialNumber}
-              className={`flex flex-col justify-end items-center  border-separate border-l border-secondary px-md ${
+              className={`flex flex-col justify-end items-center  border-separate border-l border-secondary px-md  ${
                 serialNumber === 1 ? 'border-l-0' : ''
               }`}
               onLayout={e => {
@@ -41,7 +38,7 @@ export default memo(function AskAudience() {
                 className={`w-xl mt-auto flex rounded-sm border border-secondary`}
               >
                 <View
-                  className='mt-auto w-full block rounded-sm bg-red'
+                  className='mt-auto w-full block rounded-sm'
                   style={{ height: barHeight * (percentage / 100) }}
                 />
               </View>
