@@ -41,7 +41,7 @@ export default function SidebarContent() {
 
   const stagesBlockClassNameByOrientation = useClassNameByOrientation(
     'pt-lg gap-[2px]',
-    'pt-sm',
+    'pt-xs',
   )
 
   useSound(SOUND_ID_BY_LIFELINE.fiftyFifty)
@@ -111,7 +111,7 @@ export default function SidebarContent() {
           </TouchableOpacity>
         </View>
         <View className='h-full'>
-          <View className='flex-row gap-sm'>
+          <View className='flex-row gap-sm -translate-y-sm'>
             {LIFELINES_TEMPLATE.map(({ id, icon }) => {
               const isDisabled =
                 isAnswerPending || lifelinesDisabled || !!lifelinesStore[id]
@@ -137,7 +137,7 @@ export default function SidebarContent() {
                       {icon}
                     </View>
                     {lifelinesStore[id] ? (
-                      <View className='absolute left-50 top-50 -translate-x-1/2 -translate-y-1/2'>
+                      <View className='absolute left-50 top-50 -translate-x-[0] -translate-y-[3px]'>
                         <AppText className='text-red-500 text-2xl '>
                           {HTML_CODES.close}
                         </AppText>
@@ -166,10 +166,10 @@ export default function SidebarContent() {
                     <AppText className='transition text-md font-semibold text-right w-6 color-secondary'>
                       {stage}.{' '}
                     </AppText>
-                    <AppText className='text-tertiary w-1'>
+                    <AppText className='text-tertiary  w-md text-sm translate-y-[1px]'>
                       {stage < currentQuestionStage ? '◆' : ''}
                     </AppText>
-                    <AppText className='text-md color-secondary ml-md'>
+                    <AppText className='text-md color-secondary ml-sm'>
                       {t(`currency-symbol`)}
                       {t(`stage-${stage}-money-amount`)}
                     </AppText>

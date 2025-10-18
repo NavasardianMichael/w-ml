@@ -2,6 +2,7 @@ import AmIcon from '@/assets/icons/am.svg'
 import AudienceIcon from '@/assets/icons/audience.svg'
 import EnIcon from '@/assets/icons/en.svg'
 import ExitIcon from '@/assets/icons/exit.svg'
+import OutGoingCallIcon from '@/assets/icons/outgoing-call.svg'
 import PhoneIcon from '@/assets/icons/phone.svg'
 import RuIcon from '@/assets/icons/ru.svg'
 import SidebarIcon from '@/assets/icons/sidebar.svg'
@@ -17,6 +18,7 @@ export const ICONS = {
   exit: ExitIcon,
   audience: AudienceIcon,
   phone: PhoneIcon,
+  outGoingCall: OutGoingCallIcon,
   sidebar: SidebarIcon,
   switch: SwitchIcon,
   switchDark: SwitchDarkIcon,

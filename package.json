@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "android:sm": "react-native run-android --device emulator-5558",
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "format": "prettier --write .",

@@ -2,6 +2,10 @@
   "who-wants-to-be-a-millionaire": "Кто хочет стать миллионером?",
   "start-game": "Начать игру",
   "settings": "Настройки",
+  "option-a": "А",
+  "option-b": "Б",
+  "option-c": "В",
+  "option-d": "Г",
   "currency-symbol": "₽",
   "stage-1-money-amount": "100",
   "stage-2-money-amount": "200",
@@ -23,6 +27,7 @@
   "no": "Нет",
   "please-wait": "Пожалуйста, подождите.",
   "we-are-getting-in-with-your-friend": "Мы связываемся с вашим другом...",
+  "i-think-the-answer-is": "Я думаю, что правильный ответ -",
   "which-option-do-you-think-is-correct": "Какой вариант, по вашему мнению, является правильным? Не волнуйтесь, вы не проиграете за неправильный ответ. Мы сменим вопрос.",
   "quiz": [
     [

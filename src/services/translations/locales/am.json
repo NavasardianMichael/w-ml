@@ -2,6 +2,10 @@
   "who-wants-to-be-a-millionaire": "Ո՞վ է ուզում դառնալ միլիոնատեր",
   "start-game": "Սկսել խաղը",
   "settings": "Կարգավորումներ",
+  "option-a": "Ա",
+  "option-b": "Բ",
+  "option-c": "Գ",
+  "option-d": "Դ",
   "currency-symbol": "֏",
   "stage-1-money-amount": "1000",
   "stage-2-money-amount": "2000",
@@ -22,6 +26,7 @@
   "yes": "Այո",
   "no": "Ոչ",
   "please-wait": "Խնդրում ենք սպասել։",
+  "i-think-the-answer-is": "Կարծում եմ՝ ճիշտ տարբերակն է",
   "we-are-getting-in-with-your-friend": "Մենք կապվում ենք մեջ ենք ձեր ընկերոջ հետ...",
   "which-option-do-you-think-is-correct": "Ո՞ր տարբերակը կընտրեիք։ Մի անհանգստացեք, սխալ պատասխանելու համար Դուք չեք պարտվի։ Մենք կփոխենք հարցը։",
   "quiz": [

@@ -2,15 +2,13 @@ import { memo } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { useLifelinesStore } from '@/store/lifelines/store'
 import { HTML_CODES } from '@/constants/commons'
-import {
-  CHAR_CODES_BY_OPTION_SERIAL_NUMBER,
-  OPTIONS_SERIAL_NUMBERS,
-} from '@/constants/game'
+import { OPTIONS_SERIAL_NUMBERS } from '@/constants/game'
+import { useOptionNames } from '@/hooks/useCurrentQuizItem copy'
 import AppText from '@/components/ui/AppText'
 
 export default memo(function AskAudience() {
   const { askAudience, setLifelinesState } = useLifelinesStore()
-  // const [barHeight, setBarHeight] = useState(0)
+  const optionNames = useOptionNames()
 
   return (
     <View className=' flex-1 justify-center p-sm mx-auto rounded-lg border border-secondary'>
@@ -19,8 +17,7 @@ export default memo(function AskAudience() {
           const percentage = askAudience?.[serialNumber] ?? 0
           console.log({ percentage })
 
-          const optionCharCode =
-            CHAR_CODES_BY_OPTION_SERIAL_NUMBER[serialNumber]
+          const optionCharCode = optionNames[serialNumber]
           return (
             <View
               key={serialNumber}
@@ -33,7 +30,7 @@ export default memo(function AskAudience() {
               </AppText>
               <View className={`w-xl  flex-1 rounded-sm  `}>
                 <View
-                  className={`mt-auto f-hull rounded-sm border border-secondary`}
+                  className={`mt-auto f-hull rounded-sm border border-secondary transition`}
                   style={{ flex: percentage / 100 }}
                 />
               </View>

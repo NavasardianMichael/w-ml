@@ -3,14 +3,15 @@ import { TouchableOpacity, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useLifelinesStore } from '@/store/lifelines/store'
 import { HTML_CODES } from '@/constants/commons'
-import { CHAR_CODES_BY_OPTION_SERIAL_NUMBER } from '@/constants/game'
 import { ICONS } from '@/constants/icons'
 import { useClassNameByOrientation } from '@/hooks/useClassNameByOrientation'
+import { useOptionNames } from '@/hooks/useCurrentQuizItem copy'
 import AppText from '@/components/ui/AppText'
 
 export default memo(function PhoneAFriend() {
   const { phoneAFriend, setLifelinesState } = useLifelinesStore()
   const { t } = useTranslation()
+  const optionNames = useOptionNames()
 
   const sizeClassName = useClassNameByOrientation(
     'w-40 h-40',
@@ -23,26 +24,22 @@ export default memo(function PhoneAFriend() {
       <View
         className={`mx-auto ${className} ${sizeClassName} flex items-center justify-center`}
       >
-        <ICONS.phone />
+        <ICONS.outGoingCall />
       </View>
       {phoneAFriend?.suggestedOptionSerialNumber ? (
-        <AppText className='text-center text-secondary text-lg'>
-          I think the answer is{' '}
-          <AppText className='font-bold'>
-            {
-              CHAR_CODES_BY_OPTION_SERIAL_NUMBER[
-                phoneAFriend.suggestedOptionSerialNumber
-              ]
-            }
+        <AppText className='text-center text-secondary text-md'>
+          {t('i-think-the-answer-is')}{' '}
+          <AppText className='font-bold text-lg'>
+            {optionNames[phoneAFriend.suggestedOptionSerialNumber]}
           </AppText>
         </AppText>
       ) : (
         <View className='flex flex-col gap-sm items-center'>
           <AppText className='text-secondary font-semibold text-center'>
-            {t('please-wait')}
+            {t('we-are-getting-in-with-your-friend')}
           </AppText>
           <AppText className='text-secondary font-semibold text-center'>
-            {t('we-are-getting-in-with-your-friend')}
+            {t('please-wait')}
           </AppText>
         </View>
       )}

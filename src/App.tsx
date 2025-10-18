@@ -1,5 +1,8 @@
-import { StatusBar, TouchableOpacity, View } from 'react-native'
+import { StatusBar, View } from 'react-native'
 
+import SidebarContent from './components/game/Sidebar/SidebarContent'
+import SidebarOverlay from './components/game/Sidebar/SidebarOverlay'
+import Header from './components/header/Header'
 import { SCREENS } from './constants/game'
 import Game from './screens/game'
 import Home from './screens/home'
@@ -9,7 +12,7 @@ import { Screen } from './types/game'
 
 function App() {
   // const safeAreaInsets = useSafeAreaInsets()
-  const { screen, isSidebarOpen, setIsSidebarOpen } = useGameStore()
+  const { screen } = useGameStore()
 
   const COMPONENT_BY_SCREEN: Record<Screen, React.FC> = {
     [SCREENS.game]: Game,
@@ -17,7 +20,7 @@ function App() {
     [SCREENS.home]: Home,
   }
 
-  const ScreenComponent = COMPONENT_BY_SCREEN[screen]
+  const CurrentScreen = COMPONENT_BY_SCREEN[screen]
 
   return (
     <View
@@ -30,15 +33,10 @@ function App() {
       // }}
     >
       <StatusBar hidden />
-      <ScreenComponent />
-      {/* Backdrop/Overlay that covers the entire screen */}
-      {isSidebarOpen && (
-        <TouchableOpacity
-          className='absolute left-0 top-0 right-0 bottom-0 inset-0 z-5 bg-black/20'
-          onPress={() => setIsSidebarOpen(false)}
-          activeOpacity={1}
-        />
-      )}
+      <Header />
+      <CurrentScreen />
+      <SidebarOverlay />
+      {screen === SCREENS.game && <SidebarContent />}
     </View>
   )
 }

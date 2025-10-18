@@ -14,7 +14,10 @@ export default memo(function LogoBlock() {
   const { screen } = useGameStore()
 
   const { t } = useTranslation()
-  const sizeClassName = useClassNameByOrientation('w-40 h-40', 'w-28 h-28')
+  const sizeClassName = useClassNameByOrientation(
+    'w-40 h-40',
+    'h-full max-h-[36vh]',
+  )
   const imageClassName = useClassNameByOrientation('mb-md', 'mb-sm')
   const titleClassName = useClassNameByOrientation('text-xl', 'text-md')
   const isPortrait = useIsPortrait()
@@ -33,9 +36,10 @@ export default memo(function LogoBlock() {
           <DisplayCurrentLifeline />
         </View>
       ) : (
-        <View className='w-full flex flex-col items-center my-auto'>
+        <View className='w-full flex-1 flex-col items-center my-auto'>
           <Image
             className={`${imageClassName} ${sizeClassName}`}
+            resizeMode='contain'
             source={require('../../../assets/images/logo.webp')}
           />
           {isPortrait || screen !== SCREENS.game ? (

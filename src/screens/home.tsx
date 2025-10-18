@@ -8,7 +8,6 @@ import { sleep } from '@/helpers/commons'
 import { SCREENS } from '@/constants/game'
 import { SOUND_DURATION_BY_URI, SOUNDS_URIS } from '@/constants/sound'
 import { useSound } from '@/hooks/useSound'
-import Header from '@/components/header/Header'
 import AppButton from '@/components/ui/AppButton'
 import AppText from '@/components/ui/AppText'
 
@@ -38,7 +37,6 @@ export default function Home() {
 
   return (
     <View className='flex-1 bg-primary'>
-      <Header />
       <View className='flex flex-1 justify-center items-center gap-4'>
         <AppButton
           disabled={isPending}

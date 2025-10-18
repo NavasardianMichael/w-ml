@@ -2,6 +2,10 @@
   "who-wants-to-be-a-millionaire": "Who Wants to Be a Millionaire?",
   "start-game": "Start Game",
   "settings": "Settings",
+  "option-a": "A",
+  "option-b": "B",
+  "option-c": "C",
+  "option-d": "D",
   "currency-symbol": "$",
   "stage-1-money-amount": "100",
   "stage-2-money-amount": "200",
@@ -23,6 +27,7 @@
   "no": "No",
   "please-wait": "Please wait.",
   "we-are-getting-in-with-your-friend": "We are getting in touch with your friend...",
+  "i-think-the-answer-is": "I think the answer is",
   "which-option-do-you-think-is-correct": "Which option do you think is correct? Don't worry, you won't lose for a wrong answer. We will switch the question.",
   "quiz": [
     [
