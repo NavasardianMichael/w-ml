@@ -1,4 +1,5 @@
 import { StatusBar, TouchableOpacity, View } from 'react-native'
+
 import { SCREENS } from './constants/game'
 import Game from './screens/game'
 import Home from './screens/home'
@@ -7,6 +8,7 @@ import { useGameStore } from './store/game/store'
 import { Screen } from './types/game'
 
 function App() {
+  // const safeAreaInsets = useSafeAreaInsets()
   const { screen, isSidebarOpen, setIsSidebarOpen } = useGameStore()
 
   const COMPONENT_BY_SCREEN: Record<Screen, React.FC> = {
@@ -18,7 +20,15 @@ function App() {
   const ScreenComponent = COMPONENT_BY_SCREEN[screen]
 
   return (
-    <View className='flex-1 bg-primary p-lg pt-xl'>
+    <View
+      className='flex-1 bg-primary p-lg'
+      // style={{
+      //   paddingTop: safeAreaInsets.top,
+      //   paddingBottom: safeAreaInsets.bottom,
+      //   paddingLeft: safeAreaInsets.left,
+      //   paddingRight: safeAreaInsets.right,
+      // }}
+    >
       <StatusBar hidden />
       <ScreenComponent />
       {/* Backdrop/Overlay that covers the entire screen */}
