@@ -13,28 +13,28 @@ export default memo(function AskAudience() {
   // const [barHeight, setBarHeight] = useState(0)
 
   return (
-    <View className='flex-col flex-1 justify-center p-sm mx-auto rounded-lg border border-secondary'>
+    <View className=' flex-1 justify-center p-sm mx-auto rounded-lg border border-secondary'>
       <View className='relative flex-row'>
         {OPTIONS_SERIAL_NUMBERS.map(serialNumber => {
           const percentage = askAudience?.[serialNumber] ?? 0
+          console.log({ percentage })
+
           const optionCharCode =
             CHAR_CODES_BY_OPTION_SERIAL_NUMBER[serialNumber]
           return (
             <View
               key={serialNumber}
-              className={`flex flex-col justify-end items-center  border-separate border-l border-secondary px-md  ${
+              className={`h-full flex flex-col justify-end items-center  border-separate border-l border-secondary px-md  ${
                 serialNumber === 1 ? 'border-l-0' : ''
               }`}
             >
               <AppText className=' text-secondary'>
                 {askAudience?.[serialNumber] ?? 0}%
               </AppText>
-              <View
-                className={`w-xl grow mt-auto flex rounded-sm border border-secondary`}
-              >
+              <View className={`w-xl  flex-1 rounded-sm  `}>
                 <View
-                  className='mt-auto w-full block rounded-sm'
-                  style={{ height: percentage }}
+                  className={`mt-auto f-hull rounded-sm border border-secondary`}
+                  style={{ flex: percentage / 100 }}
                 />
               </View>
               <AppText className='text-secondary'>{optionCharCode}</AppText>

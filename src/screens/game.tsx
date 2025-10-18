@@ -29,7 +29,7 @@ const Game = () => {
     setAnsweredOptionSerialNumber,
     initNewQuizItemByLanguageAndSafeHavenNumber,
   } = useGameStore()
-  const { playSoundById } = useSoundStore()
+  const { playSoundById, stopAllTracks } = useSoundStore()
   const {
     setLifelinesState,
     currentLifeline,
@@ -137,6 +137,7 @@ const Game = () => {
     } else {
       setLastQuestionNumberBySafeHavenNumberByLanguage(asyncStorageSetPayload)
       setLifelinesState({ currentLifeline: null })
+      await stopAllTracks()
       if (!isSwitchQuestionMode) {
         playSoundById(SOUNDS_URIS.mainTheme, { loop: true })
         setGameState({ screen: SCREENS.home })
@@ -185,7 +186,7 @@ const Game = () => {
       ) : null}
       <View className='mt-auto bg-primary' key={currentQuizItem.id}>
         {currentQuizItem ? (
-          <View className='flex flex-col gap-lg mt-auto min-h-[20px]'>
+          <View className='flex flex-col gap-lg mt-auto min-h-[22px]'>
             <View>
               <AppText className='border-secondary border px-md py-sm box-border rounded-lg text-center'>
                 {currentQuizItem.question}
@@ -216,7 +217,7 @@ const Game = () => {
                       className={`border border-secondary rounded-md ${optionClassNameByStatus}`}
                       onPress={() => onOptionPress(option, index + 1)}
                     >
-                      <View className='flex-row items-center px-md my-sm min-h-[20px]'>
+                      <View className='flex-row items-center px-md my-sm min-h-[22px]'>
                         {!isRemovedByFiftyFifty ? (
                           <View className='flex flex-row gap-sm items-center'>
                             <AppText

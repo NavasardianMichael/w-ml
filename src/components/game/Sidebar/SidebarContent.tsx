@@ -12,6 +12,7 @@ import { HTML_CODES } from '@/constants/commons'
 import { LIFELINES, QUESTION_STAGES } from '@/constants/game'
 import { ICONS } from '@/constants/icons'
 import { SOUND_DURATION_BY_URI, SOUND_ID_BY_LIFELINE } from '@/constants/sound'
+import { useClassNameByOrientation } from '@/hooks/useClassNameByOrientation'
 import { useCurrentQuizItem } from '@/hooks/useCurrentQuizItem'
 import { useSound } from '@/hooks/useSound'
 import AppText from '@/components/ui/AppText'
@@ -37,6 +38,11 @@ export default function SidebarContent() {
 
   const currentQuizItem = useCurrentQuizItem()
   const { t } = useTranslation()
+
+  const stagesBlockClassNameByOrientation = useClassNameByOrientation(
+    'pt-lg gap-[2px]',
+    'pt-sm',
+  )
 
   useSound(SOUND_ID_BY_LIFELINE.fiftyFifty)
   useSound(SOUND_ID_BY_LIFELINE.askAudience)
@@ -143,7 +149,9 @@ export default function SidebarContent() {
             })}
           </View>
 
-          <View className='flex flex-col-reverse my-auto pt-md'>
+          <View
+            className={`flex flex-col-reverse ${stagesBlockClassNameByOrientation}`}
+          >
             {QUESTION_STAGES.map(stage => {
               return (
                 <View

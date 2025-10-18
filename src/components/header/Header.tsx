@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
-import { useTranslation } from 'react-i18next'
 import VolumeOffIcon from '@/assets/icons/volume-off.svg'
 import VolumeOnIcon from '@/assets/icons/volume-on.svg'
 import { useGameStore } from '@/store/game/store'
@@ -24,7 +23,6 @@ export default function Header() {
     activeSoundIdsStack,
   } = useSoundStore()
   const [isExitModalVisible, setIsExitModalVisible] = useState(false)
-  const { t } = useTranslation()
 
   useSound(SOUNDS_URIS.mainTheme, { loop: true })
   useSound(SOUNDS_URIS.easy, { loop: true })

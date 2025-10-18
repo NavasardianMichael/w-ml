@@ -10,7 +10,7 @@ const audioService = reactNativeSoundService
 
 const initialState: SoundState = {
   activeSoundIdsStack: [],
-  isMuted: true,
+  isMuted: false,
   isPlaying: false,
   currentTrackId: null,
 }
@@ -46,7 +46,6 @@ export const useSoundStore = create<SoundState & SoundStateActions>()(
 
         playSoundById: async (id: string, options?: { loop?: boolean }) => {
           const { isMuted } = get()
-          await audioService.stop()
           try {
             console.log(`Attempting to play sound: ${id}`)
             if (!audioService.isPlayerInitialized()) {
