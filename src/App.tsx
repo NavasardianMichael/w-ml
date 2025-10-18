@@ -18,7 +18,7 @@ function App() {
   const ScreenComponent = COMPONENT_BY_SCREEN[screen]
 
   return (
-    <View className='flex-1 bg-primary p-lg'>
+    <View className='flex-1 bg-primary p-lg pt-xl'>
       <StatusBar hidden />
       <ScreenComponent />
       {/* Backdrop/Overlay that covers the entire screen */}
