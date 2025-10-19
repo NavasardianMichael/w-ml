@@ -44,11 +44,12 @@ const Game = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  console.log({ currentQuizItem })
 
   if (!currentQuizItem) return null
 
   return (
-    <View key={currentQuizItem.id}>
+    <View key={currentQuizItem.id} className='mt-auto'>
       <QuizItem />
       {switchQuestion?.waitingToSwitchQuizItem ? (
         <AppText className='text-center font-semibold'>

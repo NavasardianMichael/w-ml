@@ -3,7 +3,6 @@ import { combine } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
 import { reactNativeSoundService } from '@/services/reactNativeSound/soundService'
 import { SoundState, SoundStateActions } from './types'
-// import { mockTrackPlayerService } from '@/services/mockTrackPlayer/mockTrackPlayerService';
 
 // Use React Native Sound service
 const audioService = reactNativeSoundService
@@ -26,24 +25,7 @@ export const useSoundStore = create<SoundState & SoundStateActions>()(
           }))
         },
 
-        // ============ INITIALIZATION ============
-
-        initializeTrackPlayer: async () => {
-          try {
-            console.log('Attempting to initialize TrackPlayer...')
-            // Add a longer delay to ensure app is fully loaded
-            await new Promise<void>(resolve => setTimeout(resolve, 1000))
-            await audioService.setupPlayer()
-            console.log('TrackPlayer setup completed')
-            // Don't add tracks immediately - do it when needed
-          } catch (error) {
-            console.error('Failed to initialize TrackPlayer:', error)
-            // Don't throw - allow app to continue without audio
-          }
-        },
-
         // ============ PLAYBACK METHODS ============
-
         playSoundById: async (id: string, options?: { loop?: boolean }) => {
           const { isMuted } = get()
           try {
@@ -54,9 +36,10 @@ export const useSoundStore = create<SoundState & SoundStateActions>()(
               )
               await audioService.setupPlayer()
             }
-            console.log({ isMuted })
 
             // Pass the volume directly to playTrack to ensure it's set before playing
+
+            await audioService.stop()
             const volume = isMuted ? 0 : 1
             audioService.playTrack(id, { ...options, volume })
 

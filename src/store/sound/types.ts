@@ -7,7 +7,6 @@ export type SoundState = {
 
 export type SoundStateActions = {
   setSoundState: (state: Partial<SoundState>) => void
-  initializeTrackPlayer: () => Promise<void>
   playSoundById: (id: string, options?: { loop?: boolean }) => Promise<void>
   pauseTrack: () => Promise<void>
   stopTrack: () => Promise<void>

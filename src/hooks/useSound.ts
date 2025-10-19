@@ -10,11 +10,6 @@ export const useSound: UseSound = (trackId, options) => {
   const soundStore = useSoundStore()
   const { loop = false, playOnInit = false } = options || {}
 
-  // Initialize TrackPlayer when first hook is used
-  useEffect(() => {
-    soundStore.initializeTrackPlayer()
-  }, [soundStore])
-
   // Handle auto-play on initialization
   useEffect(() => {
     if (playOnInit) {

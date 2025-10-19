@@ -18,7 +18,7 @@ export default memo(function LogoBlock() {
     'w-40 h-40',
     'h-full max-h-[36vh]',
   )
-  const imageClassName = useClassNameByOrientation('mb-md', 'mb-sm')
+  const imageClassName = useClassNameByOrientation('mb-md ', 'mb-sm')
   const titleClassName = useClassNameByOrientation('text-xl', 'text-md')
   const isPortrait = useIsPortrait()
 

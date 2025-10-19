@@ -7,7 +7,6 @@ import en from './locales/en.json'
 import ru from './locales/ru.json'
 
 export const initI18n = () => {
-  console.log('ijuh7tfyuhijmknjbhugvyftcgvhbjnk')
   i18n.use(initReactI18next).init({
     compatibilityJSON: 'v4', // needed for React Native
     fallbackLng: LANGUAGES.en,

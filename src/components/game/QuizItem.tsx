@@ -141,11 +141,12 @@ const QuizItem = () => {
     },
     [currentQuizItem, showCorrectAnswer],
   )
+  console.log({ currentQuizItem1: currentQuizItem })
 
   if (!currentQuizItem) return null
 
   return (
-    <View className='flex-1 mt-auto bg-primary' key={currentQuizItem.id}>
+    <View className='bg-primary' key={currentQuizItem.id}>
       <View className='flex flex-col gap-lg mt-auto min-h-[22px]'>
         <View>
           <AppText className='border-secondary border px-md py-sm box-border rounded-lg text-center'>

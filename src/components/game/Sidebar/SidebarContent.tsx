@@ -98,20 +98,12 @@ export default function SidebarContent() {
   return (
     <>
       <View
-        className={`absolute flex-1 w-80 -bottom-lg -top-lg z-10 p-lg transition ${
-          !isSidebarOpen ? '-right-full' : '-right-lg'
+        className={`absolute flex-1 min-w-80 bottom-0 top-0 z-10 p-lg transition ${
+          !isSidebarOpen ? '-right-full' : '-right-0'
         } bg-indigo-700 border-l border-l-secondary`}
       >
-        <View className='absolute top-lg right-lg z-20 rotate-180'>
-          <TouchableOpacity
-            className='w-6 h-6'
-            onPress={() => toggleIsSidebarOpen()}
-          >
-            <ICONS.sidebar />
-          </TouchableOpacity>
-        </View>
-        <View className='h-full'>
-          <View className='flex-row gap-sm -translate-y-sm'>
+        <View className='flex flex-row items-start gap-lg'>
+          <View className='flex-row gap-sm'>
             {LIFELINES_TEMPLATE.map(({ id, icon }) => {
               const isDisabled =
                 isAnswerPending || lifelinesDisabled || !!lifelinesStore[id]
@@ -148,7 +140,16 @@ export default function SidebarContent() {
               )
             })}
           </View>
-
+          <View className='rotate-180'>
+            <TouchableOpacity
+              className='w-6 h-6'
+              onPress={() => toggleIsSidebarOpen()}
+            >
+              <ICONS.sidebar />
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View className='h-full'>
           <View
             className={`flex flex-col-reverse ${stagesBlockClassNameByOrientation}`}
           >
