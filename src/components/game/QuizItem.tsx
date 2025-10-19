@@ -147,7 +147,7 @@ const QuizItem = () => {
 
   return (
     <View className='bg-primary' key={currentQuizItem.id}>
-      <View className='flex flex-col gap-lg mt-auto min-h-[22px]'>
+      <View className='flex flex-col gap-lg mt-auto'>
         <View>
           <AppText className='border-secondary border px-md py-sm box-border rounded-lg text-center'>
             {currentQuizItem.question}
@@ -178,9 +178,13 @@ const QuizItem = () => {
                   className={`border border-secondary rounded-md ${optionClassNameByStatus}`}
                   onPress={() => onOptionPress(option, index + 1)}
                 >
-                  <View className='flex-row items-center px-md my-sm min-h-[22px]'>
-                    {!isRemovedByFiftyFifty ? (
-                      <View className='flex flex-row gap-sm items-center'>
+                  <View className='flex-row items-center px-md my-sm'>
+                    {
+                      <View
+                        className={`flex flex-row gap-sm items-center ${
+                          isRemovedByFiftyFifty ? 'opacity-0' : ''
+                        }`}
+                      >
                         <AppText
                           className={`text-${
                             optionClassNameByStatus ? 'secondary' : 'tertiary'
@@ -190,7 +194,7 @@ const QuizItem = () => {
                         </AppText>
                         <AppText className='text-secondary'>{option}</AppText>
                       </View>
-                    ) : null}
+                    }
                   </View>
                 </TouchableOpacity>
               </View>

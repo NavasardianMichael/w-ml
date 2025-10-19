@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { View } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useGameStore } from '@/store/game/store'
 import { useSettingsStore } from '@/store/settings/store'
@@ -8,7 +8,6 @@ import { sleep } from '@/helpers/commons'
 import { SCREENS } from '@/constants/game'
 import { SOUND_DURATION_BY_URI, SOUNDS_URIS } from '@/constants/sound'
 import { useSound } from '@/hooks/useSound'
-import AppButton from '@/components/ui/AppButton'
 import AppText from '@/components/ui/AppText'
 
 export default function Home() {
@@ -36,29 +35,29 @@ export default function Home() {
   }, [playSoundById, stopAllTracks])
 
   return (
-    <View className='flex-1 bg-primary'>
-      <View className='flex flex-1 justify-center items-center gap-4'>
-        <AppButton
-          disabled={isPending}
-          className={`min-w-[160px] flex flex-row justify-center text-center ${
-            isPending ? 'opacity-50' : ''
-          }`}
-          onPress={async e => {
-            if (isPending) {
-              e.preventDefault()
-              e.stopPropagation()
-              return
-            }
-            initQuiz({ language })
-            playSoundById(SOUNDS_URIS.resign)
-            setScreen(SCREENS.game)
-            await sleep(SOUND_DURATION_BY_URI[SOUNDS_URIS.resign])
-            playSoundById(SOUNDS_URIS.easy, { loop: true })
-          }}
-        >
-          <AppText>{t('start-game')}</AppText>
-        </AppButton>
-      </View>
+    <View className='flex-1 flex flex-row '>
+      <TouchableOpacity
+        disabled={isPending}
+        className={`min-w-[160px] my-auto mx-auto box-border py-sm px-md text-center rounded-md text-secondary border border-secondary  ${
+          isPending ? 'opacity-50' : ''
+        }`}
+        onPress={async e => {
+          if (isPending) {
+            e.preventDefault()
+            e.stopPropagation()
+            return
+          }
+          initQuiz({ language })
+          playSoundById(SOUNDS_URIS.resign)
+          setScreen(SCREENS.game)
+          await sleep(SOUND_DURATION_BY_URI[SOUNDS_URIS.resign])
+          playSoundById(SOUNDS_URIS.easy, { loop: true })
+        }}
+      >
+        <AppText className='text-center xs:text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl tv:text-2xl'>
+          {t('start-game')}
+        </AppText>
+      </TouchableOpacity>
     </View>
   )
 }

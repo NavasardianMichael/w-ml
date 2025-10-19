@@ -114,7 +114,7 @@ export default function SidebarContent() {
               return (
                 <TouchableHighlight
                   key={id}
-                  className='relative flex justify-center items-center border border-secondary w-12 h-12 rounded-full '
+                  className='relative flex justify-center items-center border border-secondary px-md py-sm rounded-full'
                   disabled={isDisabled}
                   onPress={() => onLifelinePress(id)}
                 >

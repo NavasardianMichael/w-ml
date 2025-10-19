@@ -15,11 +15,10 @@ export default memo(function LogoBlock() {
 
   const { t } = useTranslation()
   const sizeClassName = useClassNameByOrientation(
-    'w-40 h-40',
+    'h-full max-h-[36vh]',
     'h-full max-h-[36vh]',
   )
   const imageClassName = useClassNameByOrientation('mb-md ', 'mb-sm')
-  const titleClassName = useClassNameByOrientation('text-xl', 'text-md')
   const isPortrait = useIsPortrait()
 
   const showLifeline = useMemo(() => {
@@ -28,7 +27,14 @@ export default memo(function LogoBlock() {
       currentLifeline !== LIFELINES.phoneAFriend
     )
   }, [currentLifeline])
-
+  // screens: {
+  //   xs: '360px', // Small phones
+  //   sm: '480px', // Regular phones
+  //   md: '768px', // Tablets
+  //   lg: '1024px', // Large tablets
+  //   xl: '1280px', // Extra large tablets / laptops
+  //   tv: '1920px', // TVs and external displays
+  // },
   return (
     <View className='flex-1'>
       {showLifeline ? (
@@ -36,16 +42,14 @@ export default memo(function LogoBlock() {
           <DisplayCurrentLifeline />
         </View>
       ) : (
-        <View className='w-full flex-1 flex-col items-center my-auto'>
+        <View className='w-full flex flex-1 flex-col items-center my-auto'>
           <Image
             className={`${imageClassName} ${sizeClassName}`}
             resizeMode='contain'
             source={require('../../../assets/images/logo.webp')}
           />
           {isPortrait || screen !== SCREENS.game ? (
-            <AppText className={`text-center ${titleClassName}`}>
-              {t('who-wants-to-be-a-millionaire')}
-            </AppText>
+            <AppText>{t('who-wants-to-be-a-millionaire')}</AppText>
           ) : null}
         </View>
       )}
