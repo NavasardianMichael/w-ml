@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { TouchableOpacity, View } from 'react-native'
+import { View } from 'react-native'
 import VolumeOffIcon from '@/assets/icons/volume-off.svg'
 import VolumeOnIcon from '@/assets/icons/volume-on.svg'
 import { useGameStore } from '@/store/game/store'
@@ -9,6 +9,7 @@ import { ICONS } from '@/constants/icons'
 import { SOUNDS_URIS } from '@/constants/sound'
 import { useSound } from '@/hooks/useSound'
 import SidebarTrigger from '../game/Sidebar/SidebarTrigger'
+import AppIconButtonSmall from '../ui/AppIconButtonSmall'
 import ExitModal from './ExitModal'
 import LanguagesDropdown from './LanguagesDropdown'
 import LogoBlock from './logoBlock/LogoBlock'
@@ -41,17 +42,17 @@ export default function Header() {
   return (
     <>
       <View className='flex flex-row items-center justify'>
-        <TouchableOpacity onPress={soundHandler} className='h-6 w-6'>
+        <AppIconButtonSmall onPress={soundHandler}>
           {isMuted ? <VolumeOffIcon /> : <VolumeOnIcon />}
-        </TouchableOpacity>
+        </AppIconButtonSmall>
         {screen === SCREENS.game ? (
-          <TouchableOpacity
+          <AppIconButtonSmall
             key='header-exit-button'
             onPress={() => setIsExitModalVisible(true)}
-            className='h-6 w-6 ml-md rotate-180'
+            className='ml-md rotate-180'
           >
             <ICONS.exit />
-          </TouchableOpacity>
+          </AppIconButtonSmall>
         ) : null}
         {screen === SCREENS.home ? (
           <View className='ml-auto'>

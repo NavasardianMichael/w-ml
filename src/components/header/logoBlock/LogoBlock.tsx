@@ -15,8 +15,8 @@ export default memo(function LogoBlock() {
 
   const { t } = useTranslation()
   const sizeClassName = useClassNameByOrientation(
-    'h-full max-h-[36vh]',
-    'h-full max-h-[36vh]',
+    'h-full max-h-[32vh]',
+    'h-full max-h-[32vh]',
   )
   const imageClassName = useClassNameByOrientation('mb-md ', 'mb-sm')
   const isPortrait = useIsPortrait()
@@ -27,22 +27,15 @@ export default memo(function LogoBlock() {
       currentLifeline !== LIFELINES.phoneAFriend
     )
   }, [currentLifeline])
-  // screens: {
-  //   xs: '360px', // Small phones
-  //   sm: '480px', // Regular phones
-  //   md: '768px', // Tablets
-  //   lg: '1024px', // Large tablets
-  //   xl: '1280px', // Extra large tablets / laptops
-  //   tv: '1920px', // TVs and external displays
-  // },
+
   return (
-    <View className='flex-1'>
+    <View className='flex-1 mt-md'>
       {showLifeline ? (
         <View className='flex-1 max-h-[30vh] my-auto'>
           <DisplayCurrentLifeline />
         </View>
       ) : (
-        <View className='w-full flex flex-1 flex-col items-center my-auto'>
+        <View className='flex flex-1 flex-col items-center my-auto'>
           <Image
             className={`${imageClassName} ${sizeClassName}`}
             resizeMode='contain'

@@ -19,11 +19,11 @@ const AppText: FC<Props> = ({
   ...restProps
 }) => {
   const combinedClassName = useMemo(() => {
-    return `font-inter-medium text-secondary ${className}${
+    return `font-inter-medium text-secondary ${
       disableDefaultFontSize
         ? ''
-        : ' text-xs md:text-base text-md-md lg:text-lg xl:text-xl tv:text-2xl'
-    }`
+        : ' text-base md:text-md lg:text-xl xl:text-2xl tv:text-3xl'
+    }${className ? ` ${className}` : ''}`
   }, [className, disableDefaultFontSize])
 
   return (

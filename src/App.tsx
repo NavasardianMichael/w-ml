@@ -24,7 +24,7 @@ function App() {
 
   return (
     <View
-      className='flex-1 bg-primary p-lg'
+      className='flex-1 bg-primary p-md md:p-xl'
       // style={{
       //   paddingTop: safeAreaInsets.top,
       //   paddingBottom: safeAreaInsets.bottom,
