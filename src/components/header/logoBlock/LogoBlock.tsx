@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { useGameStore } from '@/store/game/store'
 import { useLifelinesStore } from '@/store/lifelines/store'
 import { LIFELINES, SCREENS } from '@/constants/game'
-import { useClassNameByOrientation } from '@/hooks/useClassNameByOrientation'
 import { useIsPortrait } from '@/hooks/useIsPortrait'
 import AppText from '@/components/ui/AppText'
 import DisplayCurrentLifeline from './DisplayCurrentLifeline'
@@ -14,11 +13,6 @@ export default memo(function LogoBlock() {
   const { screen } = useGameStore()
 
   const { t } = useTranslation()
-  const sizeClassName = useClassNameByOrientation(
-    'h-full max-h-[32vh]',
-    'h-full max-h-[32vh]',
-  )
-  const imageClassName = useClassNameByOrientation('mb-md ', 'mb-sm')
   const isPortrait = useIsPortrait()
 
   const showLifeline = useMemo(() => {
@@ -37,7 +31,7 @@ export default memo(function LogoBlock() {
       ) : (
         <View className='flex flex-1 flex-col items-center my-auto'>
           <Image
-            className={`${imageClassName} ${sizeClassName}`}
+            className='portrait:mb-md landscape:mb-sm h-full max-h-[32vh]'
             resizeMode='contain'
             source={require('../../../assets/images/logo.webp')}
           />

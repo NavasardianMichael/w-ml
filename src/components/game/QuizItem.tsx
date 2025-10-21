@@ -13,7 +13,6 @@ import { SCREENS } from '@/constants/game'
 import { ICONS } from '@/constants/icons'
 import { SOUND_DURATION_BY_URI, SOUNDS_URIS } from '@/constants/sound'
 
-import { useClassNameByOrientation } from '@/hooks/useClassNameByOrientation'
 import { useCurrentQuizItem } from '@/hooks/useCurrentQuizItem'
 import { useIsPortrait } from '@/hooks/useIsPortrait'
 import AppText from '@/components/ui/AppText'
@@ -41,15 +40,6 @@ const QuizItem = () => {
   const currentQuizItem = useCurrentQuizItem()
 
   const [showCorrectAnswer, setShowCorrectAnswer] = useState(false)
-
-  const optionContainerClassNameByOrientation = useClassNameByOrientation(
-    'w-full mb-md',
-    'w-[49%] mb-md ',
-  )
-  const optionsContainerClassNameByOrientation = useClassNameByOrientation(
-    'flex-col',
-    'flex-row flex-wrap',
-  )
 
   const onOptionPress = async (option: string, serialNumber: number) => {
     const isSwitchQuestionMode = switchQuestion?.waitingToSwitchQuizItem
@@ -154,7 +144,7 @@ const QuizItem = () => {
           </AppText>
         </View>
         <View
-          className={`flex relative ${optionsContainerClassNameByOrientation}`}
+          className={`flex relative portrait:flex-col landscape:flex-row landscape:flex-wrap`}
         >
           {currentQuizItem.options.map((option, index) => {
             const optionClassNameByStatus = getOptionClassNameByStatus(
@@ -166,7 +156,7 @@ const QuizItem = () => {
             return (
               <View
                 key={option}
-                className={`${optionContainerClassNameByOrientation} ${
+                className={`portrait:w-full landscape:w-[49%] mb-md ${
                   !isPortrait && index % 2 === 1 ? 'ml-[2%]' : ''
                 }`}
               >

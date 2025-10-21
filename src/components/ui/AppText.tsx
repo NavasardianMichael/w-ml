@@ -10,7 +10,6 @@ type Props = TextProps & {
 // md: '768px', // Tablets
 // lg: '1024px', // Large tablets
 // xl: '1280px', // Extra large tablets / laptops
-// tv: '1920px', // TVs and external displays
 
 const AppText: FC<Props> = ({
   children,
@@ -22,7 +21,7 @@ const AppText: FC<Props> = ({
     return `font-inter-medium text-secondary ${
       disableDefaultFontSize
         ? ''
-        : ' text-base md:text-md lg:text-xl xl:text-2xl tv:text-3xl'
+        : ' text-base md:text-md lg:text-xl xl:text-2xl'
     }${className ? ` ${className}` : ''}`
   }, [className, disableDefaultFontSize])
 

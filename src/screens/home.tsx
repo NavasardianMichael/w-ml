@@ -54,7 +54,7 @@ export default function Home() {
           playSoundById(SOUNDS_URIS.easy, { loop: true })
         }}
       >
-        <AppText className='text-center xs:text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl tv:text-2xl'>
+        <AppText className='text-center xs:text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl'>
           {t('start-game')}
         </AppText>
       </TouchableOpacity>

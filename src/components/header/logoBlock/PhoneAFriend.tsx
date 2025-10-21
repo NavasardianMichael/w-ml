@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next'
 import { useLifelinesStore } from '@/store/lifelines/store'
 import { HTML_CODES } from '@/constants/commons'
 import { ICONS } from '@/constants/icons'
-import { useClassNameByOrientation } from '@/hooks/useClassNameByOrientation'
 import { useOptionNames } from '@/hooks/useCurrentQuizItem copy'
 import AppText from '@/components/ui/AppText'
 
@@ -13,17 +12,9 @@ export default memo(function PhoneAFriend() {
   const { t } = useTranslation()
   const optionNames = useOptionNames()
 
-  const sizeClassName = useClassNameByOrientation(
-    'w-40 h-40',
-    'w-[90px] h-[90px]',
-  )
-  const className = useClassNameByOrientation('mb-8', 'mb-2')
-
   return (
     <View className='mx-auto relative max-w-52'>
-      <View
-        className={`mx-auto ${className} ${sizeClassName} flex items-center justify-center`}
-      >
+      <View className='mx-auto portrait:mb-8 landscape:mb-2 portrait:w-40 portrait:h-40 landscape:w-[90px] landscape:h-[90px] flex items-center justify-center'>
         <ICONS.outGoingCall />
       </View>
       {phoneAFriend?.suggestedOptionSerialNumber ? (

@@ -15,7 +15,6 @@ module.exports = {
         md: '768px', // Tablets
         lg: '1024px', // Large tablets
         xl: '1280px', // Extra large tablets / laptops
-        tv: '1920px', // TVs and external displays
       },
       colors: {
         primary: '#1e3a8a', // blue-800
