@@ -2,7 +2,6 @@ import AmIcon from '@/assets/icons/am.svg'
 import AudienceIcon from '@/assets/icons/audience.svg'
 import EnIcon from '@/assets/icons/en.svg'
 import ExitIcon from '@/assets/icons/exit.svg'
-import OutGoingCallIcon from '@/assets/icons/outgoing-call.svg'
 import PhoneIcon from '@/assets/icons/phone.svg'
 import RuIcon from '@/assets/icons/ru.svg'
 import SidebarIcon from '@/assets/icons/sidebar.svg'
@@ -10,6 +9,7 @@ import SwitchDarkIcon from '@/assets/icons/switch-dark.svg'
 import SwitchIcon from '@/assets/icons/switch.svg'
 import VolumeOffIcon from '@/assets/icons/volume-off.svg'
 import VolumeOnIcon from '@/assets/icons/volume-on.svg'
+import OutGoingCallIcon from '@/assets/images/call-a-friend-3.svg'
 
 export const ICONS = {
   am: AmIcon,

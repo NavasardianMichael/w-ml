@@ -60,23 +60,20 @@ export default function SidebarContent() {
   const onLifelinePress = async (lifeline: Lifeline) => {
     const lifelineSoundId = SOUND_ID_BY_LIFELINE[lifeline]
 
+    setLifelinesState({ currentLifeline: lifeline, lifelinesDisabled: true })
+    setIsSidebarOpen(false)
     if (lifeline === LIFELINES.switchQuestion) {
-      setIsSidebarOpen(false)
       playSoundById(lifelineSoundId)
       setSwitchQuestionLifeline({ waitingToSwitchQuizItem: true })
-      await sleep(800)
       return
     }
 
-    setLifelinesState({ currentLifeline: lifeline, lifelinesDisabled: true })
-
-    setIsSidebarOpen(false)
     playSoundById(lifelineSoundId)
-    if (lifeline === LIFELINES.fiftyFifty) {
-      await sleep(800) // to make it feel snappier
-    } else {
-      await sleep(SOUND_DURATION_BY_URI[lifelineSoundId])
-    }
+    await sleep(
+      lifeline === LIFELINES.fiftyFifty
+        ? 800
+        : SOUND_DURATION_BY_URI[lifelineSoundId],
+    )
 
     lifelineActions[lifeline as Exclude<Lifeline, 'switchQuestion'>]({
       correctOptionSerialNumber: currentQuizItem.correctOptionSerialNumber,

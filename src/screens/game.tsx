@@ -50,12 +50,12 @@ const Game = () => {
 
   return (
     <View key={currentQuizItem.id} className='mt-auto'>
-      <QuizItem />
       {switchQuestion?.waitingToSwitchQuizItem ? (
-        <AppText className='text-center font-semibold'>
+        <AppText className='text-center font-semibold mb-sm'>
           {t('which-option-do-you-think-is-correct')}
         </AppText>
       ) : null}
+      <QuizItem />
     </View>
   )
 }
