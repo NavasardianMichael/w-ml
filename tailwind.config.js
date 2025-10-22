@@ -17,11 +17,11 @@ module.exports = {
         xl: '1280px', // Extra large tablets / laptops
       },
       colors: {
-        primary: '#1e3a8a', // blue-800
-        'primary-contrast': '#3b82f6', // blue-500
-        secondary: '#ffffff', // white
-        tertiary: '#fbbf24', // amber-400
-        'dark-orange': '#a96e19', // orange-600
+        primary: '#1e3a8a',
+        'primary-contrast': '#3b82f6',
+        secondary: '#ffffff',
+        tertiary: '#f1b720',
+        'dark-orange': '#a96e19',
       },
       spacing: {
         xs: '4px',

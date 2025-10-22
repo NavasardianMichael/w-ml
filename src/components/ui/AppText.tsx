@@ -21,7 +21,7 @@ const AppText: FC<Props> = ({
     return `font-inter-medium text-secondary ${
       disableDefaultFontSize
         ? ''
-        : ' text-base md:text-md lg:text-xl xl:text-2xl'
+        : ' text-base xl:text-md lg:text-xl xl:text-2xl'
     }${className ? ` ${className}` : ''}`
   }, [className, disableDefaultFontSize])
 

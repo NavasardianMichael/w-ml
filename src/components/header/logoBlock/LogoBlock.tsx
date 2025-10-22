@@ -1,20 +1,11 @@
 import { memo, useMemo } from 'react'
 import { Image, View } from 'react-native'
-import { useTranslation } from 'react-i18next'
-import { useGameStore } from '@/store/game/store'
 import { useLifelinesStore } from '@/store/lifelines/store'
-import { LIFELINES, SCREENS } from '@/constants/game'
-import { useIsPortrait } from '@/hooks/useIsPortrait'
-import AppText from '@/components/ui/AppText'
+import { LIFELINES } from '@/constants/game'
 import DisplayCurrentLifeline from './DisplayCurrentLifeline'
 
 export default memo(function LogoBlock() {
   const { currentLifeline } = useLifelinesStore()
-  const { screen } = useGameStore()
-
-  const { t } = useTranslation()
-  const isPortrait = useIsPortrait()
-
   const showLifeline = useMemo(() => {
     return !(
       currentLifeline !== LIFELINES.askAudience &&
@@ -35,9 +26,9 @@ export default memo(function LogoBlock() {
             resizeMode='contain'
             source={require('../../../assets/images/logo.png')}
           />
-          {isPortrait || screen !== SCREENS.game ? (
+          {/* {isPortrait || screen !== SCREENS.game ? (
             <AppText>{t('who-wants-to-be-a-millionaire')}</AppText>
-          ) : null}
+          ) : null} */}
         </View>
       )}
     </View>

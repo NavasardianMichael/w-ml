@@ -67,6 +67,7 @@ export default function SidebarContent() {
       setSwitchQuestionLifeline({ waitingToSwitchQuizItem: true })
       return
     }
+    console.log({ lifelineSoundId })
 
     playSoundById(lifelineSoundId)
     await sleep(
@@ -82,6 +83,8 @@ export default function SidebarContent() {
 
     await sleep(3000)
     const safeHavenSoundId = getBgSoundIdByQuestionStage(currentQuestionStage)
+    console.log('playing stage sound')
+
     playSoundById(safeHavenSoundId, { loop: true })
     setLifelinesState({ lifelinesDisabled: false })
   }
@@ -94,8 +97,8 @@ export default function SidebarContent() {
         } bg-indigo-700 border-l border-l-secondary`}
       >
         <View className='flex flex-row items-start gap-lg'>
-          <View className='flex-row gap-sm'>
-            {LIFELINES_TEMPLATE.map(({ id, icon }) => {
+          <View className='flex-row'>
+            {LIFELINES_TEMPLATE.map(({ id, icon }, index) => {
               const isDisabled =
                 isAnswerPending || lifelinesDisabled || !!lifelinesStore[id]
 
@@ -105,7 +108,9 @@ export default function SidebarContent() {
               return (
                 <TouchableHighlight
                   key={id}
-                  className='relative flex justify-center items-center border border-secondary px-md py-sm rounded-full'
+                  className={`relative flex justify-center items-center border border-secondary rounded-full w-12 h-12 ${
+                    index !== 0 ? 'ml-sm' : ''
+                  }`}
                   disabled={isDisabled}
                   onPress={() => onLifelinePress(id)}
                 >
@@ -140,26 +145,26 @@ export default function SidebarContent() {
             </TouchableOpacity>
           </View>
         </View>
-        <View className='h-full'>
-          <View className='flex flex-col-reverse portrait:pt-lg portrait:gap-[2px] landscape:pt-xs'>
+        <View className='h-full landscape:pt-xs portrait:pt-md'>
+          <View className='flex  flex-col-reverse portrait:pt-lg portrait:gap-[2px] landscape:pt-xs'>
             {QUESTION_STAGES.map(stage => {
               return (
                 <View
                   key={stage}
-                  className={`flex-row p-0.05 back ${
+                  className={`flex-row back ${
                     stage === currentQuestionStage
-                      ? 'bg-dark-orange rounded-sm'
+                      ? 'bg-tertiary rounded-sm'
                       : ''
                   }`}
                 >
                   <>
-                    <AppText className='transition text-md font-semibold text-right w-6 color-secondary'>
+                    <AppText className='transition font-semibold text-sm text-right w-6 color-secondary'>
                       {stage}.{' '}
                     </AppText>
-                    <AppText className='text-tertiary  w-md text-sm translate-y-[1px]'>
+                    <AppText className='text-tertiary w-md translate-y-[2px] text-xs'>
                       {stage < currentQuestionStage ? '◆' : ''}
                     </AppText>
-                    <AppText className='text-md color-secondary ml-sm'>
+                    <AppText className='color-secondary ml-sm text-sm'>
                       {t(`currency-symbol`)}
                       {t(`stage-${stage}-money-amount`)}
                     </AppText>
