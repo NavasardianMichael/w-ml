@@ -192,7 +192,7 @@ const QuizItem = () => {
           })}
 
           <View
-            className={`absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-10 ${
+            className={`absolute left-1/2 top-1/2 transform -translate-x-5 -translate-y-5 w-10 h-10 ${
               !switchQuestion?.waitingToSwitchQuizItem ? 'scale-0' : ''
             } transition-transform duration-300 bg-secondary rounded-full p-sm border border-primary`}
           >

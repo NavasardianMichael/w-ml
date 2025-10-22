@@ -94,7 +94,7 @@ export default function SidebarContent() {
       <View
         className={`absolute flex-1 min-w-80 bottom-0 top-0 z-10 p-lg transition ${
           !isSidebarOpen ? '-right-full' : '-right-0'
-        } bg-indigo-700 border-l border-l-secondary`}
+        } bg-primary-contrast border-l border-l-secondary`}
       >
         <View className='flex flex-row items-start gap-lg'>
           <View className='flex-row'>

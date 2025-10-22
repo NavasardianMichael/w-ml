@@ -24,7 +24,7 @@ export default memo(function LogoBlock() {
           <Image
             className='portrait:mb-md landscape:mb-sm h-full max-h-[32vh]'
             resizeMode='contain'
-            source={require('../../../assets/images/logo.png')}
+            source={require('../../../assets/images/logo.svg')}
           />
           {/* {isPortrait || screen !== SCREENS.game ? (
             <AppText>{t('who-wants-to-be-a-millionaire')}</AppText>

@@ -15,7 +15,7 @@ export default memo(function PhoneAFriend() {
   return (
     <View className='mx-auto relative max-w-52'>
       <View className='mx-auto portrait:mb-8 landscape:mb-2 portrait:w-40 portrait:h-40 landscape:w-[90px] landscape:h-[90px] flex items-center justify-center'>
-        <ICONS.outGoingCall />
+        <ICONS.callAFriend />
       </View>
       {phoneAFriend?.suggestedOptionSerialNumber ? (
         <AppText className='text-center text-secondary text-md'>
