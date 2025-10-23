@@ -17,4 +17,5 @@ export const SCREENS = {
   home: 'home',
   results: 'results',
   game: 'game',
+  settings: 'settings',
 } as const

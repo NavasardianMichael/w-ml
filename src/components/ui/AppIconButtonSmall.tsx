@@ -1,7 +1,7 @@
 import React, { FC, memo, PropsWithChildren, useMemo } from 'react'
-import { TextProps, TouchableOpacity } from 'react-native'
+import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
 
-type Props = TextProps
+type Props = TouchableOpacityProps
 
 const AppIconButtonSmall: FC<PropsWithChildren<Props>> = ({
   children,

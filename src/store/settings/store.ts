@@ -7,6 +7,7 @@ import { SettingsState, SettingsStateActions } from './types'
 
 const initialState: SettingsState = {
   language: LANGUAGES.en,
+  isAIMode: false,
   difficulty: DIFFICULTY_LEVELS[2],
 }
 

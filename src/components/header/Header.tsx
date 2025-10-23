@@ -5,17 +5,17 @@ import VolumeOnIcon from '@/assets/icons/volume-on.svg'
 import { useGameStore } from '@/store/game/store'
 import { useSoundStore } from '@/store/sound/store'
 import { SCREENS } from '@/constants/game'
-import { ICONS } from '@/constants/icons'
 import { SOUNDS_URIS } from '@/constants/sound'
 import { useSound } from '@/hooks/useSound'
 import SidebarTrigger from '../game/Sidebar/SidebarTrigger'
 import AppIconButtonSmall from '../ui/AppIconButtonSmall'
+import ExitIconButton from './ExitIconButton'
 import ExitModal from './ExitModal'
 import LanguagesDropdown from './LanguagesDropdown'
 import LogoBlock from './logoBlock/LogoBlock'
 
 export default function Header() {
-  const { screen } = useGameStore()
+  const { screen, setScreen } = useGameStore()
   const {
     playSoundById,
     toggleActiveSoundMuted,
@@ -41,18 +41,15 @@ export default function Header() {
 
   return (
     <>
-      <View className='flex flex-row items-center justify'>
+      <View className='flex flex-row '>
         <AppIconButtonSmall onPress={soundHandler}>
           {isMuted ? <VolumeOffIcon /> : <VolumeOnIcon />}
         </AppIconButtonSmall>
         {screen === SCREENS.game ? (
-          <AppIconButtonSmall
-            key='header-exit-button'
-            onPress={() => setIsExitModalVisible(true)}
-            className='ml-md rotate-180'
-          >
-            <ICONS.exit />
-          </AppIconButtonSmall>
+          <ExitIconButton onPress={() => setIsExitModalVisible(true)} />
+        ) : null}
+        {screen === SCREENS.settings || screen === SCREENS.results ? (
+          <ExitIconButton onPress={() => setScreen(SCREENS.home)} />
         ) : null}
         {screen === SCREENS.home ? (
           <View className='ml-auto'>

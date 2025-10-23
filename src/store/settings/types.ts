@@ -2,6 +2,7 @@ import { Difficulty, Language } from '@/types/settings'
 
 export type SettingsState = {
   language: Language
+  isAIMode: boolean
   difficulty: Difficulty
 }
 

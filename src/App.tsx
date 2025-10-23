@@ -7,6 +7,7 @@ import { SCREENS } from './constants/game'
 import Game from './screens/game'
 import Home from './screens/home'
 import Results from './screens/results'
+import Settings from './screens/settings'
 import { useGameStore } from './store/game/store'
 import { Screen } from './types/game'
 
@@ -18,6 +19,7 @@ function App() {
     [SCREENS.game]: Game,
     [SCREENS.results]: Results,
     [SCREENS.home]: Home,
+    [SCREENS.settings]: Settings,
   }
 
   const CurrentScreen = COMPONENT_BY_SCREEN[screen]

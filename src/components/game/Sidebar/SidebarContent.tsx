@@ -83,7 +83,6 @@ export default function SidebarContent() {
 
     await sleep(3000)
     const safeHavenSoundId = getBgSoundIdByQuestionStage(currentQuestionStage)
-    console.log('playing stage sound')
 
     playSoundById(safeHavenSoundId, { loop: true })
     setLifelinesState({ lifelinesDisabled: false })
@@ -92,7 +91,7 @@ export default function SidebarContent() {
   return (
     <>
       <View
-        className={`absolute flex-1 min-w-80 bottom-0 top-0 z-10 p-lg transition ${
+        className={`absolute flex-1 min-w-80 bottom-0 top-0 z-10 p-md md:p-xl transition ${
           !isSidebarOpen ? '-right-full' : '-right-0'
         } bg-primary-contrast border-l border-l-secondary`}
       >
