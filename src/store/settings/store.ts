@@ -7,8 +7,14 @@ import { SettingsState, SettingsStateActions } from './types'
 
 const initialState: SettingsState = {
   language: LANGUAGES.en,
-  isAIMode: false,
-  difficulty: DIFFICULTY_LEVELS[2],
+  aiMode: {
+    enabled: false,
+    difficulty: DIFFICULTY_LEVELS[2], // Medium
+  },
+  timer: {
+    enabled: false,
+    duration: 60,
+  },
 }
 
 export const useSettingsStore = create<SettingsState & SettingsStateActions>()(
@@ -20,6 +26,22 @@ export const useSettingsStore = create<SettingsState & SettingsStateActions>()(
           set(prevState => {
             return {
               ...prevState,
+              ...payload,
+            }
+          })
+        },
+        setAIModeState: async payload => {
+          set(state => {
+            state.aiMode = {
+              ...state.aiMode,
+              ...payload,
+            }
+          })
+        },
+        setTimerState: async payload => {
+          set(state => {
+            state.timer = {
+              ...state.timer,
               ...payload,
             }
           })

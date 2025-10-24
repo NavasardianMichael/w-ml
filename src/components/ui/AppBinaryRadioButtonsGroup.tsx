@@ -7,7 +7,7 @@ type Props = {
   value: boolean
   onValueChange: (value: boolean) => void
   label: string
-  options: [string, string]
+  options: string[]
 }
 
 const AppBinaryRadioButtonsGroup: FC<Props> = ({

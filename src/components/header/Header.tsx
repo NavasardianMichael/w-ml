@@ -11,7 +11,6 @@ import SidebarTrigger from '../game/Sidebar/SidebarTrigger'
 import AppIconButtonSmall from '../ui/AppIconButtonSmall'
 import ExitIconButton from './ExitIconButton'
 import ExitModal from './ExitModal'
-import LanguagesDropdown from './LanguagesDropdown'
 import LogoBlock from './logoBlock/LogoBlock'
 
 export default function Header() {
@@ -50,11 +49,6 @@ export default function Header() {
         ) : null}
         {screen === SCREENS.settings || screen === SCREENS.results ? (
           <ExitIconButton onPress={() => setScreen(SCREENS.home)} />
-        ) : null}
-        {screen === SCREENS.home ? (
-          <View className='ml-auto'>
-            <LanguagesDropdown />
-          </View>
         ) : null}
         {screen === SCREENS.game ? <SidebarTrigger /> : null}
       </View>
