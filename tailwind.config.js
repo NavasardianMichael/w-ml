@@ -18,7 +18,7 @@ module.exports = {
       },
       colors: {
         primary: '#1e3a8a',
-        'primary-contrast': '#1E3A74',
+        'primary-contrast': '#182f70ff',
         secondary: '#ffffff',
         tertiary: '#f1b720',
         'dark-orange': '#a96e19',

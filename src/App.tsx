@@ -12,7 +12,6 @@ import { useGameStore } from './store/game/store'
 import { Screen } from './types/game'
 
 function App() {
-  // const safeAreaInsets = useSafeAreaInsets()
   const { screen } = useGameStore()
 
   const COMPONENT_BY_SCREEN: Record<Screen, React.FC> = {
@@ -25,18 +24,12 @@ function App() {
   const CurrentScreen = COMPONENT_BY_SCREEN[screen]
 
   return (
-    <View
-      className='flex-1 bg-primary p-md md:p-xl'
-      // style={{
-      //   paddingTop: safeAreaInsets.top,
-      //   paddingBottom: safeAreaInsets.bottom,
-      //   paddingLeft: safeAreaInsets.left,
-      //   paddingRight: safeAreaInsets.right,
-      // }}
-    >
+    <View className='flex-1 bg-primary p-md md:p-xl'>
       <StatusBar hidden />
       <Header />
-      <CurrentScreen />
+      <View className='min-h-[50vh]'>
+        <CurrentScreen />
+      </View>
       <SidebarOverlay />
       {screen === SCREENS.game && <SidebarContent />}
     </View>

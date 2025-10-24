@@ -9,7 +9,7 @@ const AppIconButtonSmall: FC<PropsWithChildren<Props>> = ({
   ...restProps
 }) => {
   const combinedClassName = useMemo(() => {
-    return `h-6 w-6 md:h-7 md:w-7 lg:h-10 lg:w-10 xl:w-12 xl:h-12 ${
+    return `h-6 w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 xl:w-10 xl:h-10 ${
       className ? ` ${className}` : ''
     }`
   }, [className])

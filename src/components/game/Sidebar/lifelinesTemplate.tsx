@@ -5,7 +5,9 @@ import AppText from '@/components/ui/AppText'
 const LIFELINES_TEMPLATE = [
   {
     id: LIFELINES.fiftyFifty,
-    icon: <AppText className='text-xs font-bold'>50/50</AppText>,
+    icon: (
+      <AppText className='text-xs mx-auto lg:text-sm font-bold'>50/50</AppText>
+    ),
   },
   {
     id: LIFELINES.phoneAFriend,

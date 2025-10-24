@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { TouchableHighlight, TouchableOpacity, View } from 'react-native'
+import { TouchableHighlight, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useGameStore } from '@/store/game/store'
 import { useLifelinesStore } from '@/store/lifelines/store'
@@ -14,6 +14,7 @@ import { ICONS } from '@/constants/icons'
 import { SOUND_DURATION_BY_URI, SOUND_ID_BY_LIFELINE } from '@/constants/sound'
 import { useCurrentQuizItem } from '@/hooks/useCurrentQuizItem'
 import { useSound } from '@/hooks/useSound'
+import AppIconButtonSmall from '@/components/ui/AppIconButtonSmall'
 import AppText from '@/components/ui/AppText'
 import LIFELINES_TEMPLATE from './lifelinesTemplate'
 
@@ -102,12 +103,14 @@ export default function SidebarContent() {
                 isAnswerPending || lifelinesDisabled || !!lifelinesStore[id]
 
               const sizingByLifeline =
-                id === LIFELINES.fiftyFifty ? 'h-8 w-8' : 'h-6 w-6'
+                id === LIFELINES.fiftyFifty
+                  ? 'h-8 w-8 lg:h-10 lg:w-10'
+                  : 'h-6 w-6 lg:h-8 lg:w-8'
 
               return (
                 <TouchableHighlight
                   key={id}
-                  className={`relative flex justify-center items-center border border-secondary rounded-full w-12 h-12 ${
+                  className={`relative flex justify-center items-center border border-secondary rounded-full w-12 h-12 lg:w-16 lg:h-16 ${
                     index !== 0 ? 'ml-sm' : ''
                   }`}
                   disabled={isDisabled}
@@ -136,16 +139,13 @@ export default function SidebarContent() {
             })}
           </View>
           <View className='rotate-180'>
-            <TouchableOpacity
-              className='w-6 h-6'
-              onPress={() => toggleIsSidebarOpen()}
-            >
+            <AppIconButtonSmall onPress={() => toggleIsSidebarOpen()}>
               <ICONS.sidebar />
-            </TouchableOpacity>
+            </AppIconButtonSmall>
           </View>
         </View>
-        <View className='h-full landscape:pt-xs portrait:pt-md'>
-          <View className='flex  flex-col-reverse portrait:pt-lg portrait:gap-[2px] landscape:pt-xs'>
+        <View className='h-full pt-xs lg:pt-md'>
+          <View className='flex flex-col-reverse portrait:gap-[2px] landscape:pt-xs'>
             {QUESTION_STAGES.map(stage => {
               return (
                 <View
@@ -157,13 +157,13 @@ export default function SidebarContent() {
                   }`}
                 >
                   <>
-                    <AppText className='transition font-semibold text-sm text-right w-6 color-secondary'>
+                    <AppText className='transition font-semibold text-sm lg:text-lg text-right w-6 color-secondary'>
                       {stage}.{' '}
                     </AppText>
-                    <AppText className='text-tertiary w-md translate-y-[2px] text-xs'>
+                    <AppText className='text-tertiary w-md lg:w-lg text-sm lg:text-lg'>
                       {stage < currentQuestionStage ? '◆' : ''}
                     </AppText>
-                    <AppText className='color-secondary ml-sm text-sm'>
+                    <AppText className='color-secondary ml-sm text-sm lg:text-lg'>
                       {t(`currency-symbol`)}
                       {t(`stage-${stage}-money-amount`)}
                     </AppText>

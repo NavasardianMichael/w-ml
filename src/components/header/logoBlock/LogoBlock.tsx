@@ -1,7 +1,8 @@
 import { memo, useMemo } from 'react'
-import { Image, View } from 'react-native'
+import { View } from 'react-native'
 import { useLifelinesStore } from '@/store/lifelines/store'
 import { LIFELINES } from '@/constants/game'
+import { IMAGES } from '@/constants/images'
 import DisplayCurrentLifeline from './DisplayCurrentLifeline'
 
 export default memo(function LogoBlock() {
@@ -20,12 +21,8 @@ export default memo(function LogoBlock() {
           <DisplayCurrentLifeline />
         </View>
       ) : (
-        <View className='flex flex-1 flex-col items-center my-auto'>
-          <Image
-            className='portrait:mb-md landscape:mb-sm h-full max-h-[32vh]'
-            resizeMode='contain'
-            source={require('../../../assets/images/logo.svg')}
-          />
+        <View className='portrait:mb-md landscape:mb-sm max-h-[36vh]'>
+          {<IMAGES.logo />}
           {/* {isPortrait || screen !== SCREENS.game ? (
             <AppText>{t('who-wants-to-be-a-millionaire')}</AppText>
           ) : null} */}

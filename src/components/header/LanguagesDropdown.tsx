@@ -43,13 +43,13 @@ export default function LanguagesDropdown() {
       <Pressable
         accessibilityIgnoresInvertColors
         onPress={toggleDropdown}
-        className={`bg-primary w-140  border border-secondary rounded-lg p-sm flex-row justify-between items-center ${
+        className={`bg-primary border border-secondary rounded-lg p-sm lg:p-md flex-row justify-between items-center ${
           isDropdownOpen ? 'rounded-b-none' : ''
         }`}
       >
         <View className={`flex-row items-center`}>
           <View className='flex flex-row items-center gap-sm'>
-            <SelectedLangIcon className='border border-primary w-6 h-6 flex items-center' />
+            <SelectedLangIcon className='border border-primary w-6 lg:w-12 flex items-center' />
             <AppText className='text-secondary'>
               {LANGUAGE_NAMES[language]}
             </AppText>
@@ -65,7 +65,7 @@ export default function LanguagesDropdown() {
         {/* Dropdown List */}
       </Pressable>
       {isDropdownOpen ? (
-        <View className='absolute z-10 left-0 right-0 top-9 bg-primary border border-t-0  border-secondary rounded-b-lg overflow-hidden'>
+        <View className='absolute z-10 left-0 right-0 top-full bg-primary border border-t-0  border-secondary rounded-b-lg overflow-hidden'>
           <ScrollView>
             {LANGUAGES_LIST.map((l, index, arr) => {
               const Icon = ICONS[l] as React.ElementType
@@ -78,13 +78,13 @@ export default function LanguagesDropdown() {
                   } `}
                 >
                   <View
-                    className={`flex flex-row w-full items-center h-10 p-sm ${
+                    className={`flex flex-row w-full items-center p-sm lg:px-md ${
                       index + 1 !== arr.length
                         ? 'border-b border-b-2-primary'
                         : ''
                     }`}
                   >
-                    <Icon className='w-6 h-6' />
+                    <Icon className='w-6 lg:w-12' />
                     <AppText className='text-primary ml-sm'>
                       {LANGUAGE_NAMES[l]}
                     </AppText>
