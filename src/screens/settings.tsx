@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useGameStore } from '@/store/game/store'
 import { useSettingsStore } from '@/store/settings/store'
@@ -11,6 +11,7 @@ import { useAppDropdownOptions } from '@/hooks/useAppDropdownOptions'
 import AppBinaryRadioButtonsGroup from '@/components/ui/AppBinaryRadioButtonsGroup'
 import AppButton from '@/components/ui/AppButton'
 import AppDropdown from '@/components/ui/AppDropdown'
+import AppText from '@/components/ui/AppText'
 
 export default function Settings() {
   const { setGameState } = useGameStore()
@@ -44,78 +45,81 @@ export default function Settings() {
 
   return (
     <View>
-      {/* <ScrollView> */}
-      <View>
-        <AppBinaryRadioButtonsGroup
-          label={AI_MODE_SETTINGS_TEMPLATE.labelKey}
-          options={AI_MODE_SETTINGS_TEMPLATE.optionKeys}
-          onValueChange={value =>
-            setPartialSettingsState({ aiMode: { ...aiMode, enabled: value } })
-          }
-          value={tempSettings.aiMode.enabled}
-        />
-        {tempSettings.aiMode.enabled && (
-          <View className='mt-sm xl:mt-lg'>
-            <AppDropdown
-              label={AI_MODE_SETTINGS_TEMPLATE.labelKey}
-              options={difficultyDropdownOptions}
-              selectedOptionId={tempSettings.aiMode.difficulty}
-              onSelect={option =>
-                setTempSettings(prev => ({
-                  ...prev,
-                  aiMode: {
-                    ...prev.aiMode,
-                    difficulty: option.id as DifficultyKey,
-                  },
-                }))
-              }
-            />
-          </View>
-        )}
-      </View>
-      <View className='mt-md xl:mt-xl'>
-        <AppBinaryRadioButtonsGroup
-          label={TIMER_SETTINGS_TEMPLATE.labelKey}
-          options={TIMER_SETTINGS_TEMPLATE.optionKeys}
-          onValueChange={value =>
-            setPartialSettingsState({ timer: { ...timer, enabled: value } })
-          }
-          value={tempSettings.timer.enabled}
-        />
-        {tempSettings.timer.enabled && (
-          <View className='mt-sm xl:mt-lg'>
-            <AppDropdown
-              label={TIMER_SETTINGS_TEMPLATE.labelKey}
-              options={durationDropdownOptions}
-              selectedOptionId={tempSettings.timer.duration}
-              onSelect={option =>
-                setTempSettings(prev => ({
-                  ...prev,
-                  timer: {
-                    ...prev.timer,
-                    duration: option.id as DurationKey,
-                  },
-                }))
-              }
-            />
-          </View>
-        )}
-      </View>
-      <View>
-        <AppButton
-          className='bg-primary border-secondary text-secondary'
-          onPress={() => setGameState({ screen: SCREENS.home })}
-        >
-          Cancel
-        </AppButton>
-        <AppButton
-          className='ml-md xl:ml-lg'
-          onPress={() => setSettingsState(tempSettings)}
-        >
-          Save
-        </AppButton>
-      </View>
-      {/* </ScrollView> */}
+      <ScrollView>
+        <View>
+          <AppBinaryRadioButtonsGroup
+            label={AI_MODE_SETTINGS_TEMPLATE.labelKey}
+            options={AI_MODE_SETTINGS_TEMPLATE.optionKeys}
+            onValueChange={value =>
+              setPartialSettingsState({ aiMode: { ...aiMode, enabled: value } })
+            }
+            value={tempSettings.aiMode.enabled}
+          />
+          {tempSettings.aiMode.enabled && (
+            <View className='mt-md xl:mt-lg'>
+              <AppDropdown
+                label={t('difficulty-level')}
+                options={difficultyDropdownOptions}
+                selectedOptionId={tempSettings.aiMode.difficulty}
+                onSelect={option =>
+                  setTempSettings(prev => ({
+                    ...prev,
+                    aiMode: {
+                      ...prev.aiMode,
+                      difficulty: option.id as DifficultyKey,
+                    },
+                  }))
+                }
+              />
+            </View>
+          )}
+        </View>
+        <View className='mt-xl xl:mt-2xl'>
+          <AppBinaryRadioButtonsGroup
+            label={TIMER_SETTINGS_TEMPLATE.labelKey}
+            options={TIMER_SETTINGS_TEMPLATE.optionKeys}
+            onValueChange={value =>
+              setPartialSettingsState({ timer: { ...timer, enabled: value } })
+            }
+            value={tempSettings.timer.enabled}
+          />
+          {tempSettings.timer.enabled && (
+            <View className='mt-md xl:mt-lg'>
+              <AppDropdown
+                label={t('time-limit')}
+                options={durationDropdownOptions}
+                selectedOptionId={tempSettings.timer.duration}
+                onSelect={option =>
+                  setTempSettings(prev => ({
+                    ...prev,
+                    timer: {
+                      ...prev.timer,
+                      duration: option.id as DurationKey,
+                    },
+                  }))
+                }
+              />
+            </View>
+          )}
+        </View>
+        <View className='flex flex-row mt-xl xl:mt-2xl'>
+          <AppButton
+            className=''
+            onPress={() => setGameState({ screen: SCREENS.home })}
+          >
+            <AppText className='text-center'>{t('cancel')}</AppText>
+          </AppButton>
+          <AppButton
+            className='ml-sm lg:ml-md bg-secondary'
+            onPress={() => {
+              setSettingsState(tempSettings)
+              setGameState({ screen: SCREENS.home })
+            }}
+          >
+            <AppText className='text-center text-primary'>{t('save')}</AppText>
+          </AppButton>
+        </View>
+      </ScrollView>
     </View>
   )
 }

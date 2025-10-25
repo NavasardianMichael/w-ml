@@ -27,7 +27,7 @@ function App() {
     <View className='flex-1 bg-primary p-md md:p-xl'>
       <StatusBar hidden />
       <Header />
-      <View className='min-h-[50vh]'>
+      <View className='min-h-[50vh] flex-1'>
         <CurrentScreen />
       </View>
       <SidebarOverlay />

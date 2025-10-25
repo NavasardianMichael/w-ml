@@ -8,9 +8,10 @@ import { SCREENS } from '@/constants/game'
 import { SOUNDS_URIS } from '@/constants/sound'
 import { useSound } from '@/hooks/useSound'
 import SidebarTrigger from '../game/Sidebar/SidebarTrigger'
-import AppButton from '../ui/AppButton'
+import AppSmallIconButton from '../ui/AppSmallIconButton'
 import ExitIconButton from './ExitIconButton'
 import ExitModal from './ExitModal'
+import LanguagesDropdown from './LanguagesDropdown'
 import LogoBlock from './logoBlock/LogoBlock'
 
 export default function Header() {
@@ -41,16 +42,22 @@ export default function Header() {
   return (
     <>
       <View className='flex flex-row '>
-        <AppButton onPress={soundHandler}>
+        <AppSmallIconButton onPress={soundHandler}>
           {isMuted ? <VolumeOffIcon /> : <VolumeOnIcon />}
-        </AppButton>
+        </AppSmallIconButton>
         {screen === SCREENS.game ? (
           <ExitIconButton onPress={() => setIsExitModalVisible(true)} />
         ) : null}
         {screen === SCREENS.settings || screen === SCREENS.results ? (
           <ExitIconButton onPress={() => setScreen(SCREENS.home)} />
         ) : null}
-        {screen === SCREENS.game ? <SidebarTrigger /> : null}
+        {screen === SCREENS.game ? (
+          <SidebarTrigger />
+        ) : (
+          <View className='ml-auto'>
+            <LanguagesDropdown />
+          </View>
+        )}
       </View>
 
       <ExitModal

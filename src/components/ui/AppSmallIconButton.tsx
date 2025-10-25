@@ -3,13 +3,13 @@ import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
 
 type Props = TouchableOpacityProps
 
-const AppButton: FC<PropsWithChildren<Props>> = ({
+const AppSmallIconButton: FC<PropsWithChildren<Props>> = ({
   children,
   className,
   ...restProps
 }) => {
   const combinedClassName = useMemo(() => {
-    return `border border-secondary text-secondary p-sm lg:p-md rounded-md min-w-[120px] ${
+    return `h-6 w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 xl:w-10 xl:h-10 ${
       className ? ` ${className}` : ''
     }`
   }, [className])
@@ -21,4 +21,4 @@ const AppButton: FC<PropsWithChildren<Props>> = ({
   )
 }
 
-export default memo(AppButton)
+export default memo(AppSmallIconButton)

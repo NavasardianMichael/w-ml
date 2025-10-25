@@ -1,16 +1,16 @@
 import { View } from 'react-native'
 import { useGameStore } from '@/store/game/store'
 import { ICONS } from '@/constants/icons'
-import AppButton from '@/components/ui/AppButton'
+import AppSmallIconButton from '@/components/ui/AppSmallIconButton'
 
 export default function SidebarTrigger() {
   const { toggleIsSidebarOpen } = useGameStore()
 
   return (
     <View className={`ml-auto`}>
-      <AppButton onPress={toggleIsSidebarOpen}>
+      <AppSmallIconButton onPress={toggleIsSidebarOpen}>
         <ICONS.sidebar />
-      </AppButton>
+      </AppSmallIconButton>
     </View>
   )
 }

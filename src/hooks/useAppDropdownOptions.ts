@@ -4,6 +4,7 @@ import { AppDropdownType } from '@/types/ui'
 
 export const useAppDropdownOptions = <T extends string>(
   optionKeys: Record<T, string>,
+  labelsByKey?: Record<T, string>,
 ) => {
   const { t } = useTranslation()
 
@@ -12,10 +13,10 @@ export const useAppDropdownOptions = <T extends string>(
       key =>
         ({
           id: key,
-          label: t(key),
+          label: labelsByKey?.[key as T] ?? t(key),
         } as AppDropdownType['option']),
     )
-  }, [t, optionKeys])
+  }, [t, optionKeys, labelsByKey])
 
   return options
 }

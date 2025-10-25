@@ -6,15 +6,16 @@ type AppDropdownOption = {
 }
 
 type AppDropdownProps = {
-  label: string
+  label?: string
   selectedOptionId: AppDropdownOption['id']
   options: AppDropdownOption[]
   onSelect: (option: AppDropdownOption) => void
   renderOptionNode?: (
     option: AppDropdownOption,
-    index?: number,
-    arr?: AppDropdownOption[],
+    index: number,
+    arr: AppDropdownOption[],
   ) => ReactNode
+  renderSelectedOptionNode?: (option: AppDropdownOption) => ReactNode
 }
 
 export type AppDropdownType = {

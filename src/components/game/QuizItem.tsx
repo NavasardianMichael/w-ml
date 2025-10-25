@@ -141,7 +141,7 @@ const QuizItem = () => {
     <View className='bg-primary' key={currentQuizItem.id}>
       <View className='flex flex-col gap-lg mt-auto'>
         <View>
-          <AppText className='border-secondary border px-md py-sm box-border rounded-lg text-center'>
+          <AppText className='border-secondary border px-md py-sm box-border rounded-md text-center'>
             {currentQuizItem.question}
           </AppText>
         </View>

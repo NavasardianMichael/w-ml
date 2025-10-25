@@ -42,6 +42,7 @@ export const getQuiz = async ({
       language,
       'translation',
     )
+    console.log({ language, response })
 
     const lastQuestionNumbersBySafeHavenNumber =
       await getLastQuestionNumberBySafeHavenNumberByLanguage(language)

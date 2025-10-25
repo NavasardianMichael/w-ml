@@ -9,6 +9,7 @@ const AppDropdown: FC<AppDropdownType['props']> = ({
   onSelect,
   selectedOptionId,
   renderOptionNode,
+  renderSelectedOptionNode,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 
@@ -32,21 +33,21 @@ const AppDropdown: FC<AppDropdownType['props']> = ({
   console.log({ selectedOption })
 
   const selectedOptionNode = useMemo(() => {
-    return renderOptionNode ? (
-      renderOptionNode(selectedOption, 0, options)
+    return renderSelectedOptionNode ? (
+      renderSelectedOptionNode(selectedOption)
     ) : (
-      <AppText>{selectedOption?.label || ''}</AppText>
+      <AppText>{selectedOption?.label ?? ''}</AppText>
     )
-  }, [renderOptionNode, selectedOption, options])
+  }, [renderSelectedOptionNode, selectedOption])
 
   return (
     <View>
-      <AppText className='font-bold mb-sm lg:mb-md'>{label}</AppText>
+      {label && <AppText className='font-bold mb-sm lg:mb-md'>{label}</AppText>}
       <View className='relative max-w-sm'>
         <Pressable
           accessibilityIgnoresInvertColors
           onPress={toggleDropdown}
-          className={`bg-primary border border-secondary rounded-lg p-sm lg:p-md flex-row justify-between items-center ${
+          className={`bg-primary border border-secondary rounded-md p-sm lg:p-md flex-row justify-between items-center ${
             isDropdownOpen ? 'rounded-b-none' : ''
           }`}
         >
@@ -61,7 +62,7 @@ const AppDropdown: FC<AppDropdownType['props']> = ({
           {/* Dropdown List */}
         </Pressable>
         {isDropdownOpen ? (
-          <View className='absolute z-10 left-0 right-0 top-full bg-secondary border border-t-0  border-secondary rounded-b-lg overflow-hidden'>
+          <View className='absolute z-10 left-0 right-0 top-full bg-secondary border border-t-0  border-secondary overflow-hidden'>
             <ScrollView>
               {options.map((option, index, arr) => {
                 const isSelected = option.id === selectedOptionId
@@ -72,13 +73,16 @@ const AppDropdown: FC<AppDropdownType['props']> = ({
                     {option?.label ?? ''}
                   </AppText>
                 )
+                console.log({ optionNode })
                 return (
                   <Pressable
                     key={option.id}
                     onPress={() => onOptionPress(option)}
-                    className={`p-sm lg:p-md flex-row items-center border-b border-primary ${
+                    className={`p-sm lg:p-md flex-row items-center ${
                       isSelected ? 'bg-blue-100' : ''
-                    } `}
+                    } ${
+                      index === arr.length - 1 ? '' : 'border-b border-primary'
+                    }`}
                   >
                     {optionNode}
                   </Pressable>

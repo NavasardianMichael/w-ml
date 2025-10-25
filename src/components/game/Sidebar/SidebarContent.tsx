@@ -14,7 +14,7 @@ import { ICONS } from '@/constants/icons'
 import { SOUND_DURATION_BY_URI, SOUND_ID_BY_LIFELINE } from '@/constants/sound'
 import { useCurrentQuizItem } from '@/hooks/useCurrentQuizItem'
 import { useSound } from '@/hooks/useSound'
-import AppButton from '@/components/ui/AppButton'
+import AppSmallIconButton from '@/components/ui/AppSmallIconButton'
 import AppText from '@/components/ui/AppText'
 import LIFELINES_TEMPLATE from './lifelinesTemplate'
 
@@ -139,9 +139,9 @@ export default function SidebarContent() {
             })}
           </View>
           <View className='rotate-180'>
-            <AppButton onPress={() => toggleIsSidebarOpen()}>
+            <AppSmallIconButton onPress={() => toggleIsSidebarOpen()}>
               <ICONS.sidebar />
-            </AppButton>
+            </AppSmallIconButton>
           </View>
         </View>
         <View className='h-full pt-xs lg:pt-md'>

@@ -11,7 +11,7 @@ export default memo(function AskAudience() {
   const optionNames = useOptionNames()
 
   return (
-    <View className=' flex-1 justify-center p-sm mx-auto rounded-lg border border-secondary'>
+    <View className=' flex-1 justify-center p-sm mx-auto rounded-md border border-secondary'>
       <View className='relative flex-row'>
         {OPTIONS_SERIAL_NUMBERS.map(serialNumber => {
           const percentage = askAudience?.[serialNumber] ?? 0
