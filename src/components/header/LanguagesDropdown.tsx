@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { View } from 'react-native'
-import { getQuiz } from '@/api/getQuiz'
+import { useTranslation } from 'react-i18next'
 import { useSettingsStore } from '@/store/settings/store'
 import { LANGUAGES } from '@/services/translations/constants'
 import { Language } from '@/types/settings'
@@ -16,6 +16,9 @@ export type AppDropdownOption = {
 }
 
 export default function LanguagesDropdown() {
+  const {
+    i18n: { changeLanguage },
+  } = useTranslation()
   const { language, setSettingsState } = useSettingsStore()
   const languagesDropdownOptions = useAppDropdownOptions<Language>(
     LANGUAGES,
@@ -27,7 +30,7 @@ export default function LanguagesDropdown() {
       onSelect={option => {
         const languageOptionId = option.id as Language
         setSettingsState({ language: languageOptionId })
-        getQuiz({ language: languageOptionId })
+        changeLanguage(languageOptionId)
       }}
       selectedOptionId={language}
       renderOptionNode={option => {

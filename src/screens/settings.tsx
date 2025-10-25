@@ -11,6 +11,7 @@ import { useAppDropdownOptions } from '@/hooks/useAppDropdownOptions'
 import AppBinaryRadioButtonsGroup from '@/components/ui/AppBinaryRadioButtonsGroup'
 import AppButton from '@/components/ui/AppButton'
 import AppDropdown from '@/components/ui/AppDropdown'
+import AppHorizontalRule from '@/components/ui/AppHorizontalRule'
 import AppText from '@/components/ui/AppText'
 
 export default function Settings() {
@@ -102,7 +103,8 @@ export default function Settings() {
             </View>
           )}
         </View>
-        <View className='flex flex-row mt-xl xl:mt-2xl'>
+        <AppHorizontalRule />
+        <View className='flex flex-row'>
           <AppButton
             className=''
             onPress={() => setGameState({ screen: SCREENS.home })}
