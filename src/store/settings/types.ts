@@ -1,14 +1,14 @@
-import { Difficulty, Language } from '@/types/settings'
+import { DifficultyKey, DurationKey, Language } from '@/types/settings'
 
 export type SettingsState = {
   language: Language
   aiMode: {
     enabled: boolean
-    difficulty: Difficulty
+    difficulty: DifficultyKey
   }
   timer: {
     enabled: boolean
-    duration: number
+    duration: DurationKey
   }
 }
 

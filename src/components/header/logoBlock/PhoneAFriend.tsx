@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useLifelinesStore } from '@/store/lifelines/store'
 import { HTML_CODES } from '@/constants/commons'
 import { ICONS } from '@/constants/icons'
-import { useOptionNames } from '@/hooks/useCurrentQuizItem copy'
+import { useOptionNames } from '@/hooks/useDifficultyOptions'
 import AppText from '@/components/ui/AppText'
 
 export default memo(function PhoneAFriend() {

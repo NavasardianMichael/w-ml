@@ -1,15 +1,15 @@
 import React, { FC, memo, useMemo } from 'react'
 import { Text, TextProps } from 'react-native'
 
-type Props = TextProps & {
-  disableDefaultFontSize?: boolean
-}
-
 // xs: '360px', // Small phones
 // sm: '480px', // Regular phones
 // md: '768px', // Tablets
 // lg: '1024px', // Large tablets
 // xl: '1280px', // Extra large tablets / laptops
+
+type Props = TextProps & {
+  disableDefaultFontSize?: boolean
+}
 
 const AppText: FC<Props> = ({
   children,

@@ -8,7 +8,7 @@ import { SCREENS } from '@/constants/game'
 import { SOUNDS_URIS } from '@/constants/sound'
 import { useSound } from '@/hooks/useSound'
 import SidebarTrigger from '../game/Sidebar/SidebarTrigger'
-import AppIconButtonSmall from '../ui/AppIconButtonSmall'
+import AppButton from '../ui/AppButton'
 import ExitIconButton from './ExitIconButton'
 import ExitModal from './ExitModal'
 import LogoBlock from './logoBlock/LogoBlock'
@@ -41,9 +41,9 @@ export default function Header() {
   return (
     <>
       <View className='flex flex-row '>
-        <AppIconButtonSmall onPress={soundHandler}>
+        <AppButton onPress={soundHandler}>
           {isMuted ? <VolumeOffIcon /> : <VolumeOnIcon />}
-        </AppIconButtonSmall>
+        </AppButton>
         {screen === SCREENS.game ? (
           <ExitIconButton onPress={() => setIsExitModalVisible(true)} />
         ) : null}

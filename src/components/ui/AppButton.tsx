@@ -3,7 +3,7 @@ import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
 
 type Props = TouchableOpacityProps
 
-const AppIconButtonSmall: FC<PropsWithChildren<Props>> = ({
+const AppButton: FC<PropsWithChildren<Props>> = ({
   children,
   className,
   ...restProps
@@ -21,4 +21,4 @@ const AppIconButtonSmall: FC<PropsWithChildren<Props>> = ({
   )
 }
 
-export default memo(AppIconButtonSmall)
+export default memo(AppButton)

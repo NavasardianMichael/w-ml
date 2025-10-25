@@ -1,24 +1,10 @@
-import { FC, memo, ReactNode, useCallback, useMemo, useState } from 'react'
+import { FC, memo, useCallback, useMemo, useState } from 'react'
 import { Pressable, ScrollView, View } from 'react-native'
+import { AppDropdownType } from '@/types/ui'
 import AppText from './AppText'
 
-type AppDropdownOption = {
-  id: string
-  label: string
-}
-
-export type AppDropdownProps = {
-  selectedOptionId: AppDropdownOption['id']
-  options: AppDropdownOption[]
-  onSelect: (option: AppDropdownOption) => void
-  renderOptionNode?: (
-    option: AppDropdownOption,
-    index?: number,
-    arr?: AppDropdownOption[],
-  ) => ReactNode
-}
-
-const AppDropdown: FC<AppDropdownProps> = ({
+const AppDropdown: FC<AppDropdownType['props']> = ({
+  label,
   options,
   onSelect,
   selectedOptionId,
@@ -31,67 +17,76 @@ const AppDropdown: FC<AppDropdownProps> = ({
   }
 
   const onOptionPress = useCallback(
-    (selectedOption: AppDropdownOption) => {
+    (selectedOption: AppDropdownType['option']) => {
       setIsDropdownOpen(false)
       onSelect(selectedOption)
     },
     [setIsDropdownOpen, onSelect],
   )
+  console.log({ options })
 
-  const selectedOption: AppDropdownOption = useMemo(
+  const selectedOption: AppDropdownType['option'] = useMemo(
     () => options.find(option => option.id === selectedOptionId),
     [options, selectedOptionId],
   )!
 
   const selectedOptionNode = useMemo(() => {
-    return renderOptionNode
-      ? renderOptionNode(selectedOption, 0, options)
-      : selectedOption.label
+    return renderOptionNode ? (
+      renderOptionNode(selectedOption, 0, options)
+    ) : (
+      <AppText>{selectedOption?.label || ''}</AppText>
+    )
   }, [renderOptionNode, selectedOption, options])
 
   return (
-    <View className={`relative!`}>
-      <Pressable
-        accessibilityIgnoresInvertColors
-        onPress={toggleDropdown}
-        className={`bg-primary border border-secondary rounded-lg p-sm lg:p-md flex-row justify-between items-center ${
-          isDropdownOpen ? 'rounded-b-none' : ''
-        }`}
-      >
-        <View className={`flex-row items-center`}>{selectedOptionNode}</View>
-        <AppText
-          className={`text-secondary text-xs transition ml-sm ${
-            isDropdownOpen ? 'rotate-180' : ''
+    <View>
+      <AppText className='font-bold mb-sm lg:mb-md'>{label}</AppText>
+      <View className='relative max-w-sm'>
+        <Pressable
+          accessibilityIgnoresInvertColors
+          onPress={toggleDropdown}
+          className={`bg-primary border border-secondary rounded-lg p-sm lg:p-md flex-row justify-between items-center ${
+            isDropdownOpen ? 'rounded-b-none' : ''
           }`}
         >
-          {'▼'}
-        </AppText>
-        {/* Dropdown List */}
-      </Pressable>
-      {isDropdownOpen ? (
-        <View className='absolute z-10 left-0 right-0 top-full bg-primary border border-t-0  border-secondary rounded-b-lg overflow-hidden'>
-          <ScrollView>
-            {options.map((option, index, arr) => {
-              const optionNode = renderOptionNode
-                ? renderOptionNode(option, index, arr)
-                : option.label
-              return (
-                <Pressable
-                  key={option.id}
-                  onPress={() => onOptionPress(option)}
-                  className={`flex-row items-center   ${
-                    option.id === selectedOptionId
-                      ? 'bg-secondary'
-                      : 'bg-blue-100'
-                  } `}
-                >
-                  {optionNode}
-                </Pressable>
-              )
-            })}
-          </ScrollView>
-        </View>
-      ) : null}
+          <View>{selectedOptionNode}</View>
+          <AppText
+            className={`text-secondary transition ml-sm ${
+              isDropdownOpen ? 'rotate-180' : ''
+            }`}
+          >
+            {'▼'}
+          </AppText>
+          {/* Dropdown List */}
+        </Pressable>
+        {isDropdownOpen ? (
+          <View className='absolute z-10 left-0 right-0 top-full bg-secondary border border-t-0  border-secondary rounded-b-lg overflow-hidden'>
+            <ScrollView>
+              {options.map((option, index, arr) => {
+                const isSelected = option.id === selectedOptionId
+                const optionNode = renderOptionNode ? (
+                  renderOptionNode(option, index, arr)
+                ) : (
+                  <AppText className='text-primary'>
+                    {option?.label ?? ''}
+                  </AppText>
+                )
+                return (
+                  <Pressable
+                    key={option.id}
+                    onPress={() => onOptionPress(option)}
+                    className={`p-sm lg:p-md flex-row items-center border-b border-primary ${
+                      isSelected ? 'bg-blue-100' : ''
+                    } `}
+                  >
+                    {optionNode}
+                  </Pressable>
+                )
+              })}
+            </ScrollView>
+          </View>
+        ) : null}
+      </View>
     </View>
   )
 }

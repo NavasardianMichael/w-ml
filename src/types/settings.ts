@@ -1,6 +1,9 @@
 import { LANGUAGES } from '@/services/translations/constants'
-import { DIFFICULTY_LEVELS } from '@/constants/settings'
+import { DIFFICULTY_KEYS, DURATION_KEYS } from '@/constants/settings'
+import { ObjectKeys } from './commons'
 
-export type Language = (typeof LANGUAGES)[keyof typeof LANGUAGES]
+export type Language = ObjectKeys<typeof LANGUAGES>
 
-export type Difficulty = (typeof DIFFICULTY_LEVELS)[number]
+export type DifficultyKey = ObjectKeys<typeof DIFFICULTY_KEYS>
+
+export type DurationKey = ObjectKeys<typeof DURATION_KEYS>
