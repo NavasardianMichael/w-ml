@@ -3,7 +3,7 @@ import { TouchableOpacity, View } from 'react-native'
 import { useLifelinesStore } from '@/store/lifelines/store'
 import { HTML_CODES } from '@/constants/commons'
 import { OPTIONS_SERIAL_NUMBERS } from '@/constants/game'
-import { useOptionNames } from '@/hooks/useDifficultyOptions'
+import { useOptionNames } from '@/hooks/useOptionNames'
 import AppText from '@/components/ui/AppText'
 
 export default memo(function AskAudience() {

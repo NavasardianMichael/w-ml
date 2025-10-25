@@ -29,6 +29,7 @@ const AppDropdown: FC<AppDropdownType['props']> = ({
     () => options.find(option => option.id === selectedOptionId),
     [options, selectedOptionId],
   )!
+  console.log({ selectedOption })
 
   const selectedOptionNode = useMemo(() => {
     return renderOptionNode ? (

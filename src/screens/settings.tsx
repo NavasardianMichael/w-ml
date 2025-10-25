@@ -6,12 +6,7 @@ import { useSettingsStore } from '@/store/settings/store'
 import { SettingsState } from '@/store/settings/types'
 import { DifficultyKey, DurationKey } from '@/types/settings'
 import { SCREENS } from '@/constants/game'
-import {
-  DIFFICULTY_KEYS,
-  DIFFICULTY_LABELS_BY_KEY,
-  DURATION_KEYS,
-  DURATION_LABELS_BY_KEY,
-} from '@/constants/settings'
+import { DIFFICULTY_KEYS, DURATION_KEYS } from '@/constants/settings'
 import { useAppDropdownOptions } from '@/hooks/useAppDropdownOptions'
 import AppBinaryRadioButtonsGroup from '@/components/ui/AppBinaryRadioButtonsGroup'
 import AppButton from '@/components/ui/AppButton'
@@ -37,15 +32,11 @@ export default function Settings() {
     optionKeys: [t('with-timer'), t('without-timer')],
   }
 
-  const difficultyDropdownOptions = useAppDropdownOptions<DifficultyKey>(
-    DIFFICULTY_KEYS,
-    DIFFICULTY_LABELS_BY_KEY,
-  )
+  const difficultyDropdownOptions =
+    useAppDropdownOptions<DifficultyKey>(DIFFICULTY_KEYS)
 
-  const durationDropdownOptions = useAppDropdownOptions<DurationKey>(
-    DURATION_KEYS,
-    DURATION_LABELS_BY_KEY,
-  )
+  const durationDropdownOptions =
+    useAppDropdownOptions<DurationKey>(DURATION_KEYS)
 
   const setPartialSettingsState = (partialState: Partial<SettingsState>) => {
     setTempSettings(prev => ({ ...prev, ...partialState }))
