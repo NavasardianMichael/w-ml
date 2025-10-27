@@ -25,12 +25,10 @@ export default function Settings() {
   const { t } = useTranslation()
 
   const AI_MODE_SETTINGS_TEMPLATE = {
-    labelKey: t('questions-generated-by'),
     optionKeys: [t('artificial-intelligence'), t('system')],
   }
 
   const TIMER_SETTINGS_TEMPLATE = {
-    labelKey: t('force-answer-with-time-limit'),
     optionKeys: [t('with-timer'), t('without-timer')],
   }
 
@@ -49,7 +47,7 @@ export default function Settings() {
       <ScrollView>
         <View>
           <AppBinaryRadioButtonsGroup
-            label={AI_MODE_SETTINGS_TEMPLATE.labelKey}
+            label={t('questions-generated-by')}
             options={AI_MODE_SETTINGS_TEMPLATE.optionKeys}
             onValueChange={value =>
               setPartialSettingsState({ aiMode: { ...aiMode, enabled: value } })
@@ -75,9 +73,9 @@ export default function Settings() {
             </View>
           )}
         </View>
-        <View className='mt-xl xl:mt-2xl'>
+        <View className='mt-xl mb-md xl:mt-xl xl:mb-lg'>
           <AppBinaryRadioButtonsGroup
-            label={TIMER_SETTINGS_TEMPLATE.labelKey}
+            label={t('force-answer-with-time-limit')}
             options={TIMER_SETTINGS_TEMPLATE.optionKeys}
             onValueChange={value =>
               setPartialSettingsState({ timer: { ...timer, enabled: value } })

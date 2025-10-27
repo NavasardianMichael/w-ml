@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import i18next from 'i18next'
-import { GetQuizAPI } from '@/api/getQuiz'
+import { GetQuizAPI } from '@/api/fetchPartialQuizFromSystem'
 import { QuizItem } from '@/store/game/types'
 import { SafeHavenStage } from '@/types/game'
 import { Language } from '@/types/settings'

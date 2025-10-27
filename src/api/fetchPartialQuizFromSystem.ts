@@ -34,7 +34,7 @@ const processQuizItem = (
   }
 }
 
-export const getQuiz = async ({
+export const fetchPartialQuizFromSystem = async ({
   language,
 }: GetQuizAPI['payload']): Promise<GetQuizAPI['processed'] | undefined> => {
   try {

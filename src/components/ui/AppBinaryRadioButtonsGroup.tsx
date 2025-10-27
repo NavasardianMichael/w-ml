@@ -22,21 +22,25 @@ const AppBinaryRadioButtonsGroup: FC<Props> = ({
       <View className='flex flex-row'>
         <AppTouchableOpacity
           onPress={() => onValueChange(true)}
-          className={`${value ? 'bg-secondary border-primary' : ''}`}
+          className={`grow ${value ? 'bg-secondary border-primary' : ''}`}
         >
-          <AppText className={`text-center ${value ? 'text-primary' : ''}`}>
+          <AppText
+            className={`w-full text-ellipsis whitespace-nowrap overflow-hidden text-center ${
+              value ? 'text-primary' : ''
+            }`}
+          >
             {options[0]}
             <AppText className='text-primary'> ✓</AppText>
           </AppText>
         </AppTouchableOpacity>
         <AppTouchableOpacity
           onPress={() => onValueChange(false)}
-          className={`ml-sm lg:ml-md ${
+          className={`grow ml-sm lg:ml-md ${
             !value ? 'bg-secondary text-primary border-secondary' : ' '
           }`}
         >
           <AppText
-            className={`text-center ${
+            className={`w-full text-ellipsis whitespace-nowrap overflow-hidden text-center ${
               !value ? 'text-primary' : 'text-secondary'
             }`}
           >

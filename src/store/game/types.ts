@@ -1,4 +1,4 @@
-import { GetQuizAPI } from '@/api/getQuiz'
+import { GetQuizAPI } from '@/api/fetchPartialQuizFromSystem'
 import { OptionSerialNumber, QuestionStage, Screen } from '@/types/game'
 import { Language } from '@/types/settings'
 

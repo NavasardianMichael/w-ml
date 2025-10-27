@@ -5,7 +5,7 @@ type Props = Omit<ViewProps, 'children'>
 
 const AppHorizontalRule: FC<Props> = ({ className, ...restProps }) => {
   const combinedClassName = useMemo(() => {
-    return `h-[1px] w-full bg-secondary my-md xl:mt-2xl ${
+    return `h-[1px] w-full bg-secondary my-md xl:mt-xl ${
       className ? ` ${className}` : ''
     }`
   }, [className])

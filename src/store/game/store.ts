@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { combine } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
-import { getQuiz } from '@/api/getQuiz'
+import { getQuiz } from '@/api/fetchPartialQuizFromSystem'
 import { getNextQuizItemByLanguageAndSafeHavenNumber } from '@/services/localStorage/api'
 import { SCREENS } from '@/constants/game'
 import { GameState, GameStateActions } from './types'

@@ -1,4 +1,5 @@
 import { LANGUAGES } from '@/services/translations/constants'
+import { ObjectKeys } from '@/types/commons'
 import { Language } from '@/types/settings'
 
 export const LANGUAGE_NAMES: Record<Language, string> = {
@@ -14,6 +15,17 @@ export const DIFFICULTY_KEYS = {
   hard: 'hard',
   'very-hard': 'very-hard',
 } as const
+
+const DIFFICULTY_NAMES_BY_KEY: Record<
+  ObjectKeys<typeof DIFFICULTY_KEYS>,
+  string
+> = {
+  'very-easy': 'Very easy',
+  easy: 'Easy',
+  medium: 'Medium',
+  hard: 'Hard',
+  'very-hard': 'Very hard',
+}
 
 export const DURATION_KEYS = {
   '30-seconds': '30-seconds',
