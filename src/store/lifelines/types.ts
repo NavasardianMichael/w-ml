@@ -16,14 +16,6 @@ export type LifelinesState = {
   }>
 }
 
-export type QuizItem = {
-  id: number
-  question: string
-  options: string[]
-  answeredOptionSerialNumber: OptionSerialNumber | null
-  correctOptionSerialNumber: OptionSerialNumber
-}
-
 export type SingleLifelineActionPayload = {
   correctOptionSerialNumber: OptionSerialNumber
   currentQuestionStage: QuestionStage
