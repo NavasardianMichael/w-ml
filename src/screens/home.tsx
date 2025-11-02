@@ -4,16 +4,18 @@ import { useTranslation } from 'react-i18next'
 import { useGameStore } from '@/store/game/store'
 import { useSettingsStore } from '@/store/settings/store'
 import { useSoundStore } from '@/store/sound/store'
-import { sleep } from '@/helpers/commons'
 import { SCREENS } from '@/constants/game'
-import { SOUND_DURATION_BY_URI, SOUNDS_URIS } from '@/constants/sound'
+import { SOUNDS_URIS } from '@/constants/sound'
 import { useSound } from '@/hooks/useSound'
 import AppText from '@/components/ui/AppText'
 import AppTouchableOpacity from '@/components/ui/AppTouchableOpacity'
 
 export default function Home() {
   const { playSoundById, stopAllTracks } = useSoundStore()
-  const { language } = useSettingsStore()
+  const {
+    aiMode: { difficulty, enabled },
+    language,
+  } = useSettingsStore()
   const { isPending, initQuiz, setScreen } = useGameStore()
   const { t } = useTranslation()
   const hasPlayedRef = useRef(false)
@@ -37,16 +39,18 @@ export default function Home() {
 
   const onStartGamePress: TouchableWithoutFeedbackProps['onPress'] =
     async e => {
-      if (isPending) {
-        e.preventDefault()
-        e.stopPropagation()
-        return
-      }
-      initQuiz({ language })
-      playSoundById(SOUNDS_URIS.resign)
-      setScreen(SCREENS.game)
-      await sleep(SOUND_DURATION_BY_URI[SOUNDS_URIS.resign])
-      playSoundById(SOUNDS_URIS.easy, { loop: true })
+      // if (isPending) {
+      //   e.preventDefault()
+      //   e.stopPropagation()
+      //   return
+      // }
+      console.log('calling!!!!!!!!!!!!!!!!')
+
+      await initQuiz({ language })
+      // playSoundById(SOUNDS_URIS.resign)
+      // setScreen(SCREENS.game)
+      // await sleep(SOUND_DURATION_BY_URI[SOUNDS_URIS.resign])
+      // playSoundById(SOUNDS_URIS.easy, { loop: true })
     }
 
   const onSettingsPress: TouchableWithoutFeedbackProps['onPress'] = () => {

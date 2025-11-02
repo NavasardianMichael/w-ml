@@ -10,10 +10,8 @@ export type FetchQuizItemAPI = Endpoint<{
   payload: {
     language: Language
     difficulty: string
-    stagesRange: {
-      start: number
-      end: number
-    }
+    startStage: number
+    endStage: number
   }
   response: QuizItemResponse[]
   processed: QuizItem[]

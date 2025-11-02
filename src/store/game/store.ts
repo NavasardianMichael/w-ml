@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { combine } from 'zustand/middleware'
 import { immer } from 'zustand/middleware/immer'
-import { fetchPartialQuizFromAI } from '@/api/fetchPartialQuizFromAI'
+import { fetchAIQuiz } from '@/api/aiQuiz/main'
 import { getNextQuizItemByLanguageAndSafeHavenNumber } from '@/services/localStorage/api'
 import { SCREENS } from '@/constants/game'
 import { GameState, GameStateActions } from './types'
@@ -49,13 +49,17 @@ export const useGameStore = create<GameState & GameStateActions>()(
         initQuiz: async ({ language }) => {
           set({ isPending: true })
           return new Promise<GameState['quiz']>(async resolve => {
-            const quiz = await fetchPartialQuizFromAI({
+            console.log('promise sent!!!!!!!!')
+
+            const quiz = await fetchAIQuiz({
               language,
               difficulty: 'easy',
-              stagesRange: { start: 1, end: 5 },
+              startStage: 1,
+              endStage: 5,
             })
+
             set(prevState => {
-              prevState.quiz = quiz ?? []
+              prevState.quiz = prevState.quiz.concat(quiz)
             })
 
             set({ isPending: false })

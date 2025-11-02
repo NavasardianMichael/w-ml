@@ -5,11 +5,14 @@ import {
   setLastQuestionNumberBySafeHavenNumberByLanguage,
 } from '@/services/localStorage/api'
 import { SafeHavenStage } from '@/types/game'
-import { Language } from '@/types/settings'
+import { DifficultyKey, Language } from '@/types/settings'
 
 export type GetQuizAPI = {
   payload: {
-    language: Language
+    language?: Language
+    difficulty?: DifficultyKey
+    startPage?: number
+    endPage?: number
   }
   response: {
     quiz: {
@@ -36,6 +39,9 @@ const processQuizItem = (
 
 export const fetchPartialQuizFromSystem = async ({
   language,
+  difficulty,
+  startPage,
+  endPage,
 }: GetQuizAPI['payload']): Promise<GetQuizAPI['processed'] | undefined> => {
   try {
     const response: GetQuizAPI['response'] = i18next.getResourceBundle(

@@ -5,19 +5,28 @@ import { FetchQuizItemAPI } from './types'
 export const fetchAIQuiz: FetchQuizItemAPI['api'] = async ({
   language,
   difficulty,
-  stagesRange,
+  startStage,
+  endStage,
 }) => {
-  const response = await fetch(
-    `http://localhost:5111/GetAIQuiz?${paramsToQueryString({
-      language,
-      difficulty,
-      stagesRange,
-    })}`,
-  )
-  const jsonString = await response.json()
-  const quizResponse = JSON.parse(jsonString)
-  console.log({ quizResponse })
+  console.log('request sent!!!!!!!!!')
 
-  const processedQuiz = processQuiz(quizResponse)
-  return processedQuiz
+  try {
+    const response = await fetch(
+      `http://10.0.2.2:5111/GetAIQuiz?${paramsToQueryString({
+        language,
+        difficulty,
+        startStage,
+        endStage,
+      })}`,
+    )
+    console.log({ response })
+
+    const quizResponse = await response.json()
+    console.log({ quizResponse })
+    const processedQuiz = processQuiz(quizResponse)
+    return processedQuiz
+  } catch (error) {
+    console.error({ error })
+    return []
+  }
 }
