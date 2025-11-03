@@ -1,10 +1,12 @@
+import { LANGUAGES } from '@/services/translations/constants'
 import { paramsToQueryString } from '@/helpers/commons'
+import { DIFFICULTY_KEYS, DIFFICULTY_NAMES_BY_KEY } from '@/constants/settings'
 import { processQuiz } from './processors'
 import { FetchQuizItemAPI } from './types'
 
 export const fetchAIQuiz: FetchQuizItemAPI['api'] = async ({
-  language,
-  difficulty,
+  language = LANGUAGES.en,
+  difficulty = DIFFICULTY_NAMES_BY_KEY[DIFFICULTY_KEYS.medium],
   startStage,
   endStage,
 }) => {

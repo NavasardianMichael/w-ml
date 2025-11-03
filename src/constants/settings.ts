@@ -16,7 +16,7 @@ export const DIFFICULTY_KEYS = {
   'very-hard': 'very-hard',
 } as const
 
-const DIFFICULTY_NAMES_BY_KEY: Record<
+export const DIFFICULTY_NAMES_BY_KEY: Record<
   ObjectKeys<typeof DIFFICULTY_KEYS>,
   string
 > = {

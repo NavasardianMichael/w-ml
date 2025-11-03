@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { Text } from 'react-native'
 import Svg, { Circle } from 'react-native-svg'
+import { useSettingsStore } from '@/store/settings/store'
 
 const SIZE = 70
 const STROKE_WIDTH = 4
@@ -9,7 +10,10 @@ const RADIUS = (SIZE - STROKE_WIDTH) / 2
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS
 
 export default function CountDown() {
-  const [seconds, setSeconds] = useState(30)
+  const {
+    timer: { duration },
+  } = useSettingsStore()
+  const [seconds, setSeconds] = useState(duration)
 
   useEffect(() => {
     const interval = setInterval(() => {

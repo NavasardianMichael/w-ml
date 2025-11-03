@@ -8,10 +8,10 @@ export type QuizItemResponse = Pick<QuizItem, 'question' | 'options'> & {
 
 export type FetchQuizItemAPI = Endpoint<{
   payload: {
-    language: Language
-    difficulty: string
-    startStage: number
-    endStage: number
+    language?: Language
+    difficulty?: string
+    startStage?: number
+    endStage?: number
   }
   response: QuizItemResponse[]
   processed: QuizItem[]
