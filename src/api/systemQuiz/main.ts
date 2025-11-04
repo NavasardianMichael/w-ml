@@ -11,8 +11,8 @@ export type GetQuizAPI = {
   payload: {
     language?: Language
     difficulty?: DifficultyKey
-    startPage?: number
-    endPage?: number
+    startStage?: number
+    endStage?: number
   }
   response: {
     quiz: {
@@ -40,8 +40,8 @@ const processQuizItem = (
 export const fetchPartialQuizFromSystem = async ({
   language,
   difficulty,
-  startPage,
-  endPage,
+  startStage,
+  endStage,
 }: GetQuizAPI['payload']): Promise<GetQuizAPI['processed'] | undefined> => {
   try {
     const response: GetQuizAPI['response'] = i18next.getResourceBundle(

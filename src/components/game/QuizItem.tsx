@@ -23,7 +23,7 @@ const QuizItem = () => {
     setGameState,
     setIsSidebarOpen,
     setAnsweredOptionSerialNumber,
-    initNewQuizItemByLanguageAndSafeHavenNumber,
+    initQuiz,
   } = useGameStore()
   const { playSoundById, stopAllTracks } = useSoundStore()
   const {
@@ -105,9 +105,9 @@ const QuizItem = () => {
     }
 
     if (isSwitchQuestionMode) {
-      initNewQuizItemByLanguageAndSafeHavenNumber({
-        language,
-        quizItemId: currentQuizItem.id,
+      initQuiz({
+        startStage: currentQuestionStage,
+        endStage: currentQuestionStage,
       })
       setSwitchQuestionLifeline({ waitingToSwitchQuizItem: false })
     }
