@@ -4,6 +4,7 @@ import { immer } from 'zustand/middleware/immer'
 import { fetchAIQuiz } from '@/api/aiQuiz/main'
 import { getSafeHavenSerialNumberByQuestionStage } from '@/helpers/game'
 import { SCREENS } from '@/constants/game'
+import { DIFFICULTY_NAMES_BY_KEY } from '@/constants/settings'
 import { useSettingsStore } from '../settings/store'
 import { GameState, GameStateActions } from './types'
 
@@ -61,7 +62,10 @@ export const useGameStore = create<GameState & GameStateActions>()(
 
             const quiz = await fetchAIQuiz({
               language: payload.language ?? settingsStore.language,
-              difficulty: payload.difficulty ?? settingsStore.aiMode.difficulty,
+              difficulty:
+                DIFFICULTY_NAMES_BY_KEY[
+                  payload.difficulty ?? settingsStore.aiMode.difficulty
+                ],
               startStage: payload.startStage ?? endStageToFetch - 4,
               endStage: payload.endStage ?? endStageToFetch,
             })

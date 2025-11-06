@@ -1,11 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import i18next from 'i18next'
-import { GetQuizAPI } from '@/api/fetchPartialQuizFromSystem'
 import { QuizItem } from '@/store/game/types'
 import { SafeHavenStage } from '@/types/game'
 import { Language } from '@/types/settings'
 import { LOCAL_STORAGE_KEYS } from './constants'
 import { LocalStorageData } from './types'
+import { GetQuizAPI } from '@/api/fetchPartialQuizFromSystem'
 
 export const getLocalStorageItemJSON = async <T>(
   key: keyof typeof LOCAL_STORAGE_KEYS,
@@ -96,7 +96,7 @@ export const getNextQuizItemByLanguageAndSafeHavenNumber = async ({
       mustFetchFirstQuestion ? 1 : lastQuestionNumbersBySafeHavenNumber
     ]
 
-  const processQuizItem: QuizItem = {
+  const processAIQuizItem: QuizItem = {
     id: newQuizItem.id,
     question: newQuizItem.question,
     options: newQuizItem.options,
@@ -109,5 +109,5 @@ export const getNextQuizItemByLanguageAndSafeHavenNumber = async ({
     quizItemId: newQuizItem.id,
   })
 
-  return processQuizItem
+  return processAIQuizItem
 }

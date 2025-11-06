@@ -1,8 +1,8 @@
 import { QuizItem } from '@/store/game/types'
 import { OptionSerialNumber } from '@/types/game'
-import { FetchQuizItemAPI, QuizItemResponse } from './types'
+import { FetchAIQuizAPI, AIQuizItemResponse } from './types'
 
-const processQuizItem = (quizItemResponse: QuizItemResponse): QuizItem => {
+const processAIQuizItem = (quizItemResponse: AIQuizItemResponse): QuizItem => {
   const { answerIndex, ...restQuizItem } = quizItemResponse
   return {
     ...restQuizItem,
@@ -12,8 +12,8 @@ const processQuizItem = (quizItemResponse: QuizItemResponse): QuizItem => {
   }
 }
 
-export const processQuiz: FetchQuizItemAPI['processor'] = quiz => {
+export const processAIQuiz: FetchAIQuizAPI['processor'] = quiz => {
   return quiz.value.map(item => {
-    return processQuizItem(item)
+    return processAIQuizItem(item)
   })
 }
