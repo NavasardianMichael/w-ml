@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react'
 import { View } from 'react-native'
 import { Text } from 'react-native'
 import Svg, { Circle } from 'react-native-svg'
+import { useLifelinesStore } from '@/store/lifelines/store'
 import { useSettingsStore } from '@/store/settings/store'
+import { SECONDS_BY_DURATIONS_KEY } from '@/constants/settings'
 
 const SIZE = 70
 const STROKE_WIDTH = 4
@@ -13,11 +15,13 @@ export default function CountDown() {
   const {
     timer: { duration },
   } = useSettingsStore()
-  const [seconds, setSeconds] = useState(duration)
+  const { currentLifeline } = useLifelinesStore()
+  const [seconds, setSeconds] = useState(SECONDS_BY_DURATIONS_KEY[duration])
 
   useEffect(() => {
     const interval = setInterval(() => {
       setSeconds(prev => {
+        if (currentLifeline) return prev
         if (prev - 1 === 0) {
           clearInterval(interval)
           return 0
@@ -26,11 +30,11 @@ export default function CountDown() {
       })
     }, 1000)
     return () => clearInterval(interval)
-  }, [])
+  }, [currentLifeline])
 
   return (
     <View>
-      <Svg width={SIZE} height={SIZE} className='mb-sm'>
+      <Svg width='100%' height='100%' className='mb-sm'>
         {/* Background circle */}
         <Circle
           stroke='#001d5b'

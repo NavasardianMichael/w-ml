@@ -1,6 +1,5 @@
-import { GetQuizAPI } from '@/api/systemQuiz/main'
 import { OptionSerialNumber, QuestionStage, Screen } from '@/types/game'
-import { Language } from '@/types/settings'
+import { DifficultyKey, Language } from '@/types/settings'
 
 export type GameState = {
   screen: Screen
@@ -26,11 +25,11 @@ export type GameStateActions = {
   setAnsweredOptionSerialNumber: (
     serialNumber: OptionSerialNumber | null,
   ) => void
-  initQuiz: (
-    payload: Partial<GetQuizAPI['payload']>,
-  ) => Promise<GameState['quiz']>
-  initNewQuizItemByLanguageAndSafeHavenNumber: (payload: {
-    language: Language
-    quizItemId: string
-  }) => Promise<void>
+  initQuiz: (payload: {
+    language?: Language
+    difficulty?: DifficultyKey
+    startStage?: number
+    endStage?: number
+    replaceLastQuizItem?: boolean
+  }) => Promise<GameState['quiz']>
 }
