@@ -21,15 +21,6 @@ function App() {
     [SCREENS.settings]: Settings,
   }
 
-  // useEffect(() => {
-  //   fetchAIQuiz({
-  //     difficulty: 'easy',
-  //     language: 'en',
-  //     startStage: 1,
-  //     endStage: 5,
-  //   })
-  // }, [])
-
   const CurrentScreen = COMPONENT_BY_SCREEN[screen]
 
   return (

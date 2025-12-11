@@ -11,10 +11,17 @@ type Props = {
 }
 
 const ExitModal: FC<Props> = ({ isVisible, onClose }) => {
-  const { screen, setScreen } = useGameStore()
+  const { screen, setScreen, markCurrentQuizSeen } = useGameStore()
   const { t } = useTranslation()
 
   if (screen !== SCREENS.game) return null
+
+  const handleResign = async () => {
+    // Mark current quiz as seen when user resigns
+    await markCurrentQuizSeen()
+    onClose()
+    setScreen(SCREENS.home)
+  }
 
   return (
     <Modal
@@ -37,10 +44,7 @@ const ExitModal: FC<Props> = ({ isVisible, onClose }) => {
               </AppText>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => {
-                onClose()
-                setScreen(SCREENS.home)
-              }}
+              onPress={handleResign}
               className='px-4 py-2'
             >
               <AppText className='font-semibold text-red-500'>

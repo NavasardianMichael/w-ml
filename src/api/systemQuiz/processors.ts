@@ -1,6 +1,10 @@
 import { QuizItem } from '@/store/game/types'
 import { OptionSerialNumber } from '@/types/game'
-import { FetchSystemQuizAPI, SystemQuizItemResponse } from './types'
+import {
+  FetchSystemQuizAPI,
+  MarkQuizSeenAPI,
+  SystemQuizItemResponse,
+} from './types'
 
 const processSystemQuizItem = (
   quizItemResponse: SystemQuizItemResponse,
@@ -8,7 +12,6 @@ const processSystemQuizItem = (
   const { answerIndex, ...restQuizItem } = quizItemResponse
   return {
     ...restQuizItem,
-    id: Math.random().toString(36).substring(2, 15),
     correctOptionSerialNumber: (answerIndex + 1) as OptionSerialNumber,
     answeredOptionSerialNumber: null,
   }
@@ -18,4 +21,8 @@ export const processSystemQuiz: FetchSystemQuizAPI['processor'] = quiz => {
   return quiz.value.map(item => {
     return processSystemQuizItem(item)
   })
+}
+
+export const processMarkQuizSeen: MarkQuizSeenAPI['processor'] = response => {
+  return response.value.success
 }

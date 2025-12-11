@@ -1,5 +1,5 @@
 import { OptionSerialNumber, QuestionStage, Screen } from '@/types/game'
-import { DifficultyKey, Language } from '@/types/settings'
+import { Language } from '@/types/settings'
 
 export type GameState = {
   screen: Screen
@@ -7,6 +7,7 @@ export type GameState = {
   currentQuestionStage: QuestionStage
   quiz: QuizItem[]
   isSidebarOpen: boolean
+  isPrefetching: boolean
 }
 
 export type QuizItem = {
@@ -25,11 +26,13 @@ export type GameStateActions = {
   setAnsweredOptionSerialNumber: (
     serialNumber: OptionSerialNumber | null,
   ) => void
-  initQuiz: (payload: {
-    language?: Language
-    difficulty?: DifficultyKey
-    startStage?: number
-    endStage?: number
-    replaceLastQuizItem?: boolean
-  }) => Promise<GameState['quiz']>
+  initQuiz: (payload: { language: Language }) => Promise<GameState['quiz']>
+  fetchNextBatch: (payload: {
+    language: Language
+    startStage: number
+    endStage: number
+  }) => Promise<void>
+  markCurrentQuizSeen: () => Promise<void>
+  goToNextQuestion: () => void
+  switchCurrentQuestion: (payload: { language: Language }) => Promise<void>
 }

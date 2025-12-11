@@ -12,10 +12,7 @@ import AppTouchableOpacity from '@/components/ui/AppTouchableOpacity'
 
 export default function Home() {
   const { playSoundById, stopAllTracks } = useSoundStore()
-  const {
-    aiMode: { difficulty, enabled },
-    language,
-  } = useSettingsStore()
+  const { language } = useSettingsStore()
   const { isPending, initQuiz, setScreen } = useGameStore()
   const { t } = useTranslation()
   const hasPlayedRef = useRef(false)
@@ -39,16 +36,15 @@ export default function Home() {
 
   const onStartGamePress: TouchableWithoutFeedbackProps['onPress'] =
     async e => {
-      // if (isPending) {
-      //   e.preventDefault()
-      //   e.stopPropagation()
-      //   return
-      // }
-      console.log('calling!!!!!!!!!!!!!!!!')
+      if (isPending) {
+        e.preventDefault()
+        e.stopPropagation()
+        return
+      }
 
       await initQuiz({ language })
+      setScreen(SCREENS.game)
       // playSoundById(SOUNDS_URIS.resign)
-      // setScreen(SCREENS.game)
       // await sleep(SOUND_DURATION_BY_URI[SOUNDS_URIS.resign])
       // playSoundById(SOUNDS_URIS.easy, { loop: true })
     }

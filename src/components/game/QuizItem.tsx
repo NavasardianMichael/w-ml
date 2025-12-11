@@ -5,7 +5,6 @@ import { useGameStore } from '@/store/game/store'
 import { useLifelinesStore } from '@/store/lifelines/store'
 import { useSettingsStore } from '@/store/settings/store'
 import { useSoundStore } from '@/store/sound/store'
-import { setLastQuestionNumberBySafeHavenNumberByLanguage } from '@/services/localStorage/api'
 import { OptionSerialNumber, QuestionStage } from '@/types/game'
 import { sleep } from '@/helpers/commons'
 import { getBgSoundIdByQuestionStage } from '@/helpers/game'
@@ -23,7 +22,8 @@ const QuizItem = () => {
     setGameState,
     setIsSidebarOpen,
     setAnsweredOptionSerialNumber,
-    initQuiz,
+    markCurrentQuizSeen,
+    goToNextQuestion,
   } = useGameStore()
   const { playSoundById, stopAllTracks } = useSoundStore()
   const {
@@ -65,10 +65,8 @@ const QuizItem = () => {
     }
     await sleep(2000)
 
-    const asyncStorageSetPayload = {
-      language,
-      quizItemId: currentQuizItem.id,
-    }
+    // Mark quiz as seen in the backend
+    await markCurrentQuizSeen()
 
     if (isAnswerCorrect) {
       if (!isSwitchQuestionMode) setIsSidebarOpen(true)
@@ -76,9 +74,8 @@ const QuizItem = () => {
       await sleep(1000)
 
       if (!isSwitchQuestionMode) {
-        setGameState({
-          currentQuestionStage: (currentQuestionStage + 1) as QuestionStage,
-        })
+        // Use the new goToNextQuestion which handles prefetching
+        goToNextQuestion()
       }
 
       setLifelinesState({ currentLifeline: null })
@@ -93,9 +90,7 @@ const QuizItem = () => {
           getBgSoundIdByQuestionStage(currentQuestionStage)
         playSoundById(safeHavenSoundId, { loop: true })
       }
-      setLastQuestionNumberBySafeHavenNumberByLanguage(asyncStorageSetPayload)
     } else {
-      setLastQuestionNumberBySafeHavenNumberByLanguage(asyncStorageSetPayload)
       setLifelinesState({ currentLifeline: null })
       await stopAllTracks()
       if (!isSwitchQuestionMode) {
@@ -105,10 +100,8 @@ const QuizItem = () => {
     }
 
     if (isSwitchQuestionMode) {
-      initQuiz({
-        startStage: currentQuestionStage,
-        endStage: currentQuestionStage,
-      })
+      // Note: Switch question lifeline needs to be updated to work with new API
+      // For now, we'll disable it until we can implement proper quiz replacement
       setSwitchQuestionLifeline({ waitingToSwitchQuizItem: false })
     }
     setLifelinesState({ lifelinesDisabled: false })

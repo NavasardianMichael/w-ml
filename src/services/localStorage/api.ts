@@ -1,11 +1,29 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import i18next from 'i18next'
 import { QuizItem } from '@/store/game/types'
-import { SafeHavenStage } from '@/types/game'
 import { Language } from '@/types/settings'
 import { LOCAL_STORAGE_KEYS } from './constants'
 import { LocalStorageData } from './types'
-import { GetQuizAPI } from '@/api/fetchPartialQuizFromSystem'
+
+// Generate a unique device ID
+const generateDeviceId = (): string => {
+  return `${Date.now()}-${Math.random().toString(36).substring(2, 15)}`
+}
+
+// Get or create device ID
+export const getDeviceId = async (): Promise<string> => {
+  try {
+    let deviceId = await AsyncStorage.getItem(LOCAL_STORAGE_KEYS.deviceId)
+    if (!deviceId) {
+      deviceId = generateDeviceId()
+      await AsyncStorage.setItem(LOCAL_STORAGE_KEYS.deviceId, deviceId)
+    }
+    return deviceId
+  } catch (error) {
+    console.error('Error getting device ID:', error)
+    // Return a fallback device ID if storage fails
+    return generateDeviceId()
+  }
+}
 
 export const getLocalStorageItemJSON = async <T>(
   key: keyof typeof LOCAL_STORAGE_KEYS,
@@ -54,60 +72,29 @@ export const getLastQuestionNumberBySafeHavenNumberByLanguage = async (
   return result
 }
 
+// Note: The following functions are kept for backwards compatibility
+// but are no longer actively used since we switched to the backend API
 export const setLastQuestionNumberBySafeHavenNumberByLanguage = async ({
-  language,
-  quizItemId,
+  language: _language,
+  quizItemId: _quizItemId,
 }: {
   language: Language
   quizItemId: QuizItem['id']
 }) => {
-  const [safeHavenNumber, questionNumber] = quizItemId.split('-')
-  AsyncStorage.mergeItem(
-    LOCAL_STORAGE_KEYS.lastQuestionNumberBySafeHavenNumberByLanguage,
-    JSON.stringify({
-      [language]: {
-        [+safeHavenNumber]: +questionNumber,
-      },
-    }),
+  // This function is deprecated - quiz tracking is now handled by the backend
+  console.log(
+    'Deprecated: setLastQuestionNumberBySafeHavenNumberByLanguage called',
   )
 }
 
 export const getNextQuizItemByLanguageAndSafeHavenNumber = async ({
-  language,
-  safeHavenNumber,
+  language: _language,
+  safeHavenNumber: _safeHavenNumber,
 }: {
   language: Language
   safeHavenNumber: number
-}) => {
-  const response: GetQuizAPI['response'] = i18next.getResourceBundle(
-    language,
-    'translation',
-  )
-
-  const lastQuestionNumbersBySafeHavenNumber = (
-    await getLastQuestionNumberBySafeHavenNumberByLanguage(language)
-  )[safeHavenNumber as SafeHavenStage]
-
-  const quizItemsBySafeHavenNumber = response.quiz[safeHavenNumber - 1]
-  const mustFetchFirstQuestion =
-    lastQuestionNumbersBySafeHavenNumber >= quizItemsBySafeHavenNumber.length
-  const newQuizItem =
-    quizItemsBySafeHavenNumber[
-      mustFetchFirstQuestion ? 1 : lastQuestionNumbersBySafeHavenNumber
-    ]
-
-  const processAIQuizItem: QuizItem = {
-    id: newQuizItem.id,
-    question: newQuizItem.question,
-    options: newQuizItem.options,
-    answeredOptionSerialNumber: null,
-    correctOptionSerialNumber: newQuizItem.answer,
-  }
-
-  setLastQuestionNumberBySafeHavenNumberByLanguage({
-    language,
-    quizItemId: newQuizItem.id,
-  })
-
-  return processAIQuizItem
+}): Promise<QuizItem | null> => {
+  // This function is deprecated - questions are now fetched from the backend
+  console.log('Deprecated: getNextQuizItemByLanguageAndSafeHavenNumber called')
+  return null
 }

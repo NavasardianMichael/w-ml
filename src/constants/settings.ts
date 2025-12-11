@@ -8,25 +8,6 @@ export const LANGUAGE_NAMES: Record<Language, string> = {
   [LANGUAGES.ru]: 'Русский',
 }
 
-export const DIFFICULTY_KEYS = {
-  'very-easy': 'very-easy',
-  easy: 'easy',
-  medium: 'medium',
-  hard: 'hard',
-  'very-hard': 'very-hard',
-} as const
-
-export const DIFFICULTY_NAMES_BY_KEY: Record<
-  ObjectKeys<typeof DIFFICULTY_KEYS>,
-  string
-> = {
-  'very-easy': 'Very easy',
-  easy: 'Easy',
-  medium: 'Medium',
-  hard: 'Hard',
-  'very-hard': 'Very hard',
-}
-
 export const DURATION_KEYS = {
   '30-seconds': '30-seconds',
   '1-minute': '1-minute',

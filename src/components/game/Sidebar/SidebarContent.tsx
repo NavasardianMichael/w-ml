@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useGameStore } from '@/store/game/store'
 import { useLifelinesStore } from '@/store/lifelines/store'
 import { SingleLifelineActionPayload } from '@/store/lifelines/types'
+import { useSettingsStore } from '@/store/settings/store'
 import { useSoundStore } from '@/store/sound/store'
 import { Lifeline } from '@/types/game'
 import { sleep } from '@/helpers/commons'
@@ -24,8 +25,10 @@ export default function SidebarContent() {
     setIsSidebarOpen,
     isSidebarOpen,
     toggleIsSidebarOpen,
+    switchCurrentQuestion,
   } = useGameStore()
   const { playSoundById } = useSoundStore()
+  const { language } = useSettingsStore()
   const lifelinesStore = useLifelinesStore()
   const {
     lifelinesDisabled,
@@ -65,7 +68,21 @@ export default function SidebarContent() {
     setIsSidebarOpen(false)
     if (lifeline === LIFELINES.switchQuestion) {
       playSoundById(lifelineSoundId)
-      setSwitchQuestionLifeline({ waitingToSwitchQuizItem: true })
+
+      // Fetch a new question for the current stage
+      await switchCurrentQuestion({ language })
+
+      // Mark the lifeline as used by setting it to a non-null value
+      setSwitchQuestionLifeline({
+        waitingToSwitchQuizItem: false,
+        wouldAnswer: null,
+      })
+
+      // Re-enable other lifelines after switching
+      await sleep(1000)
+      const safeHavenSoundId = getBgSoundIdByQuestionStage(currentQuestionStage)
+      playSoundById(safeHavenSoundId, { loop: true })
+      setLifelinesState({ lifelinesDisabled: false })
       return
     }
     console.log({ lifelineSoundId })
