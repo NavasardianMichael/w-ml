@@ -3,9 +3,8 @@ import { TouchableOpacity, View } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useGameStore } from '@/store/game/store'
 import { useLifelinesStore } from '@/store/lifelines/store'
-import { useSettingsStore } from '@/store/settings/store'
 import { useSoundStore } from '@/store/sound/store'
-import { OptionSerialNumber, QuestionStage } from '@/types/game'
+import { OptionSerialNumber } from '@/types/game'
 import { sleep } from '@/helpers/commons'
 import { getBgSoundIdByQuestionStage } from '@/helpers/game'
 import { SCREENS } from '@/constants/game'
@@ -33,7 +32,6 @@ const QuizItem = () => {
     switchQuestion,
     setSwitchQuestionLifeline,
   } = useLifelinesStore()
-  const { language } = useSettingsStore()
   const { t } = useTranslation()
   const isPortrait = useIsPortrait()
 
