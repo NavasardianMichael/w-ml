@@ -21,7 +21,7 @@ export default function Header() {
     toggleActiveSoundMuted,
     setIsActiveSoundMuted,
     isMuted,
-    activeSoundIdsStack,
+    currentTrackId,
   } = useSoundStore()
   const [isExitModalVisible, setIsExitModalVisible] = useState(false)
 
@@ -29,7 +29,7 @@ export default function Header() {
   useSound(SOUNDS_URIS.easy, { loop: true })
 
   const soundHandler = async () => {
-    if (!activeSoundIdsStack.length && isMuted) {
+    if (!currentTrackId && isMuted) {
       const soundId =
         screen === SCREENS.home ? SOUNDS_URIS.mainTheme : SOUNDS_URIS.easy
       playSoundById(soundId, { loop: true })

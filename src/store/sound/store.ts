@@ -9,7 +9,7 @@ const audioService = reactNativeSoundService
 
 const initialState: SoundState = {
   activeSoundIdsStack: [],
-  isMuted: false,
+  isMuted: true,
   isPlaying: false,
   currentTrackId: null,
 }
@@ -39,7 +39,7 @@ export const useSoundStore = create<SoundState & SoundStateActions>()(
 
             // Pass the volume directly to playTrack to ensure it's set before playing
 
-            await audioService.stop()
+            audioService.stopAll()
             const volume = isMuted ? 0 : 1
             audioService.playTrack(id, { ...options, volume })
 

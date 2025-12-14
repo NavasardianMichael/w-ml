@@ -5,10 +5,11 @@ import { useGameStore } from '@/store/game/store'
 import { useSettingsStore } from '@/store/settings/store'
 import { useSoundStore } from '@/store/sound/store'
 import { SCREENS } from '@/constants/game'
-import { SOUNDS_URIS } from '@/constants/sound'
+import { SOUND_DURATION_BY_URI, SOUNDS_URIS } from '@/constants/sound'
 import { useSound } from '@/hooks/useSound'
 import AppText from '@/components/ui/AppText'
 import AppTouchableOpacity from '@/components/ui/AppTouchableOpacity'
+import { sleep } from '@/helpers/commons'
 
 export default function Home() {
   const { playSoundById, stopAllTracks } = useSoundStore()
@@ -34,6 +35,10 @@ export default function Home() {
     playMainTheme()
   }, [playSoundById, stopAllTracks])
 
+  useEffect(() => {
+    initQuiz({ language })
+  }, [language])
+
   const onStartGamePress: TouchableWithoutFeedbackProps['onPress'] =
     async e => {
       if (isPending) {
@@ -42,16 +47,11 @@ export default function Home() {
         return
       }
 
-      await initQuiz({ language })
       setScreen(SCREENS.game)
-      // playSoundById(SOUNDS_URIS.resign)
-      // await sleep(SOUND_DURATION_BY_URI[SOUNDS_URIS.resign])
-      // playSoundById(SOUNDS_URIS.easy, { loop: true })
+      playSoundById(SOUNDS_URIS.resign)
+      await sleep(SOUND_DURATION_BY_URI[SOUNDS_URIS.resign])
+      playSoundById(SOUNDS_URIS.easy, { loop: true })
     }
-
-  const onSettingsPress: TouchableWithoutFeedbackProps['onPress'] = () => {
-    setScreen(SCREENS.settings)
-  }
 
   const buttonClassName = useMemo(() => {
     return isPending ? 'opacity-50' : ''
@@ -66,13 +66,6 @@ export default function Home() {
           onPress={onStartGamePress}
         >
           <AppText className='text-center'>{t('start-game')}</AppText>
-        </AppTouchableOpacity>
-        <AppTouchableOpacity
-          disabled={isPending}
-          className={buttonClassName}
-          onPress={onSettingsPress}
-        >
-          <AppText className='text-center'>{t('settings')}</AppText>
         </AppTouchableOpacity>
       </View>
     </View>

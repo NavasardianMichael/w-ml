@@ -109,7 +109,7 @@ export const useGameStore = create<GameState & GameStateActions>()(
             await markQuizSeen({ quizItemId: currentQuiz.id })
           }
         },
-        goToNextQuestion: () => {
+        goToNextQuestionGroup: () => {
           const state = get()
           const settingsStore = useSettingsStore.getState()
 

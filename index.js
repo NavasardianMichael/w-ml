@@ -32,3 +32,8 @@ initI18n()
 // );
 
 AppRegistry.registerComponent(appName, () => App)
+
+// TODO: Sound System
+// TODO: Switch question replaces question immediately on place
+// TODO: Design fixes in screenshots
+// TODO: Audience help does not show anything

@@ -22,7 +22,7 @@ const QuizItem = () => {
     setIsSidebarOpen,
     setAnsweredOptionSerialNumber,
     markCurrentQuizSeen,
-    goToNextQuestion,
+    goToNextQuestionGroup,
   } = useGameStore()
   const { playSoundById, stopAllTracks } = useSoundStore()
   const {
@@ -72,8 +72,8 @@ const QuizItem = () => {
       await sleep(1000)
 
       if (!isSwitchQuestionMode) {
-        // Use the new goToNextQuestion which handles prefetching
-        goToNextQuestion()
+        // Use the new goToNextQuestionGroup which handles prefetching
+        goToNextQuestionGroup()
       }
 
       setLifelinesState({ currentLifeline: null })
@@ -110,13 +110,9 @@ const QuizItem = () => {
       if (showCorrectAnswer) {
         const isAnswerCorrect =
           serialNumber === currentQuizItem.correctOptionSerialNumber
-        if (isAnswerCorrect) {
-          return 'bg-green-500'
-        } else if (
-          serialNumber === currentQuizItem.answeredOptionSerialNumber
-        ) {
+        if (isAnswerCorrect) return 'bg-green-500'
+        if (serialNumber === currentQuizItem.answeredOptionSerialNumber)
           return 'bg-red-500'
-        }
       }
       return currentQuizItem.answeredOptionSerialNumber === serialNumber
         ? 'bg-tertiary'
@@ -124,7 +120,6 @@ const QuizItem = () => {
     },
     [currentQuizItem, showCorrectAnswer],
   )
-  console.log({ currentQuizItem1: currentQuizItem })
 
   if (!currentQuizItem) return null
 

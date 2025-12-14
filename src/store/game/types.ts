@@ -33,6 +33,6 @@ export type GameStateActions = {
     endStage: number
   }) => Promise<void>
   markCurrentQuizSeen: () => Promise<void>
-  goToNextQuestion: () => void
+  goToNextQuestionGroup: () => void
   switchCurrentQuestion: (payload: { language: Language }) => Promise<void>
 }
