@@ -15,6 +15,7 @@ const initialState: GameState = {
   quiz: [],
   isSidebarOpen: false,
   isPrefetching: false,
+  pendingQuizItem: null,
 }
 
 export const useGameStore = create<GameState & GameStateActions>()(
@@ -109,7 +110,7 @@ export const useGameStore = create<GameState & GameStateActions>()(
             await markQuizSeen({ quizItemId: currentQuiz.id })
           }
         },
-        goToNextQuestionGroup: () => {
+        goToNextQuestion: () => {
           const state = get()
           const settingsStore = useSettingsStore.getState()
 
@@ -166,18 +167,35 @@ export const useGameStore = create<GameState & GameStateActions>()(
             })
 
             if (quiz.length > 0) {
-              // Replace the current question with the new one
+              // Store the new question as pendingQuizItem
               set(prevState => {
-                prevState.quiz[currentStage - 1] = quiz[0]
+                prevState.pendingQuizItem = quiz[0]
               })
 
-              console.log(`Switched question at stage ${currentStage}`)
+              console.log(
+                `Prefetched pending question at stage ${currentStage}`,
+              )
             }
           } catch (error) {
-            console.error('Error switching question:', error)
+            console.error('Error prefetching switch question:', error)
           } finally {
             set({ isPending: false })
           }
+        },
+        switchCurrentQuestionWithPendingOne: async () => {
+          const state = get()
+          if (!state.pendingQuizItem) return
+          // Mark current as seen (non-blocking)
+          markQuizSeen({
+            quizItemId: state.quiz[state.currentQuestionStage - 1]?.id,
+          })
+          set(prevState => {
+            const prevQuiz = [...prevState.quiz]
+            prevQuiz[prevState.currentQuestionStage - 1] =
+              prevState.pendingQuizItem!
+            prevState.quiz = prevQuiz
+            prevState.pendingQuizItem = null
+          })
         },
       }
     }),

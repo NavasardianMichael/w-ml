@@ -15,10 +15,16 @@ export default memo(function LogoBlock() {
   }, [currentLifeline])
 
   return (
-    <View className='flex-1 mt-md'>
-      <View className='portrait:mb-md landscape:mb-sm max-h-[36vh]'>
-        {showLifeline ? <DisplayCurrentLifeline /> : <IMAGES.logo />}
-      </View>
+    <View className='h-full flex-1 flex grow justify-center items-center'>
+      {showLifeline ? (
+        <View className='max-h-50vh'>
+          <DisplayCurrentLifeline />
+        </View>
+      ) : (
+        <View className='h-full grow flex flex-1'>
+          <IMAGES.logo />
+        </View>
+      )}
     </View>
   )
 })

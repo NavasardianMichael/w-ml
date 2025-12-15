@@ -8,6 +8,7 @@ export type GameState = {
   quiz: QuizItem[]
   isSidebarOpen: boolean
   isPrefetching: boolean
+  pendingQuizItem: QuizItem | null
 }
 
 export type QuizItem = {
@@ -33,6 +34,7 @@ export type GameStateActions = {
     endStage: number
   }) => Promise<void>
   markCurrentQuizSeen: () => Promise<void>
-  goToNextQuestionGroup: () => void
+  goToNextQuestion: () => void
   switchCurrentQuestion: (payload: { language: Language }) => Promise<void>
+  switchCurrentQuestionWithPendingOne: () => Promise<void>
 }

@@ -74,7 +74,7 @@ export default function SidebarContent() {
 
       // Mark the lifeline as used by setting it to a non-null value
       setSwitchQuestionLifeline({
-        waitingToSwitchQuizItem: false,
+        waitingToSwitchQuizItem: true,
         wouldAnswer: null,
       })
 
@@ -109,7 +109,7 @@ export default function SidebarContent() {
   return (
     <>
       <View
-        className={`absolute flex-1 min-w-80 bottom-0 top-0 z-10 p-md md:p-xl transition ${
+        className={`absolute flex-1 min-w-80 bottom-0 top-0 z-10 p-md md:p-md transition ${
           !isSidebarOpen ? '-right-full' : '-right-0'
         } bg-primary-contrast border-l border-l-secondary`}
       >
@@ -161,7 +161,7 @@ export default function SidebarContent() {
             </AppSmallIconButton>
           </View>
         </View>
-        <View className='h-full pt-xs lg:pt-md'>
+        <View className='h-full md:pt-sm lg:pt-md'>
           <View className='flex flex-col-reverse portrait:gap-[2px] landscape:pt-xs'>
             {QUESTION_STAGES.map(stage => {
               return (

@@ -58,16 +58,14 @@ export default function Home() {
   }, [isPending])
 
   return (
-    <View className='flex-1'>
-      <View className='flex my-auto flex-col justify-center items-center'>
-        <AppTouchableOpacity
-          disabled={isPending}
-          className={`${buttonClassName} mb-lg`}
-          onPress={onStartGamePress}
-        >
-          <AppText className='text-center'>{t('start-game')}</AppText>
-        </AppTouchableOpacity>
-      </View>
+    <View className='flex flex-col justify-center items-center'>
+      <AppTouchableOpacity
+        disabled={isPending}
+        className={`${buttonClassName} mb-xl`}
+        onPress={onStartGamePress}
+      >
+        <AppText className='text-center'>{t('start-game')}</AppText>
+      </AppTouchableOpacity>
     </View>
   )
 }

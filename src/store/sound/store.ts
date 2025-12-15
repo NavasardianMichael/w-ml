@@ -85,7 +85,6 @@ export const useSoundStore = create<SoundState & SoundStateActions>()(
             console.log('Sound store: Stopping all tracks...')
             audioService.stopAll()
             // Also call the regular stop method to ensure everything is stopped
-            await audioService.stop()
             set(state => {
               state.isPlaying = false
               state.currentTrackId = null

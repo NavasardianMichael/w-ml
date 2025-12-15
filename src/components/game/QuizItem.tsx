@@ -22,7 +22,8 @@ const QuizItem = () => {
     setIsSidebarOpen,
     setAnsweredOptionSerialNumber,
     markCurrentQuizSeen,
-    goToNextQuestionGroup,
+    goToNextQuestion,
+    switchCurrentQuestionWithPendingOne,
   } = useGameStore()
   const { playSoundById, stopAllTracks } = useSoundStore()
   const {
@@ -72,8 +73,8 @@ const QuizItem = () => {
       await sleep(1000)
 
       if (!isSwitchQuestionMode) {
-        // Use the new goToNextQuestionGroup which handles prefetching
-        goToNextQuestionGroup()
+        // Use the new goToNextQuestion which handles prefetching
+        goToNextQuestion()
       }
 
       setLifelinesState({ currentLifeline: null })
@@ -98,9 +99,8 @@ const QuizItem = () => {
     }
 
     if (isSwitchQuestionMode) {
-      // Note: Switch question lifeline needs to be updated to work with new API
-      // For now, we'll disable it until we can implement proper quiz replacement
       setSwitchQuestionLifeline({ waitingToSwitchQuizItem: false })
+      switchCurrentQuestionWithPendingOne()
     }
     setLifelinesState({ lifelinesDisabled: false })
   }

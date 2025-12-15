@@ -41,14 +41,14 @@ export default function Header() {
 
   return (
     <>
-      <View className='flex flex-row '>
+      <View className='flex flex-row'>
         <AppSmallIconButton onPress={soundHandler}>
           {isMuted ? <VolumeOffIcon /> : <VolumeOnIcon />}
         </AppSmallIconButton>
         {screen === SCREENS.game ? (
           <ExitIconButton onPress={() => setIsExitModalVisible(true)} />
         ) : null}
-        {screen === SCREENS.settings || screen === SCREENS.results ? (
+        {screen === SCREENS.results ? (
           <ExitIconButton onPress={() => setScreen(SCREENS.home)} />
         ) : null}
         {screen === SCREENS.game ? (
@@ -64,8 +64,6 @@ export default function Header() {
         isVisible={isExitModalVisible}
         onClose={() => setIsExitModalVisible(false)}
       />
-
-      <LogoBlock />
     </>
   )
 }
