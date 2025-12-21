@@ -20,6 +20,7 @@ export default function Header() {
     playSoundById,
     toggleActiveSoundMuted,
     setIsActiveSoundMuted,
+    activeSoundIdsStack,
     isMuted,
     currentTrackId,
   } = useSoundStore()
@@ -29,13 +30,6 @@ export default function Header() {
   useSound(SOUNDS_URIS.easy, { loop: true })
 
   const soundHandler = async () => {
-    if (!currentTrackId && isMuted) {
-      const soundId =
-        screen === SCREENS.home ? SOUNDS_URIS.mainTheme : SOUNDS_URIS.easy
-      playSoundById(soundId, { loop: true })
-      setIsActiveSoundMuted(false)
-      return
-    }
     toggleActiveSoundMuted()
   }
 

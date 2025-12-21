@@ -39,7 +39,7 @@ export const useSoundStore = create<SoundState & SoundStateActions>()(
 
             // Pass the volume directly to playTrack to ensure it's set before playing
 
-            audioService.stopAll()
+            await audioService.stop()
             const volume = isMuted ? 0 : 1
             audioService.playTrack(id, { ...options, volume })
 
@@ -83,7 +83,7 @@ export const useSoundStore = create<SoundState & SoundStateActions>()(
         stopAllTracks: async () => {
           try {
             console.log('Sound store: Stopping all tracks...')
-            audioService.stopAll()
+            await audioService.stop()
             // Also call the regular stop method to ensure everything is stopped
             set(state => {
               state.isPlaying = false

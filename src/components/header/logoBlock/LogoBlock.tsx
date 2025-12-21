@@ -5,6 +5,8 @@ import { LIFELINES } from '@/constants/game'
 import { IMAGES } from '@/constants/images'
 import DisplayCurrentLifeline from './DisplayCurrentLifeline'
 
+const LogoImage = IMAGES.logo
+
 export default memo(function LogoBlock() {
   const { currentLifeline } = useLifelinesStore()
   const showLifeline = useMemo(() => {
@@ -15,14 +17,14 @@ export default memo(function LogoBlock() {
   }, [currentLifeline])
 
   return (
-    <View className='h-full flex-1 flex grow justify-center items-center'>
+    <View className='w-full flex-1 flex grow justify-center items-center'>
       {showLifeline ? (
-        <View className='max-h-50vh'>
+        <View className='max-h-[30vh]'>
           <DisplayCurrentLifeline />
         </View>
       ) : (
-        <View className='h-full grow flex flex-1'>
-          <IMAGES.logo />
+        <View className='w-full max-h-[30vh]'>
+          <LogoImage />
         </View>
       )}
     </View>
