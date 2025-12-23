@@ -109,7 +109,7 @@ export default function SidebarContent() {
   return (
     <>
       <View
-        className={`absolute flex-1 min-w-80 bottom-0 top-0 z-10 p-md md:p-md transition ${
+        className={`absolute flex-1 min-w-80 bottom-0 top-0 z-10 p-md md:p-lg transition ${
           !isSidebarOpen ? '-right-full' : '-right-0'
         } bg-primary-contrast border-l border-l-secondary`}
       >
@@ -121,13 +121,13 @@ export default function SidebarContent() {
 
               const sizingByLifeline =
                 id === LIFELINES.fiftyFifty
-                  ? 'h-8 w-8 lg:h-10 lg:w-10'
-                  : 'h-6 w-6 lg:h-8 lg:w-8'
+                  ? 'xs:h-3 w-3 sm:h-8 sm:w-8 lg:h-10 lg:w-10'
+                  : 'xs:h-3 w-3 sm:h-6 sm:w-6 lg:h-8 lg:w-8'
 
               return (
                 <TouchableHighlight
                   key={id}
-                  className={`relative flex justify-center items-center border border-secondary rounded-full w-12 h-12 lg:w-16 lg:h-16 ${
+                  className={`relative flex justify-center items-center border border-secondary rounded-full w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 ${
                     index !== 0 ? 'ml-sm' : ''
                   }`}
                   disabled={isDisabled}
@@ -161,7 +161,7 @@ export default function SidebarContent() {
             </AppSmallIconButton>
           </View>
         </View>
-        <View className='h-full md:pt-sm lg:pt-md'>
+        <View className='h-full pt-xs lg:pt-md'>
           <View className='flex flex-col-reverse portrait:gap-[2px] landscape:pt-xs'>
             {QUESTION_STAGES.map(stage => {
               return (
@@ -173,18 +173,16 @@ export default function SidebarContent() {
                       : ''
                   }`}
                 >
-                  <>
-                    <AppText className='transition font-semibold text-sm lg:text-lg text-right w-6 color-secondary'>
-                      {stage}.{' '}
-                    </AppText>
-                    <AppText className='text-tertiary w-md lg:w-lg text-sm lg:text-lg'>
-                      {stage < currentQuestionStage ? '◆' : ''}
-                    </AppText>
-                    <AppText className='color-secondary ml-sm text-sm lg:text-lg'>
-                      {t(`currency-symbol`)}
-                      {t(`stage-${stage}-money-amount`)}
-                    </AppText>
-                  </>
+                  <AppText className='transition font-semibold text-sm lg:text-lg text-right w-6 color-secondary'>
+                    {stage}.{' '}
+                  </AppText>
+                  <AppText className='text-tertiary w-md lg:w-lg text-sm lg:text-lg'>
+                    {stage < currentQuestionStage ? '◆' : ''}
+                  </AppText>
+                  <AppText className='color-secondary ml-sm text-sm lg:text-lg'>
+                    {t(`currency-symbol`)}
+                    {t(`stage-${stage}-money-amount`)}
+                  </AppText>
                 </View>
               )
             })}

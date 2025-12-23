@@ -33,20 +33,20 @@ function App() {
 
   return (
     <SafeAreaProvider>
-      <SafeAreaView className='flex-1' edges={safeAreaEdges}>
-        <View className='flex-1 bg-primary p-md md:p-lg'>
-          <StatusBar hidden />
-          <Header />
-          <View className='flex flex-1 items-center justify-center'>
-            <LogoBlock />
-          </View>
-          <View className='mt-auto'>
-            <CurrentScreen />
-          </View>
-          <SidebarOverlay />
-          {screen === SCREENS.game && <SidebarContent />}
+      {/* <SafeAreaView className='flex-1 bg-primary' edges={safeAreaEdges}> */}
+      <View className='flex-1 bg-primary p-md md:p-lg'>
+        <StatusBar hidden />
+        <Header />
+        <View className='flex flex-1 items-center justify-center'>
+          <LogoBlock />
         </View>
-      </SafeAreaView>
+        <View className='mt-auto'>
+          <CurrentScreen />
+        </View>
+        <SidebarOverlay />
+        {screen === SCREENS.game && <SidebarContent />}
+      </View>
+      {/* </SafeAreaView> */}
     </SafeAreaProvider>
   )
 }

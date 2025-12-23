@@ -6,7 +6,12 @@ const LIFELINES_TEMPLATE = [
   {
     id: LIFELINES.fiftyFifty,
     icon: (
-      <AppText className='text-xs mx-auto lg:text-sm font-bold'>50/50</AppText>
+      <AppText
+        disableDefaultFontSize
+        className='mx-auto text-[11px] lg:text-md font-bold'
+      >
+        50/50
+      </AppText>
     ),
   },
   {

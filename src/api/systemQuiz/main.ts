@@ -47,11 +47,12 @@ export const fetchSystemQuiz: FetchSystemQuizAPI['api'] = async ({
       })
       throw new Error(`HTTP error! status: ${response.status}, url: ${url}`)
     }
-
+    console.log('Response:', response)
     const quizResponse = await response.json()
     console.log('Quiz response:', quizResponse)
 
     const processedQuiz = processSystemQuiz(quizResponse)
+    console.log('Processed quiz:', processedQuiz)
     return processedQuiz
   } catch (error) {
     console.error('Error fetching system quiz:', error)
