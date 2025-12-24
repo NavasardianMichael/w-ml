@@ -18,6 +18,7 @@ import { useSound } from '@/hooks/useSound'
 import AppSmallIconButton from '@/components/ui/AppSmallIconButton'
 import AppText from '@/components/ui/AppText'
 import LIFELINES_TEMPLATE from './lifelinesTemplate'
+import { TextInput } from 'react-native'
 
 export default function SidebarContent() {
   const {
@@ -160,6 +161,7 @@ export default function SidebarContent() {
               <ICONS.sidebar />
             </AppSmallIconButton>
           </View>
+          <TextInput placeholder='jhuythuoikl' />
         </View>
         <View className='h-full pt-xs lg:pt-md'>
           <View className='flex flex-col-reverse portrait:gap-[2px] landscape:pt-xs'>

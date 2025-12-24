@@ -66,6 +66,12 @@ export default function Home() {
       >
         <AppText className='text-center'>{t('start-game')}</AppText>
       </AppTouchableOpacity>
+      <AppTouchableOpacity
+        className={'mb-xl'}
+        onPress={() => setScreen('yourQuestion')}
+      >
+        <AppText className='text-center'>{t('your-question')}</AppText>
+      </AppTouchableOpacity>
     </View>
   )
 }

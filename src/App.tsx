@@ -12,6 +12,7 @@ import { SCREENS } from './constants/game'
 import Game from './screens/game'
 import Home from './screens/home'
 import Results from './screens/results'
+import YourQuestionScreen from './screens/yourQuestion'
 import { useGameStore } from './store/game/store'
 import { Screen } from './types/game'
 import LogoBlock from './components/header/logoBlock/LogoBlock'
@@ -20,6 +21,7 @@ const COMPONENT_BY_SCREEN: Record<Screen, React.FC> = {
   [SCREENS.game]: Game,
   [SCREENS.results]: Results,
   [SCREENS.home]: Home,
+  [SCREENS.yourQuestion]: YourQuestionScreen,
 }
 
 function App() {

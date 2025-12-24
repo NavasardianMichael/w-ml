@@ -4,8 +4,8 @@ import AppText from './AppText'
 import AppTouchableOpacity from './AppTouchableOpacity'
 
 type Props = {
-  value: boolean
-  onValueChange: (value: boolean) => void
+  value: number
+  onValueChange: (value: number) => void
   label: string
   options: string[]
 }
@@ -20,34 +20,24 @@ const AppBinaryRadioButtonsGroup: FC<Props> = ({
     <View className='flex flex-col'>
       <AppText className='font-bold mb-sm lg:mb-md'>{label}</AppText>
       <View className='flex flex-row'>
-        <AppTouchableOpacity
-          onPress={() => onValueChange(true)}
-          className={`grow ${value ? 'bg-secondary border-primary' : ''}`}
-        >
-          <AppText
-            className={`w-full text-ellipsis whitespace-nowrap overflow-hidden text-center ${
-              value ? 'text-primary' : ''
+        {options.map((option, idx) => (
+          <AppTouchableOpacity
+            key={idx}
+            onPress={() => onValueChange(idx + 1)}
+            className={`grow ${idx !== 0 ? 'ml-sm lg:ml-md' : ''} ${
+              value === idx + 1 ? 'bg-secondary border-primary' : ''
             }`}
           >
-            {options[0]}
-            <AppText className='text-primary'> ✓</AppText>
-          </AppText>
-        </AppTouchableOpacity>
-        <AppTouchableOpacity
-          onPress={() => onValueChange(false)}
-          className={`grow ml-sm lg:ml-md ${
-            !value ? 'bg-secondary text-primary border-secondary' : ' '
-          }`}
-        >
-          <AppText
-            className={`w-full text-ellipsis whitespace-nowrap overflow-hidden text-center ${
-              !value ? 'text-primary' : 'text-secondary'
-            }`}
-          >
-            {options[1]}
-            <AppText className='text-primary'> ✓</AppText>
-          </AppText>
-        </AppTouchableOpacity>
+            <AppText
+              className={`w-full text-ellipsis whitespace-nowrap overflow-hidden text-center text-secondary ${
+                value === idx + 1 ? 'text-primary' : ''
+              }`}
+            >
+              {option}
+              {value === idx + 1 && <AppText className='text-primary'> ✓</AppText>}
+            </AppText>
+          </AppTouchableOpacity>
+        ))}
       </View>
     </View>
   )
