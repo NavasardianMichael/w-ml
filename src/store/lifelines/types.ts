@@ -13,6 +13,7 @@ export type LifelinesState = {
   switchQuestion: Nullable<{
     waitingToSwitchQuizItem: boolean
     wouldAnswer: OptionSerialNumber | null
+    hasUsedFree: boolean
   }>
 }
 

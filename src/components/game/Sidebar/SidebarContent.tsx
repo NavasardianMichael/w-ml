@@ -1,5 +1,5 @@
-import { useMemo } from 'react'
-import { TouchableHighlight, View } from 'react-native'
+import { useMemo, useState, useEffect } from 'react'
+import { TouchableHighlight, View, Alert } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import { useGameStore } from '@/store/game/store'
 import { useLifelinesStore } from '@/store/lifelines/store'
@@ -18,6 +18,11 @@ import { useSound } from '@/hooks/useSound'
 import AppSmallIconButton from '@/components/ui/AppSmallIconButton'
 import AppText from '@/components/ui/AppText'
 import LIFELINES_TEMPLATE from './lifelinesTemplate'
+import {
+  loadRewardedAd,
+  showRewardedAd,
+  isRewardedAdLoaded,
+} from '@/services/admob/admobService'
 
 export default function SidebarContent() {
   const {
@@ -41,6 +46,7 @@ export default function SidebarContent() {
 
   const currentQuizItem = useCurrentQuizItem()
   const { t } = useTranslation()
+  const [isLoadingAd, setIsLoadingAd] = useState(false)
 
   useSound(SOUND_ID_BY_LIFELINE.fiftyFifty)
   useSound(SOUND_ID_BY_LIFELINE.askAudience)
@@ -49,6 +55,29 @@ export default function SidebarContent() {
   const isAnswerPending = useMemo(() => {
     return !currentQuizItem || !!currentQuizItem.answeredOptionSerialNumber
   }, [currentQuizItem])
+
+  // Load rewarded ad when switch question has been used for free
+  useEffect(() => {
+    const switchQuestionState = lifelinesStore.switchQuestion
+    if (
+      switchQuestionState?.hasUsedFree &&
+      !switchQuestionState.waitingToSwitchQuizItem &&
+      !isRewardedAdLoaded()
+    ) {
+      setIsLoadingAd(true)
+      loadRewardedAd()
+        .then(() => {
+          setIsLoadingAd(false)
+        })
+        .catch(error => {
+          console.error('Failed to load rewarded ad:', error)
+          setIsLoadingAd(false)
+        })
+    }
+  }, [
+    lifelinesStore.switchQuestion?.hasUsedFree,
+    lifelinesStore.switchQuestion?.waitingToSwitchQuizItem,
+  ])
 
   const lifelineActions: Record<
     Exclude<Lifeline, 'switchQuestion'>,
@@ -67,15 +96,74 @@ export default function SidebarContent() {
     setLifelinesState({ currentLifeline: lifeline, lifelinesDisabled: true })
     setIsSidebarOpen(false)
     if (lifeline === LIFELINES.switchQuestion) {
+      const switchQuestionState = lifelinesStore.switchQuestion
+
+      // If already used for free, show ad
+      if (switchQuestionState?.hasUsedFree) {
+        try {
+          // Load ad if not already loaded
+          if (!isRewardedAdLoaded()) {
+            setIsLoadingAd(true)
+            await loadRewardedAd()
+            setIsLoadingAd(false)
+          }
+
+          // Show the rewarded ad
+          await showRewardedAd()
+
+          // After ad is watched, proceed with switching question
+          playSoundById(lifelineSoundId)
+
+          // Fetch a new question for the current stage
+          await switchCurrentQuestion({ language })
+
+          // Mark the lifeline as waiting to switch
+          setSwitchQuestionLifeline({
+            waitingToSwitchQuizItem: true,
+            wouldAnswer: null,
+          })
+
+          // Re-enable other lifelines after switching
+          await sleep(1000)
+          const safeHavenSoundId = getBgSoundIdByQuestionStage(
+            currentQuestionStage,
+          )
+          playSoundById(safeHavenSoundId, { loop: true })
+          setLifelinesState({ lifelinesDisabled: false })
+
+          // Reload ad for next time
+          setIsLoadingAd(true)
+          loadRewardedAd()
+            .then(() => {
+              setIsLoadingAd(false)
+            })
+            .catch(error => {
+              console.error('Failed to reload rewarded ad:', error)
+              setIsLoadingAd(false)
+            })
+        } catch (error) {
+          console.error('Error showing rewarded ad:', error)
+          Alert.alert(
+            'Error',
+            'Failed to load ad. Please try again later.',
+            [{ text: 'OK' }],
+          )
+          setLifelinesState({ lifelinesDisabled: false })
+        }
+        return
+      }
+
+      // First time use (free)
       playSoundById(lifelineSoundId)
 
       // Fetch a new question for the current stage
       await switchCurrentQuestion({ language })
 
-      // Mark the lifeline as used by setting it to a non-null value
+      // Mark the lifeline as used (first time free)
       setSwitchQuestionLifeline({
         waitingToSwitchQuizItem: true,
         wouldAnswer: null,
+        hasUsedFree: true,
       })
 
       // Re-enable other lifelines after switching
@@ -116,8 +204,21 @@ export default function SidebarContent() {
         <View className='flex flex-row items-start gap-lg'>
           <View className='flex-row'>
             {LIFELINES_TEMPLATE.map(({ id, icon }, index) => {
+              const switchQuestionState = lifelinesStore.switchQuestion
+              const isSwitchQuestionUsed =
+                id === LIFELINES.switchQuestion &&
+                switchQuestionState?.hasUsedFree &&
+                !switchQuestionState.waitingToSwitchQuizItem
+
+              // For switch question: disable only if answer is pending, lifelines are disabled, or waiting to switch
+              // For other lifelines: disable if answer is pending, lifelines are disabled, or lifeline is used
               const isDisabled =
-                isAnswerPending || lifelinesDisabled || !!lifelinesStore[id]
+                id === LIFELINES.switchQuestion
+                  ? isAnswerPending ||
+                    lifelinesDisabled ||
+                    !!switchQuestionState?.waitingToSwitchQuizItem ||
+                    isLoadingAd
+                  : isAnswerPending || lifelinesDisabled || !!lifelinesStore[id]
 
               const sizingByLifeline =
                 id === LIFELINES.fiftyFifty
@@ -143,10 +244,20 @@ export default function SidebarContent() {
                     >
                       {icon}
                     </View>
-                    {lifelinesStore[id] ? (
+                    {/* Show X for used lifelines (except switch question when it shows play icon) */}
+                    {lifelinesStore[id] &&
+                    !(id === LIFELINES.switchQuestion && isSwitchQuestionUsed) ? (
                       <View className='absolute left-50 top-50 -translate-x-[0] -translate-y-[3px]'>
                         <AppText className='text-red-500 text-2xl '>
                           {HTML_CODES.close}
+                        </AppText>
+                      </View>
+                    ) : null}
+                    {/* Show play icon for switch question after free use */}
+                    {id === LIFELINES.switchQuestion && isSwitchQuestionUsed ? (
+                      <View className='absolute top-0 right-0'>
+                        <AppText className='text-green-500 text-lg font-bold'>
+                          &#9658;
                         </AppText>
                       </View>
                     ) : null}

@@ -17,6 +17,18 @@
       android:theme="@style/AppTheme"
       android:usesCleartextTraffic="${usesCleartextTraffic}"
       android:supportsRtl="true">
+      <!-- ============================================
+           HOW TO GET YOUR APP ID:
+           1. Go to https://admob.google.com
+           2. Sign in with your Google account
+           3. Click "Apps" → Add your Android app (or select existing)
+           4. Copy the App ID (format: ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX)
+           5. Replace the test ID below with your actual App ID
+           ============================================ -->
+      <!-- AdMob App ID is read from .env file via build.gradle -->
+      <meta-data
+        android:name="com.google.android.gms.ads.APPLICATION_ID"
+        android:value="${admobAppId}"/>
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"

@@ -85,12 +85,28 @@ android {
     compileSdk = rootProject.ext.compileSdkVersion
 
     namespace = "com.wmlnew"
+    
+    // Read AdMob App ID from .env file
+    def envFile = file("../../.env")
+    def admobAppId = "ca-app-pub-3940256099942544~3347511713" // Default test ID
+    if (envFile.exists()) {
+        def envProps = new Properties()
+        envFile.withInputStream { envProps.load(it) }
+        admobAppId = envProps.getProperty("ADMOB_APP_ID", admobAppId)
+    }
+    
     defaultConfig {
         applicationId "com.wmlnew"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
+        
+        // Make AdMob App ID available to manifest
+        manifestPlaceholders = [
+            admobAppId: admobAppId
+        ]
     }
 
     // APK

@@ -67,6 +67,10 @@ yarn-error.log
 # testing
 /coverage
 
+
+
+
+
 # Yarn
 .yarn/*
 !.yarn/patches
@@ -77,3 +81,4 @@ yarn-error.log
 
 #custom added
 .env.*
+.env

@@ -1,5 +1,5 @@
 import { StatusBar, View } from 'react-native'
-import { useMemo } from 'react'
+import { useMemo, useEffect } from 'react'
 import {
   Edge,
   SafeAreaProvider,
@@ -15,6 +15,7 @@ import Results from './screens/results'
 import { useGameStore } from './store/game/store'
 import { Screen } from './types/game'
 import LogoBlock from './components/header/logoBlock/LogoBlock'
+import { initializeAdMob } from './services/admob/admobService'
 
 const COMPONENT_BY_SCREEN: Record<Screen, React.FC> = {
   [SCREENS.game]: Game,
@@ -24,6 +25,11 @@ const COMPONENT_BY_SCREEN: Record<Screen, React.FC> = {
 
 function App() {
   const { screen } = useGameStore()
+
+  useEffect(() => {
+    // Initialize AdMob on app start
+    initializeAdMob()
+  }, [])
 
   const CurrentScreen = useMemo(() => {
     return COMPONENT_BY_SCREEN[screen]

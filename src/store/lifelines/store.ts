@@ -77,15 +77,21 @@ export const useLifelinesStore = create<
         },
         setSwitchQuestionLifeline: async payload => {
           set(prevState => {
+            if (!prevState.switchQuestion) {
+              prevState.switchQuestion = {
+                waitingToSwitchQuizItem: false,
+                wouldAnswer: null,
+                hasUsedFree: false,
+              }
+            }
             prevState.switchQuestion = {
               waitingToSwitchQuizItem:
                 payload.waitingToSwitchQuizItem ??
-                prevState.switchQuestion?.waitingToSwitchQuizItem ??
-                false,
+                prevState.switchQuestion.waitingToSwitchQuizItem,
               wouldAnswer:
-                payload.wouldAnswer ??
-                prevState.switchQuestion?.wouldAnswer ??
-                null,
+                payload.wouldAnswer ?? prevState.switchQuestion.wouldAnswer,
+              hasUsedFree:
+                payload.hasUsedFree ?? prevState.switchQuestion.hasUsedFree,
             }
           })
         },
